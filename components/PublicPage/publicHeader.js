@@ -15,6 +15,9 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     color: 'white',
   },
+  white: {
+    color: 'white',
+  },
 }));
 
 const PublicHeader = ({ title }) => {
@@ -29,7 +32,7 @@ const PublicHeader = ({ title }) => {
           <Typography variant="h6" className={classes.title}>
             {title}
           </Typography>
-          <Button color="inherit" href="/">Home</Button>
+          <Button href="/" className={classes.white}>Home</Button>
         </Toolbar>
       </AppBar>
     </div>
