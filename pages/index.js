@@ -47,14 +47,14 @@ const LandingPage = () => {
               </Typography>
               <Grid container spacing={2} justify="space-between">
                 <Grid item>
-                  <Button color="secondary">
-                    <Link href="/register"><a>REGISTER</a></Link>
-                  </Button>
+                  <Link href="/register">
+                    <Button color="secondary">REGISTER</Button>
+                  </Link>
                 </Grid>
                 <Grid item>
-                  <Button color="secondary">
-                    <Link href="/login"><a>LOGIN</a></Link>
-                  </Button>
+                  <Link href="/login">
+                    <Button color="secondary">LOGIN</Button>
+                  </Link>
                 </Grid>
               </Grid>
             </CardContent>
