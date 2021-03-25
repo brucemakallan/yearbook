@@ -5,10 +5,17 @@ export const cookiePrefix = '_yearbook_';
 export const acceptedCookiesKey = 'acceptedCookies';
 
 export const acceptCookies = () => {
-  window.localStorage.setItem(acceptedCookiesKey, 'accepted');
+  if (typeof window !== 'undefined') {
+    window.localStorage.setItem(acceptedCookiesKey, 'accepted');
+  }
 };
 
-export const alreadyAcceptedCookies = () => window.localStorage.getItem(acceptedCookiesKey);
+export const alreadyAcceptedCookies = () => {
+  if (typeof window !== 'undefined') {
+    return window.localStorage.getItem(acceptedCookiesKey);
+  }
+  return false;
+}
 
 const createCookieName = (name) => `${cookiePrefix}${snakeCase(name)}`;
 

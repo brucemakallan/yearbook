@@ -46,6 +46,8 @@ const MyApp = ({ Component, pageProps }) => {
     }
   }, []);
 
+  const accepted = (!exceptions.includes(router.pathname)) && (alreadyAcceptedCookies() !== 'accepted');
+
   return (
     <CookiesProvider>
       <ApolloProvider client={client}>
@@ -55,9 +57,7 @@ const MyApp = ({ Component, pageProps }) => {
               <CssBaseline />
               <div className="App">
                 <Component {...pageProps} />
-                {(!exceptions.includes(router.pathname)) && (alreadyAcceptedCookies() !== 'accepted') && (
-                  <CookiesDialog />
-                )}
+                {!!accepted && <CookiesDialog />}
               </div>
             </ThemeProvider>
           </RecoilRoot>
