@@ -1,7 +1,7 @@
 import React from 'react';
 import get from 'lodash/get';
 import { useLazyQuery } from '@apollo/react-hooks';
-import { useHistory } from 'react-router-dom';
+import { useRouter } from 'next/router';
 
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
@@ -16,7 +16,7 @@ import { SINGLE_PROFILE_GALLERY_QUERY } from '../../graphql/profileGallery/queri
 
 const ProfileCard = ({ studentProfile, currentUser }) => {
   const classes = useStyles();
-  const history = useHistory();
+  const router = useRouter();
 
   const [profile, setProfile] = React.useState();
   const [studentPhotos, setStudentPhotos] = React.useState([]);
@@ -57,11 +57,11 @@ const ProfileCard = ({ studentProfile, currentUser }) => {
   const singleProfile = get(profile, 'data.singleProfile');
 
   const gotoEditProfile = () => {
-    history.push(`/dashboard/profile/${singleProfile.id}/edit`);
+    router.push(`/dashboard/profile/${singleProfile.id}/edit`);
   };
 
   const viewGallery = () => {
-    history.push(`/dashboard/profile/${singleProfile.id}/gallery`);
+    router.push(`/dashboard/profile/${singleProfile.id}/gallery`);
   };
 
   return (

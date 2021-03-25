@@ -3,7 +3,12 @@ import get from 'lodash/get';
 
 export const jwtTokenName = 'token';
 
-export const getToken = () => window.localStorage.getItem(jwtTokenName) || '';
+export const getToken = () => {
+  if (typeof window !== 'undefined') {
+    return window.localStorage.getItem(jwtTokenName) || '';
+  }
+  return '';
+}
 
 export const setToken = (token) => {
   try {
@@ -47,7 +52,9 @@ export const jwtIsValid = (manualToken) => {
 
 export const clearToken = () => {
   localStorage.removeItem(jwtTokenName);
-  window.location.replace('/');
+  if (typeof window !== 'undefined') {
+    window.location.replace('/');
+  }
 };
 
 export const isAdmin = () => {

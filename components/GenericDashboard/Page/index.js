@@ -22,8 +22,6 @@ const Page = ({
   return (
     <div className={clsx(classes.page, whiteBackground ? classes.whiteBackground : '')}>
       <PageHeader
-        showSideBar={showSideBar}
-        handleCollapse={handleCollapse}
         icon={icon}
         title={title}
         tabValue={tabValue}
@@ -33,8 +31,9 @@ const Page = ({
       <PageContent
         tabValue={tabValue}
         tabIndex={tabIndex}
-        children={children}
-      />
+      >
+        {children}
+      </PageContent>
     </div>
   );
 };

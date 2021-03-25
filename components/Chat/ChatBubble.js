@@ -1,7 +1,7 @@
 import React from 'react';
 import moment from 'moment';
 import get from 'lodash/get';
-import { Link as RouterLink } from 'react-router-dom';
+import Link from 'next/link';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
@@ -54,15 +54,15 @@ const ChatBubble = ({ sender, message, fromMe = false }) => {
   return (
     <div className={classes.bubbleContainer}>
       <div className={classes.bubble}>
-        <Typography
-          component={RouterLink}
-          to={`/dashboard/students/${sender.id}`}
-          variant="body1"
-          color="secondary"
-          className={classes.name}
-        >
-          {senderName}
-        </Typography>
+        <Link href={`/dashboard/students/${sender.id}`}>
+          <Typography
+            variant="body1"
+            color="secondary"
+            className={classes.name}
+          >
+            {senderName}
+          </Typography>
+        </Link>
         <Typography variant="body1" color="inherit">
           {message.text}
         </Typography>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { useHistory } from 'react-router-dom';
+import { useRouter } from 'next/router';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Link from '@material-ui/core/Link';
@@ -21,11 +21,11 @@ const useStyles = makeStyles((theme) => ({
 
 const BackArrow = ({ to, title = 'Back' }) => {
   const classes = useStyles();
-  const history = useHistory();
+  const router = useRouter();
 
   const handleClick = () => {
-    if (to) history.push(to);
-    else history.goBack();
+    if (to) router.push(to);
+    else router.back();
   };
 
   return (

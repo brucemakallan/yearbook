@@ -1,6 +1,7 @@
 import React from 'react';
 import startCase from 'lodash/startCase';
-import { useHistory, Link } from 'react-router-dom';
+import { useRouter } from 'next/router';
+import Link from 'next/link';
 
 import { useTheme, makeStyles } from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
@@ -39,9 +40,31 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const SidebarListItem = ({ field, component, className, handleClick, classes }) => {
+  return (
+    <ListItem
+      button={!!field.link}
+      component={component}
+      className={className}
+      onClick={handleClick}
+    >
+      {field.icon && (
+        <ListItemIcon className={classes.icon}>
+          {field.icon}
+        </ListItemIcon>)
+      }
+      <ListItemText
+        className={classes.text}
+        primary={startCase(field.id)}
+      />
+    </ListItem>
+  )
+};
+
 const SidebarButton = ({ field, hideSideBar }) => {
   const classes = useStyles();
-  const { location: { pathname } } = useHistory();
+  const router = useRouter();
+  const { pathname } = router;
   const theme = useTheme();
   const isSm = useMediaQuery(theme.breakpoints.down('sm'));
 
@@ -56,30 +79,36 @@ const SidebarButton = ({ field, hideSideBar }) => {
   else if (pathname.includes(field.id)) className = classes.active;
   else if (pathname === '/dashboard' && field.id === 'stats') className = classes.active;
 
-  let component = 'div';
-  if (field.component) component = field.component;
-  else if (field.link) component = Link;
+  let component = field?.component || 'div';
+  
+  if (field.link) {
+    return (
+      <Grid container spacing={0}>
+        <Grid item xs={12} sm={12} md={12} lg={12}>
+          <Link href={field.link}>
+            <SidebarListItem
+              field={field}
+              component={component}
+              className={className}
+              handleClick={handleClick}
+              classes={classes}
+            />
+          </Link>
+        </Grid>
+      </Grid>
+    )
+  }
 
   return (
     <Grid container spacing={0}>
       <Grid item xs={12} sm={12} md={12} lg={12}>
-        <ListItem
-          button={!!field.link}
+        <SidebarListItem
+          field={field}
           component={component}
-          to={field.link}
           className={className}
-          onClick={handleClick}
-        >
-          {field.icon && (
-            <ListItemIcon className={classes.icon}>
-              {field.icon}
-            </ListItemIcon>)
-          }
-          <ListItemText
-            className={classes.text}
-            primary={startCase(field.id)}
-          />
-        </ListItem>
+          handleClick={handleClick}
+          classes={classes}
+        />
       </Grid>
     </Grid>
   );

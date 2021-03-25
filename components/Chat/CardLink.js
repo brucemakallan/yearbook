@@ -1,8 +1,7 @@
 import React from 'react';
-import { Link as RouterLink } from 'react-router-dom';
+import { useRouter } from 'next/router';
 
 import { makeStyles } from '@material-ui/core/styles';
-import Link from '@material-ui/core/Link';
 
 const useStyles = makeStyles((theme) => ({
   link: {
@@ -19,22 +18,24 @@ const CardLink = ({
   allClassProfiles,
 }) => {
   const classes = useStyles();
+  const router = useRouter();
 
   return (
-    <Link
-      component={RouterLink}
+    <span
       className={classes.link}
-      to={{
-        pathname: '/dashboard/chat-window',
-        state: {
-          name,
-          receiverId,
-          allClassProfiles,
-        },
+      onClick={() => {
+        router.push({
+          pathname: '/dashboard/chat-window',
+          query: {
+            name,
+            receiverId,
+            allClassProfiles,
+          },
+        })
       }}
     >
       {children}
-    </Link>
+    </span>
   );
 };
 

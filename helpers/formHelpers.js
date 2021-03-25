@@ -9,14 +9,6 @@ import InputWrapper from '../components/Form';
 
 const renderInputWrapper = (field) => <InputWrapper key={field.id} field={field} />;
 
-export const redirectAfter = (isComplete = false, history, to, milliseconds = 2000) => {
-  if (isComplete) {
-    setTimeout(() => {
-      history.push(to);
-    }, milliseconds);
-  }
-};
-
 export const getUniqueUniversities = (profiles) => {
   const universities = profiles.map((profile) => get(profile, 'course.department.university.id'));
   return uniq(universities);
@@ -88,9 +80,9 @@ export const setCourseValuesFromURL = (location, universities = [], departments 
   });
 };
 
-export const setQueryVariable = (history, universityId = '', departmentId = '', courseId = '') => {
-  history.push(`?u=${universityId}&d=${departmentId}&c=${courseId}`);
-  history.go();
+export const setQueryVariable = (universityId = '', departmentId = '', courseId = '') => {
+  router.push(`?u=${universityId}&d=${departmentId}&c=${courseId}`);
+  router.reload();
 };
 
 export default renderInputWrapper;

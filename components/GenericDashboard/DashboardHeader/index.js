@@ -1,7 +1,7 @@
 import React from 'react';
 import get from 'lodash/get';
 import { useApolloClient } from '@apollo/react-hooks';
-import { useHistory } from 'react-router-dom';
+import { useRouter } from 'next/router';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
 const DashboardHeader = ({ icon, title }) => {
   const classes = useStyles();
   const client = useApolloClient();
-  const history = useHistory();
+  const router = useRouter();
 
   const data = getStudentProfileFromCache(client);
   const id = get(data, 'singleProfile.id');
@@ -44,12 +44,12 @@ const DashboardHeader = ({ icon, title }) => {
     {
       text: 'Profile',
       icon: <AssignmentIndIcon fontSize="small" />,
-      action: () => history.push('/dashboard/profile'),
+      action: () => router.push('/dashboard/profile'),
     },
     {
       text: 'Gallery',
       icon: <PhotoLibraryIcon fontSize="small" />,
-      action: () => history.push(`/dashboard/profile/${id}/gallery`),
+      action: () => router.push(`/dashboard/profile/${id}/gallery`),
       hide: !id,
     },
     {
