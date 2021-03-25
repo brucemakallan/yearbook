@@ -1,0 +1,9 @@
+
+build/
+node_modules/
+src/jest.config
+cypress/
+__mocks__/
+scripts/
+config/
+serviceWorker.js
