@@ -1,14 +1,68 @@
-import CustomHead from '../components/CustomHead'
+import Link from 'next/link'
 
-const Home = () => {
+import { makeStyles } from '@material-ui/core/styles';
+import Grid from '@material-ui/core/Grid';
+import Card from '@material-ui/core/Card';
+import Typography from '@material-ui/core/Typography';
+import CardContent from '@material-ui/core/CardContent';
+import Button from '@material-ui/core/Button';
+
+import CustomHead from '../components/CustomHead'
+import DecoratedPage from '../components/DecoratedPage';
+import { images } from '../styles/global-theme';
+
+const useStyles = makeStyles((theme) => ({
+  card: {
+    minWidth: 500,
+    [theme.breakpoints.only('xs')]: {
+      minWidth: 300,
+    },
+  },
+  content: {
+    textAlign: 'center',
+  },
+  logo: {
+    width: 50,
+    marginBottom: theme.spacing(2),
+  },
+  tagline: {
+    marginBottom: theme.spacing(2),
+  },
+}));
+
+const LandingPage = () => {
+  const classes = useStyles();
+
   return (
     <div>
       <CustomHead />
       <main>
-        test
+        <DecoratedPage>
+          <Card className={classes.card}>
+            <CardContent className={classes.content}>
+              <img className={classes.logo} src={images.logo} alt="yearbook" />
+              <Typography variant="h2" gutterBottom>Welcome to Yearbook</Typography>
+              <Typography variant="body2" className={classes.tagline}>
+                Connecting you with your friends within the same University / School.
+              </Typography>
+              <Grid container spacing={2} justify="space-between">
+                <Grid item>
+                  <Button color="secondary">
+                    <Link href="/register"><a>REGISTER</a></Link>
+                  </Button>
+                </Grid>
+                <Grid item>
+                  <Button color="secondary">
+                    <Link href="/login"><a>LOGIN</a></Link>
+                  </Button>
+                </Grid>
+              </Grid>
+            </CardContent>
+          </Card>
+        </DecoratedPage>
       </main>
     </div>
-  )
+  );
 };
 
-export default Home;
+export default LandingPage;
