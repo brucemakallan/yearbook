@@ -40,26 +40,26 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const SidebarListItem = ({ field, component, className, handleClick, classes }) => {
-  return (
-    <ListItem
-      button={!!field.link}
-      component={component}
-      className={className}
-      onClick={handleClick}
-    >
-      {field.icon && (
-        <ListItemIcon className={classes.icon}>
-          {field.icon}
-        </ListItemIcon>)
-      }
-      <ListItemText
-        className={classes.text}
-        primary={startCase(field.id)}
-      />
-    </ListItem>
-  )
-};
+const SidebarListItem = ({
+  field, component, className, handleClick, classes,
+}) => (
+  <ListItem
+    button={!!field.link}
+    component={component}
+    className={className}
+    onClick={handleClick}
+  >
+    {field.icon && (
+      <ListItemIcon className={classes.icon}>
+        {field.icon}
+      </ListItemIcon>)
+    }
+    <ListItemText
+      className={classes.text}
+      primary={startCase(field.id)}
+    />
+  </ListItem>
+);
 
 const SidebarButton = ({ field, hideSideBar }) => {
   const classes = useStyles();
@@ -79,8 +79,8 @@ const SidebarButton = ({ field, hideSideBar }) => {
   else if (pathname.includes(field.id)) className = classes.active;
   else if (pathname === '/dashboard' && field.id === 'stats') className = classes.active;
 
-  let component = field?.component || 'div';
-  
+  const component = field?.component || 'div';
+
   if (field.link) {
     return (
       <Grid container spacing={0}>
@@ -96,7 +96,7 @@ const SidebarButton = ({ field, hideSideBar }) => {
           </Link>
         </Grid>
       </Grid>
-    )
+    );
   }
 
   return (

@@ -10,11 +10,11 @@ import Button from '@material-ui/core/Button';
 
 import { GET_ALL_UNIVERSITIES_QUERY } from '../../../graphql/university/queries';
 import { DELETE_UNIVERSITY_MUTATION } from '../../../graphql/university/mutations';
-import TableView from '../../../components/TableView';
-import Loader from '../../../components/Loader';
-import Feedback from '../../../components/Feedback';
-import TableLink from '../../../components/TableLink';
-import AlertDialog from '../../../components/AlertDialog';
+import TableView from '../../TableView';
+import Loader from '../../Loader';
+import Feedback from '../../Feedback';
+import TableLink from '../../TableLink';
+import AlertDialog from '../../AlertDialog';
 import Page from '../../DashboardComponents/Page';
 import tabs from './tabs';
 import { getToken, getDecodedToken } from '../../../helpers/jwt';

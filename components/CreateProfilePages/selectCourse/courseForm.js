@@ -48,7 +48,7 @@ const CourseForm = ({ classes, profile, editCourseValues }) => {
     if (editCourseValues && data) {
       router.push('/dashboard/profile');
     }
-  }, [data, editCourseValues, getAllCourses, getAllDepartments, location, universities]);
+  }, [data, editCourseValues, getAllCourses, getAllDepartments, router, universities]);
 
   React.useEffect(() => {
     const courseExists = get(profile, 'course.id') || get(data, 'updateProfile.course.id');
@@ -58,7 +58,7 @@ const CourseForm = ({ classes, profile, editCourseValues }) => {
     } else if (getAllUniversities.data) {
       setUniversities(getAllUniversities.data.allUniversities);
     }
-  }, [data, editCourseValues, getAllUniversities, profile]);
+  }, [data, editCourseValues, getAllUniversities, profile, router]);
 
   const changeUniversity = (allDepartments, allCourses, autocompleteValue) => {
     const value = get(autocompleteValue, 'value', '');
@@ -96,7 +96,7 @@ const CourseForm = ({ classes, profile, editCourseValues }) => {
   React.useEffect(() => {
     const allDepartments = get(getAllDepartments, 'data.allDepartments');
     const allCourses = get(getAllCourses, 'data.allCourses');
-    const vals = setCourseValuesFromURL(location, universities, departments, courses);
+    const vals = setCourseValuesFromURL(router, universities, departments, courses);
 
     if (allDepartments && allCourses) {
       if (!values.university?.value && vals.university?.value) {
@@ -115,7 +115,7 @@ const CourseForm = ({ classes, profile, editCourseValues }) => {
     departments,
     getAllCourses,
     getAllDepartments,
-    location,
+    router,
     universities,
     values,
   ]);

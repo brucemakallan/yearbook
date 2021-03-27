@@ -48,7 +48,7 @@ const SignupForm = () => {
   const handleOnCompleted = (data) => {
     setToken(data.signup.token);
     router.push('/create-profile');
-  }
+  };
 
   const [signup, { error, loading, data }] = useMutation(SIGN_UP_MUTATION, {
     onCompleted: handleOnCompleted,

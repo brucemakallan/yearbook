@@ -51,7 +51,7 @@ const createWidget = async ({
         return error;
       }
     });
-    
+
     return widget;
   }
 };

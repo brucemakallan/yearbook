@@ -1,8 +1,8 @@
 import React from 'react';
 import get from 'lodash/get';
 
-import AutocompleteField from '../../../components/Form/autocompleteField';
-import AddEntityDialogButton from '../../../components/AddEntityDialogButton';
+import AutocompleteField from '../../Form/autocompleteField';
+import AddEntityDialogButton from '../../AddEntityDialogButton';
 import UniversityForm from '../../DashboardPages/University/universityForm';
 import DepartmentForm from '../../DashboardPages/Department/departmentForm';
 import CourseForm from '../../DashboardPages/Course/courseForm';

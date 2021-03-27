@@ -4,8 +4,8 @@ import { useQuery } from '@apollo/react-hooks';
 
 import { useRouter } from 'next/router';
 import { GET_SINGLE_UNIVERSITY_QUERY } from '../../../graphql/university/queries';
-import Loader from '../../../components/Loader';
-import Feedback from '../../../components/Feedback';
+import Loader from '../../Loader';
+import Feedback from '../../Feedback';
 import Page from '../../DashboardComponents/Page';
 import UniversityForm from './universityForm';
 

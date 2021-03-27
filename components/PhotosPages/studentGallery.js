@@ -4,17 +4,17 @@ import cloneDeep from 'lodash/cloneDeep';
 import { useMutation, useQuery } from '@apollo/react-hooks';
 import Grid from '@material-ui/core/Grid';
 
-import Loader from '../../components/Loader';
-import Feedback from '../../components/Feedback';
+import Loader from '../Loader';
+import Feedback from '../Feedback';
 import useStyles from './styles';
 import { UPSERT_PROFILE_GALLERIES_MUTATION } from '../../graphql/profileGallery/mutations';
-import UploadFile from '../../components/UploadFile';
+import UploadFile from '../UploadFile';
 import { uploadEntities } from '../../helpers/enums';
 import { SINGLE_PROFILE_GALLERY_QUERY } from '../../graphql/profileGallery/queries';
-import GallerySection from '../../components/ProfileCard/cardSections/gallerySection';
-import ContextAppBar from '../../components/ContextAppBar';
+import GallerySection from '../ProfileCard/cardSections/gallerySection';
+import ContextAppBar from '../ContextAppBar';
 import cleanProfileGallery from './validation';
-import CustomAlert from '../../components/CustomAlert';
+import CustomAlert from '../CustomAlert';
 
 const StudentGallery = ({ singleProfile, currentUser }) => {
   const classes = useStyles();

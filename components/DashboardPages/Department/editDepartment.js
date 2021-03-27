@@ -4,8 +4,8 @@ import upperCase from 'lodash/upperCase';
 import { useQuery, useApolloClient } from '@apollo/react-hooks';
 import { useRouter } from 'next/router';
 
-import Loader from '../../../components/Loader';
-import Feedback from '../../../components/Feedback';
+import Loader from '../../Loader';
+import Feedback from '../../Feedback';
 import Page from '../../DashboardComponents/Page';
 import { GET_SINGLE_DEPARTMENT_QUERY } from '../../../graphql/department/queries';
 import DepartmentForm from './departmentForm';

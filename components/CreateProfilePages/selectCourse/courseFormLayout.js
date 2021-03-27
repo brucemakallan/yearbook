@@ -4,10 +4,10 @@ import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 
-import Loader from '../../../components/Loader';
-import Feedback from '../../../components/Feedback';
+import Loader from '../../Loader';
+import Feedback from '../../Feedback';
 import renderInputWrapper from '../../../helpers/formHelpers';
-import CustomAlert from '../../../components/CustomAlert';
+import CustomAlert from '../../CustomAlert';
 import { formInputFields } from './courseFormValues';
 
 // TIP: Use Layout files to separate Logic from JSX if the logic files is too long

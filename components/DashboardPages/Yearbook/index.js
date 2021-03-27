@@ -5,11 +5,11 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 
 import AllStudents from '../Student/allStudents';
-import CustomAlert from '../../../components/CustomAlert';
-import PdfGenerator from '../../../components/PdfGenerator';
-import FullScreenDialogButton from '../../../components/FullScreenDialogButton';
+import CustomAlert from '../../CustomAlert';
+import PdfGenerator from '../../PdfGenerator';
+import FullScreenDialogButton from '../../FullScreenDialogButton';
 import { GET_ALL_PROFILES_QUERY } from '../../../graphql/profile/queries';
-import Loader from '../../../components/Loader';
+import Loader from '../../Loader';
 import {
   getUniqueUniversities, getUniqueDepartments, getUniqueCourses,
 } from '../../../helpers/formHelpers';

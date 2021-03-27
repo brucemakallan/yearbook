@@ -1,4 +1,4 @@
-
+pages/_document.js
 build/
 node_modules/
 src/jest.config
@@ -7,3 +7,5 @@ __mocks__/
 scripts/
 config/
 serviceWorker.js
+public/
+styles/fonts/

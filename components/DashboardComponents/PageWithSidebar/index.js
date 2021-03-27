@@ -29,7 +29,9 @@ const collection = process.env.NEXT_PUBLIC_FIREBASE_COLLECTION;
 const firestore = firebase.firestore();
 
 // A PageWithSidebar is one with a Sidebar
-const PageWithSidebar = ({ title, icon, whiteBackground, tabs, children }) => {
+const PageWithSidebar = ({
+  title, icon, whiteBackground, tabs, children,
+}) => {
   const classes = useStyles();
 
   const messagesRef = firestore.collection(collection); // TODO: pass this
@@ -39,9 +41,9 @@ const PageWithSidebar = ({ title, icon, whiteBackground, tabs, children }) => {
 
   React.useEffect(() => {
     if (!isAuthenticated) { // protect privileged pages
-      router.push(redirectTo);
+      router.push('/login');
     }
-  }, [jwt, isAuthenticated])
+  }, [jwt, isAuthenticated, router]);
 
   const [showSideBar, setShowSideBar] = React.useState(false);
 
@@ -59,7 +61,9 @@ const PageWithSidebar = ({ title, icon, whiteBackground, tabs, children }) => {
         <Sidebar
           className={clsx(showSideBar ? classes.showSideBar : classes.hideSideBar)}
           hideSideBar={hideSideBar}
-          fields={sidebarRoutes({ router })}
+          fields={sidebarRoutes({
+            router,
+          })}
         />
         <Page
           icon={icon}

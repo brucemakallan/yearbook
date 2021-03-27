@@ -9,12 +9,12 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 
 import profileValidation, { cleanProfile } from './validation';
-import Loader from '../../../components/Loader';
-import Feedback from '../../../components/Feedback';
+import Loader from '../../Loader';
+import Feedback from '../../Feedback';
 import renderInputWrapper from '../../../helpers/formHelpers';
 import { CREATE_PROFILE_MUTATION } from '../../../graphql/profile/mutations';
-import UploadFile from '../../../components/UploadFile';
-import PhotoDisplay from '../../../components/PhotoDisplay';
+import UploadFile from '../../UploadFile';
+import PhotoDisplay from '../../PhotoDisplay';
 import { uploadEntities } from '../../../helpers/enums';
 import { getDecodedToken, getToken } from '../../../helpers/jwt';
 import {

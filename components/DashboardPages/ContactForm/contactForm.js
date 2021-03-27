@@ -7,8 +7,8 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 
 import { contactFormValidation } from './validation';
-import Loader from '../../../components/Loader';
-import Feedback from '../../../components/Feedback';
+import Loader from '../../Loader';
+import Feedback from '../../Feedback';
 import renderInputWrapper from '../../../helpers/formHelpers';
 import { SEND_EMAIL } from '../../../graphql/actions/mutations';
 import { getToken, getDecodedToken } from '../../../helpers/jwt';

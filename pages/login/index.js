@@ -10,7 +10,7 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Collapse from '@material-ui/core/Collapse';
 
-import { loginValidation } from './validation';
+import { loginValidation } from '../../components/UserPages/userValidation';
 import Loader from '../../components/Loader';
 import Feedback from '../../components/Feedback';
 import MainHeading from '../../components/MainHeading';
@@ -60,7 +60,7 @@ const LoginForm = () => {
       setToken(data.login.token);
       router.push('/create-profile');
     }
-  }, [data, getSingleProfile]);
+  }, [data, getSingleProfile, router]);
 
   const handleSubmit = async (loginUser) => {
     try {
@@ -77,7 +77,7 @@ const LoginForm = () => {
   if (getSingleProfile.loading) return <Loader />;
 
   return (
-    <DecoratedPage 
+    <DecoratedPage
       hide={get(getSingleProfile, 'data.singleProfile.course.id')}
       pageTitle="Login"
     >

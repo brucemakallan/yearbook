@@ -31,7 +31,7 @@ const CardLink = ({
             receiverId,
             allClassProfiles,
           },
-        })
+        });
       }}
     >
       {children}

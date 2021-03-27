@@ -7,8 +7,8 @@ import upperCase from 'lodash/upperCase';
 import StudentGallery from './studentGallery';
 import Page from '../DashboardComponents/Page';
 import { GET_SINGLE_PROFILE_QUERY } from '../../graphql/profile/queries';
-import Loader from '../../components/Loader';
-import Feedback from '../../components/Feedback';
+import Loader from '../Loader';
+import Feedback from '../Feedback';
 import { getDecodedToken, getToken } from '../../helpers/jwt';
 
 const Gallery = () => {

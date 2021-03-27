@@ -4,7 +4,7 @@ import { ApolloProvider } from '@apollo/react-hooks';
 import { CloudinaryContext } from 'cloudinary-react';
 import { RecoilRoot } from 'recoil';
 import { CookiesProvider } from 'react-cookie';
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/router';
 
 import { ThemeProvider } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline'; // reset CSS
@@ -36,7 +36,7 @@ const exceptions = [
 ];
 
 const MyApp = ({ Component, pageProps }) => {
-  const router = useRouter()
+  const router = useRouter();
 
   React.useEffect(() => {
     // Remove the server-side injected CSS.
@@ -65,6 +65,6 @@ const MyApp = ({ Component, pageProps }) => {
       </ApolloProvider>
     </CookiesProvider>
   );
-}
+};
 
-export default MyApp
+export default MyApp;

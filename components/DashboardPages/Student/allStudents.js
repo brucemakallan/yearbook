@@ -8,9 +8,9 @@ import Avatar from '@material-ui/core/Avatar';
 import Box from '@material-ui/core/Box';
 
 import { GET_ALL_PROFILES_QUERY } from '../../../graphql/profile/queries';
-import TableView from '../../../components/TableView';
-import Loader from '../../../components/Loader';
-import Feedback from '../../../components/Feedback';
+import TableView from '../../TableView';
+import Loader from '../../Loader';
+import Feedback from '../../Feedback';
 import Page from '../../DashboardComponents/Page';
 
 const renderDisplayPicture = (classes) => (value, { rowData }, _updateValue) => {

@@ -9,8 +9,8 @@ import IconButton from '@material-ui/core/IconButton';
 import EditIcon from '@material-ui/icons/Edit';
 
 import profileValidation, { cleanProfile } from '../createProfile/validation';
-import Loader from '../../../components/Loader';
-import Feedback from '../../../components/Feedback';
+import Loader from '../../Loader';
+import Feedback from '../../Feedback';
 import renderInputWrapper from '../../../helpers/formHelpers';
 import { UPDATE_PROFILE_MUTATION } from '../../../graphql/profile/mutations';
 import {
@@ -18,8 +18,8 @@ import {
 } from '../createProfile/profileFormValues';
 import { editInitialValues } from './editProfileFormValues';
 import useStyles from '../styles';
-import EditAvatar from '../../../components/EditAvatar';
-import UploadFile from '../../../components/UploadFile';
+import EditAvatar from '../../EditAvatar';
+import UploadFile from '../../UploadFile';
 
 const EditProfileForm = ({ singleProfile }) => {
   const classes = useStyles();

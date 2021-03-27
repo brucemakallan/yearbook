@@ -11,8 +11,8 @@ import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 
 import courseValidation from './validation';
-import Loader from '../../../components/Loader';
-import Feedback from '../../../components/Feedback';
+import Loader from '../../Loader';
+import Feedback from '../../Feedback';
 import renderInputWrapper, { setQueryVariable } from '../../../helpers/formHelpers';
 import { CREATE_COURSE_MUTATION, UPDATE_COURSE_MUTATION } from '../../../graphql/course/mutations';
 import { GET_ALL_COURSES_IN_DEPARTMENT_QUERY } from '../../../graphql/course/queries';
@@ -65,17 +65,17 @@ const CourseForm = ({
   const [updateCourse, updateCourseResponse] = useMutation(UPDATE_COURSE_MUTATION);
 
   React.useEffect(() => {
-    const success = (
+    const courseId = (
       get(updateCourseResponse, 'data.updateCourse.id')
       || get(createCourseResponse, 'data.createCourse.id')
     );
 
     if (course) setValues(course);
-    if (success && !isDialog) router.back();
-    if (success && isDialog) {
-      setQueryVariable(currentDepartment?.university?.id, currentDepartment?.id, success);
+    if (courseId && !isDialog) router.back();
+    if (courseId && isDialog) {
+      setQueryVariable(router, currentDepartment?.university?.id, currentDepartment?.id, courseId);
     }
-  }, [course, createCourseResponse, currentDepartment, isDialog, updateCourseResponse]);
+  }, [course, createCourseResponse, currentDepartment, isDialog, updateCourseResponse, router]);
 
   const handleSubmit = async ({ name }) => {
     try {

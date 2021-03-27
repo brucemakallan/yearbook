@@ -13,11 +13,11 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import { GET_ALL_COURSES_IN_DEPARTMENT_QUERY } from '../../../graphql/course/queries';
 import { DELETE_COURSE_MUTATION } from '../../../graphql/course/mutations';
-import TableView from '../../../components/TableView';
-import Loader from '../../../components/Loader';
-import Feedback from '../../../components/Feedback';
-import TableLink from '../../../components/TableLink';
-import AlertDialog from '../../../components/AlertDialog';
+import TableView from '../../TableView';
+import Loader from '../../Loader';
+import Feedback from '../../Feedback';
+import TableLink from '../../TableLink';
+import AlertDialog from '../../AlertDialog';
 import tabs from './tabs';
 import Page from '../../DashboardComponents/Page';
 import { getCurrentDepartmentFromCache } from '../../../helpers/cacheManagement';

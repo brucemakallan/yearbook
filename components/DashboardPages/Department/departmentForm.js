@@ -11,8 +11,8 @@ import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 
 import departmentValidation from './validation';
-import Loader from '../../../components/Loader';
-import Feedback from '../../../components/Feedback';
+import Loader from '../../Loader';
+import Feedback from '../../Feedback';
 import renderInputWrapper, { setQueryVariable } from '../../../helpers/formHelpers';
 import useStyles from './styles';
 import { GET_ALL_DEPARTMENTS_IN_UNIVERSITY_QUERY } from '../../../graphql/department/queries';
@@ -68,17 +68,17 @@ const DepartmentForm = ({
   const [updateDepartment, updateDepartmentResponse] = useMutation(UPDATE_DEPARTMENT_MUTATION);
 
   React.useEffect(() => {
-    const success = (
+    const departmentId = (
       get(updateDepartmentResponse, 'data.updateDepartment.id')
       || get(createDepartmentResponse, 'data.createDepartment.id')
     );
 
     if (department) setValues(department);
-    if (success && !isDialog) router.back();
-    if (success && isDialog) {
-      setQueryVariable(currentUniversity?.id, success);
+    if (departmentId && !isDialog) router.back();
+    if (departmentId && isDialog) {
+      setQueryVariable(router, currentUniversity?.id, departmentId);
     }
-  }, [createDepartmentResponse, department, updateDepartmentResponse, isDialog, currentUniversity]);
+  }, [createDepartmentResponse, department, updateDepartmentResponse, isDialog, currentUniversity, router]);
 
   const handleSubmit = async ({ name }) => {
     try {

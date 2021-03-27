@@ -15,7 +15,7 @@ export const alreadyAcceptedCookies = () => {
     return window.localStorage.getItem(acceptedCookiesKey);
   }
   return false;
-}
+};
 
 const createCookieName = (name) => `${cookiePrefix}${snakeCase(name)}`;
 

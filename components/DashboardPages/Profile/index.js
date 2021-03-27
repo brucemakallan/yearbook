@@ -5,9 +5,9 @@ import { useQuery } from '@apollo/react-hooks';
 import Grid from '@material-ui/core/Grid';
 
 import Page from '../../DashboardComponents/Page';
-import ProfileCard from '../../../components/ProfileCard';
+import ProfileCard from '../../ProfileCard';
 import { GET_SINGLE_PROFILE_QUERY } from '../../../graphql/profile/queries';
-import Loader from '../../../components/Loader';
+import Loader from '../../Loader';
 import { getDecodedToken, getToken } from '../../../helpers/jwt';
 
 const Profile = () => {

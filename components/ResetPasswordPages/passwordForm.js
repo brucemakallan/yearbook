@@ -7,10 +7,10 @@ import { useQuery, useMutation } from '@apollo/react-hooks';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 
-import Loader from '../../components/Loader';
-import Feedback from '../../components/Feedback';
-import MainHeading from '../../components/MainHeading';
-import DecoratedPage from '../../components/DecoratedPage';
+import Loader from '../Loader';
+import Feedback from '../Feedback';
+import MainHeading from '../MainHeading';
+import DecoratedPage from '../DecoratedPage';
 import { RESET_PASSWORD_MUTATION } from '../../graphql/user/mutations';
 import { GET_SINGLE_USER_QUERY } from '../../graphql/user/queries';
 import useStyles from './styles';
@@ -89,7 +89,7 @@ const ResetPasswordPage = () => {
   };
 
   const handleCancel = () => {
-    router.push('/login')
+    router.push('/login');
   };
 
   if (data && data.resetPassword) {

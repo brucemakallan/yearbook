@@ -8,7 +8,7 @@ export const getToken = () => {
     return window.localStorage.getItem(jwtTokenName) || '';
   }
   return '';
-}
+};
 
 export const setToken = (token) => {
   try {

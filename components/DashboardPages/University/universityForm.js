@@ -9,8 +9,8 @@ import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 
 import universityValidation from './validation';
-import Loader from '../../../components/Loader';
-import Feedback from '../../../components/Feedback';
+import Loader from '../../Loader';
+import Feedback from '../../Feedback';
 import renderInputWrapper, { setQueryVariable } from '../../../helpers/formHelpers';
 import useStyles from './styles';
 import { GET_ALL_UNIVERSITIES_QUERY } from '../../../graphql/university/queries';
@@ -54,17 +54,17 @@ const UniversityForm = ({ university, fullWidth, isDialog }) => {
   const [updateUniversity, updateUniversityResponse] = useMutation(UPDATE_UNIVERSITY_MUTATION);
 
   React.useEffect(() => {
-    const success = (
+    const universityId = (
       get(updateUniversityResponse, 'data.updateUniversity.id')
       || get(createUniversityResponse, 'data.createUniversity.id')
     );
 
     if (university) setValues(university);
-    if (success && !isDialog) router.back();
-    if (success && isDialog) {
-      setQueryVariable(success);
+    if (universityId && !isDialog) router.back();
+    if (universityId && isDialog) {
+      setQueryVariable(router, universityId);
     }
-  }, [createUniversityResponse, isDialog, university, updateUniversityResponse]);
+  }, [createUniversityResponse, isDialog, university, updateUniversityResponse, router]);
 
   const handleSubmit = async ({ name }) => {
     try {

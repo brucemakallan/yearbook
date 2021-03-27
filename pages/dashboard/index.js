@@ -1,16 +1,17 @@
 import React from 'react';
-import PageWithSidebar from "../../components/DashboardComponents/PageWithSidebar";
+import PageWithSidebar from '../../components/DashboardComponents/PageWithSidebar';
 
-const DashboardLandingPage = () => {
-  return (
-    <PageWithSidebar title="Sample">
+const DashboardLandingPage = () => (
+  <PageWithSidebar title="Sample">
       DashboardLandingPage
-    </PageWithSidebar>
-  )
-};
+  </PageWithSidebar>
+);
 
 export async function getServerSideProps() {
-  return { props: {} };
+  return {
+    props: {
+    },
+  };
 }
 
 export default DashboardLandingPage;

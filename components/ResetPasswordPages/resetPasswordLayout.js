@@ -4,7 +4,7 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import { Formik, Form } from 'formik';
 
-import MainHeading from '../../components/MainHeading';
+import MainHeading from '../MainHeading';
 import renderInputWrapper from '../../helpers/formHelpers';
 
 const ResetPasswordLayout = ({

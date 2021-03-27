@@ -9,7 +9,7 @@ import ContactSupportIcon from '@material-ui/icons/ContactSupport';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import SmsIcon from '@material-ui/icons/Sms';
 
-import YearBookIcon from '../../components/YearBookIcon';
+import YearBookIcon from '../YearBookIcon';
 import Yearbook from './Yearbook';
 import Profile from './Profile';
 import ChatPage from './ChatPage';
@@ -31,9 +31,9 @@ import { clearToken } from '../../helpers/jwt';
 
 import EditProfile from '../CreateProfilePages/editProfile/editProfileForm';
 import Gallery from '../PhotosPages';
-import SupportPage from '../DashboardPages/ContactForm';
+import SupportPage from './ContactForm';
 
-import ChatWindowPage from '../DashboardPages/ChatWindowPage';
+import ChatWindowPage from './ChatWindowPage';
 
 const UNIVERSITIES_URL = '/dashboard/universities';
 const YEARBOOKS_URL = '/dashboard';
@@ -131,7 +131,7 @@ export const sidebarRoutes = (props) => [
     icon: <YearBookIcon />,
     component: 'h1',
     link: '/',
-    action: () => { props.router.push('/') },
+    action: () => { props.router.push('/'); },
   },
   {
     divider: true,

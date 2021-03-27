@@ -55,12 +55,12 @@ const ProfileAndCourseStepper = () => {
     if (get(profile, 'id')) { // only go to next step if you have a profile
       setActiveStep(1);
     }
-  }, [getSingleProfile, profile, user]);
+  }, [getSingleProfile, profile, user, router]);
 
   if (getSingleProfile.loading) return <Loader />;
 
   return (
-    <DecoratedPage 
+    <DecoratedPage
       hide={get(getSingleProfile, 'data.singleProfile.course.id')}
       pageTitle="Create Profile"
     >

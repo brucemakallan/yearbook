@@ -9,12 +9,12 @@ import HomeWorkIcon from '@material-ui/icons/HomeWork';
 import SchoolIcon from '@material-ui/icons/School';
 import PersonIcon from '@material-ui/icons/Person';
 
-import Page from '../../../components/DashboardComponents/Page';
-import SvgRender from '../../../components/SvgRender';
+import Page from '../../DashboardComponents/Page';
+import SvgRender from '../../SvgRender';
 import { svgs } from '../../../styles/global-theme';
 import { GET_ALL_PROFILES_QUERY } from '../../../graphql/profile/queries';
-import NumberField from '../../../components/NumberField';
-import Loader from '../../../components/Loader';
+import NumberField from '../../NumberField';
+import Loader from '../../Loader';
 import {
   getUniqueUniversities, getUniqueDepartments, getUniqueCourses,
 } from '../../../helpers/formHelpers';
