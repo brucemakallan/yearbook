@@ -46,7 +46,7 @@ const ResetEmailPage = () => {
 
   if (data && data.sendPasswordResetLink.isSent) {
     return (
-      <DecoratedPage>
+      <DecoratedPage pageTitle="Reset Password">
         <Grid container justify="center" alignContent="center">
           <Grid item xs={11} sm={6} md={4} lg={3}>
             <MainHeading text="Check Email" />
@@ -59,7 +59,7 @@ const ResetEmailPage = () => {
     );
   }
   return (
-    <DecoratedPage>
+    <DecoratedPage pageTitle="Reset Password">
       {loading && <Loader />}
       {error && (
         <Feedback

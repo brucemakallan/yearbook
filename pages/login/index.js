@@ -77,7 +77,10 @@ const LoginForm = () => {
   if (getSingleProfile.loading) return <Loader />;
 
   return (
-    <DecoratedPage hide={get(getSingleProfile, 'data.singleProfile.course.id')}>
+    <DecoratedPage 
+      hide={get(getSingleProfile, 'data.singleProfile.course.id')}
+      pageTitle="Login"
+    >
       {loading && <Loader />}
       {error && (
         <Feedback

@@ -7,7 +7,6 @@ import Typography from '@material-ui/core/Typography';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 
-import CustomHead from '../components/CustomHead'
 import DecoratedPage from '../components/DecoratedPage';
 import { images } from '../styles/global-theme';
 
@@ -34,34 +33,29 @@ const LandingPage = () => {
   const classes = useStyles();
 
   return (
-    <div>
-      <CustomHead />
-      <main>
-        <DecoratedPage>
-          <Card className={classes.card}>
-            <CardContent className={classes.content}>
-              <img className={classes.logo} src={images.logo} alt="yearbook" />
-              <Typography variant="h2" gutterBottom>Welcome to Yearbook</Typography>
-              <Typography variant="body2" className={classes.tagline}>
-                Connecting you with your friends within the same University / School.
-              </Typography>
-              <Grid container spacing={2} justify="space-between">
-                <Grid item>
-                  <Link href="/register">
-                    <Button color="secondary">REGISTER</Button>
-                  </Link>
-                </Grid>
-                <Grid item>
-                  <Link href="/login">
-                    <Button color="secondary">LOGIN</Button>
-                  </Link>
-                </Grid>
-              </Grid>
-            </CardContent>
-          </Card>
-        </DecoratedPage>
-      </main>
-    </div>
+    <DecoratedPage>
+      <Card className={classes.card}>
+        <CardContent className={classes.content}>
+          <img className={classes.logo} src={images.logo} alt="yearbook" />
+          <Typography variant="h2" gutterBottom>Welcome to Yearbook</Typography>
+          <Typography variant="body2" className={classes.tagline}>
+            Connecting you with your friends within the same University / School.
+          </Typography>
+          <Grid container spacing={2} justify="space-between">
+            <Grid item>
+              <Link href="/register">
+                <Button color="secondary">REGISTER</Button>
+              </Link>
+            </Grid>
+            <Grid item>
+              <Link href="/login">
+                <Button color="secondary">LOGIN</Button>
+              </Link>
+            </Grid>
+          </Grid>
+        </CardContent>
+      </Card>
+    </DecoratedPage>
   );
 };
 

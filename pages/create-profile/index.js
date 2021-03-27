@@ -60,7 +60,10 @@ const ProfileAndCourseStepper = () => {
   if (getSingleProfile.loading) return <Loader />;
 
   return (
-    <DecoratedPage hide={get(getSingleProfile, 'data.singleProfile.course.id')}>
+    <DecoratedPage 
+      hide={get(getSingleProfile, 'data.singleProfile.course.id')}
+      pageTitle="Create Profile"
+    >
       {getSingleProfile.error && (
         <Feedback
           open={!!getSingleProfile.error}

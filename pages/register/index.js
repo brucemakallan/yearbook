@@ -67,7 +67,7 @@ const SignupForm = () => {
   };
 
   return (
-    <DecoratedPage>
+    <DecoratedPage pageTitle="Register">
       {loading && <Loader />}
       { error && (
         <Feedback

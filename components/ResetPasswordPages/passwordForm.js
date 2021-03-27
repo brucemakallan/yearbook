@@ -94,7 +94,7 @@ const ResetPasswordPage = () => {
 
   if (data && data.resetPassword) {
     return (
-      <DecoratedPage>
+      <DecoratedPage pageTitle="Reset Password">
         <Feedback
           open={!!data}
           feedbackMessage='Password changed successfully'
@@ -113,7 +113,7 @@ const ResetPasswordPage = () => {
     );
   }
   return (
-    <DecoratedPage>
+    <DecoratedPage pageTitle="Reset Password">
       {loading && <Loader />}
       {(validationError || error) && (
         <Feedback
