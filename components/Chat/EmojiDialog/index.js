@@ -1,5 +1,4 @@
 import React from 'react';
-import Picker from 'emoji-picker-react';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
@@ -8,6 +7,10 @@ import Dialog from '@material-ui/core/Dialog';
 import IconButton from '@material-ui/core/IconButton';
 import MoodIcon from '@material-ui/icons/Mood';
 import CloseIcon from '@material-ui/icons/Close';
+import Loader from '../../Loader';
+
+// For when the 'document' is undefined
+const Picker = React.lazy(() => import('emoji-picker-react'));
 
 const useStyles = makeStyles((theme) => ({
   iconButton: {
@@ -51,7 +54,9 @@ const EmojiDialog = ({ text, handleChange }) => {
             </Grid>
           </Grid>
         </DialogTitle>
-        <Picker onEmojiClick={onEmojiClick} />
+        <React.Suspense fallback={Loader}>
+          <Picker onEmojiClick={onEmojiClick} />
+        </React.Suspense>
       </Dialog>
     </div>
   );
