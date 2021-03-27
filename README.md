@@ -19,6 +19,7 @@ Frontend: https://yearbook-frontend.herokuapp.com
 
 #### Technologies used
 
+- Next JS
 - React JS
 - Apollo
 - JWT
