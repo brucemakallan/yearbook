@@ -13,16 +13,16 @@ import PageWithSidebar from '../../../components/DashboardComponents/PageWithSid
 import { GET_ALL_PROFILES_QUERY } from '../../../graphql/profile/queries';
 import QueryAlert from '../../../components/QueryAlert';
 
+firebase.app();
+const firestore = firebase.firestore();
+const collection = process.env.NEXT_PUBLIC_FIREBASE_COLLECTION;
+
 const useStyles = makeStyles((theme) => ({
   icon: {
     marginBottom: theme.spacing(-1),
     paddingRight: theme.spacing(1),
   },
 }));
-
-firebase.app();
-const firestore = firebase.firestore();
-const collection = process.env.NEXT_PUBLIC_FIREBASE_COLLECTION;
 
 const ConversationPage = () => {
   const classes = useStyles();
@@ -34,12 +34,15 @@ const ConversationPage = () => {
   const messagesRef = firestore.collection(collection);
 
   const queryResponse = useQuery(GET_ALL_PROFILES_QUERY);
-  const allClassProfiles = queryResponse?.data?.allProfilesInUniversity || [];
+  const { loading, error, data } = queryResponse;
+  const allClassProfiles = data?.allProfilesInUniversity || [];
 
-  if (!name || !receiverId || !allClassProfiles || !messagesRef) {
-    router.push('/dashboard/chat');
-    return '';
-  }
+  React.useEffect(() => {
+    if (!name || !receiverId || (!loading && !error && !data) || !messagesRef) {
+      router.push('/dashboard/chat');
+      return '';
+    }
+  }, [name, receiverId, messagesRef, router, loading, error, data]);
 
   return (
     <>
@@ -54,11 +57,13 @@ const ConversationPage = () => {
             <BackArrow />
           </Grid>
           <Grid item xs={12} sm={12} md={12} lg={12}>
-            <ChatWindow
-              receiverId={receiverId}
-              messagesRef={messagesRef}
-              allClassProfiles={allClassProfiles}
-            />
+            {!!receiverId && !!messagesRef && !!data && (
+              <ChatWindow
+                receiverId={receiverId}
+                messagesRef={messagesRef}
+                allClassProfiles={allClassProfiles}
+              />
+            )}
           </Grid>
         </Grid>
       </PageWithSidebar>
