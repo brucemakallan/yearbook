@@ -11,14 +11,14 @@ import UniversityForm from './universityForm';
 
 const EditUniversity = () => {
   const router = useRouter();
-  const { id } = router.query;
+  const { universityId } = router.query;
 
   const [university, setUniversity] = useState();
 
   const getSingleUniversity = useQuery(GET_SINGLE_UNIVERSITY_QUERY, {
     variables: {
       searchParams: {
-        id,
+        universityId,
       },
     },
   });

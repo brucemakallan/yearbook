@@ -13,7 +13,7 @@ import { getCurrentDepartmentFromCache } from '../../../helpers/cacheManagement'
 
 const EditCourse = () => {
   const router = useRouter();
-  const { universityId, departmentId, id } = router.query;
+  const { universityId, departmentId, courseId } = router.query;
   const client = useApolloClient();
 
   const [course, setCourse] = useState();
@@ -22,7 +22,7 @@ const EditCourse = () => {
     variables: {
       searchParams: {
         departmentId,
-        courseId: id,
+        courseId,
       },
     },
   });
