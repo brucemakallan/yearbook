@@ -29,11 +29,11 @@ import CreateCourse from './Course/createCourse';
 import EditCourse from './Course/editCourse';
 import { clearToken } from '../../helpers/jwt';
 
-import EditProfile from '../Profile/editProfile';
-import Gallery from '../Photos';
-import SupportPage from './ContactForm';
+import EditProfile from '../CreateProfilePages/editProfile/editProfileForm';
+import Gallery from '../PhotosPages';
+import SupportPage from '../DashboardPages/ContactForm';
 
-import ChatWindowPage from './ChatWindowPage';
+import ChatWindowPage from '../DashboardPages/ChatWindowPage';
 
 const UNIVERSITIES_URL = '/dashboard/universities';
 const YEARBOOKS_URL = '/dashboard';
