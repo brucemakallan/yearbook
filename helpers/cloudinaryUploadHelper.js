@@ -3,11 +3,11 @@ import { Util } from 'cloudinary-core';
 // Widget Options: https://cloudinary.com/documentation/upload_widget_reference
 export const createWidgetOptions = (tags, crop) => ({
   tags,
-  cloudName: process.env.REACT_APP_CLOUDINARY_NAME,
-  folder: process.env.REACT_APP_CLOUDINARY_FOLDER,
+  cloudName: process.env.CLOUDINARY_NAME,
+  folder: process.env.CLOUDINARY_FOLDER,
   uploadPreset: crop
-    ? process.env.REACT_APP_CLOUDINARY_PRESET
-    : process.env.REACT_APP_CLOUDINARY_PRESET_UNCHANGED,
+    ? process.env.CLOUDINARY_PRESET
+    : process.env.CLOUDINARY_PRESET_UNCHANGED,
 });
 
 const createWidget = async ({

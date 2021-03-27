@@ -15,7 +15,7 @@ import { alreadyAcceptedCookies } from '../helpers/cookies';
 import { getToken } from '../helpers/jwt';
 
 const client = new ApolloClient({
-  uri: process.env.REACT_APP_BACKEND_URL,
+  uri: process.env.BACKEND_URL,
   credentials: 'include',
   request: (operation) => {
     const token = getToken();
@@ -51,7 +51,7 @@ const MyApp = ({ Component, pageProps }) => {
   return (
     <CookiesProvider>
       <ApolloProvider client={client}>
-        <CloudinaryContext cloudName={process.env.REACT_APP_CLOUDINARY_NAME}>
+        <CloudinaryContext cloudName={process.env.CLOUDINARY_NAME}>
           <RecoilRoot>
             <ThemeProvider theme={globalTheme}>
               <CssBaseline />
