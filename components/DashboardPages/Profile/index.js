@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import { useQuery } from '@apollo/react-hooks';
 import Grid from '@material-ui/core/Grid';
 
-import Page from '../../../components/GenericDashboard/Page';
+import Page from '../../DashboardComponents/Page';
 import ProfileCard from '../../../components/ProfileCard';
 import { GET_SINGLE_PROFILE_QUERY } from '../../../graphql/profile/queries';
 import Loader from '../../../components/Loader';

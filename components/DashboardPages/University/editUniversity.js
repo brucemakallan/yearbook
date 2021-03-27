@@ -6,7 +6,7 @@ import { useRouter } from 'next/router';
 import { GET_SINGLE_UNIVERSITY_QUERY } from '../../../graphql/university/queries';
 import Loader from '../../../components/Loader';
 import Feedback from '../../../components/Feedback';
-import Page from '../../../components/GenericDashboard/Page';
+import Page from '../../DashboardComponents/Page';
 import UniversityForm from './universityForm';
 
 const EditUniversity = () => {

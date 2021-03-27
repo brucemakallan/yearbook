@@ -8,8 +8,6 @@ import PageContent from './PageContent';
 const Page = ({
   icon,
   title,
-  showSideBar,
-  handleCollapse,
   handleChange,
   children,
   tabLinks,

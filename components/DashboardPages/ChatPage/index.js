@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Page from '../../../components/GenericDashboard/Page';
+import Page from '../../DashboardComponents/Page';
 import Chat from '../../../components/Chat';
 
 const ChatPage = ({ messagesRef }) => (

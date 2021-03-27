@@ -5,7 +5,7 @@ import { useQuery } from '@apollo/react-hooks';
 import upperCase from 'lodash/upperCase';
 
 import StudentGallery from './studentGallery';
-import Page from '../../components/GenericDashboard/Page';
+import Page from '../DashboardComponents/Page';
 import { GET_SINGLE_PROFILE_QUERY } from '../../graphql/profile/queries';
 import Loader from '../../components/Loader';
 import Feedback from '../../components/Feedback';

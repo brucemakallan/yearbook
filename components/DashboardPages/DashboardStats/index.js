@@ -9,7 +9,7 @@ import HomeWorkIcon from '@material-ui/icons/HomeWork';
 import SchoolIcon from '@material-ui/icons/School';
 import PersonIcon from '@material-ui/icons/Person';
 
-import Page from '../../../components/GenericDashboard/Page';
+import Page from '../../../components/DashboardComponents/Page';
 import SvgRender from '../../../components/SvgRender';
 import { svgs } from '../../../styles/global-theme';
 import { GET_ALL_PROFILES_QUERY } from '../../../graphql/profile/queries';

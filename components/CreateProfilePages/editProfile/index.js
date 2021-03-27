@@ -9,7 +9,7 @@ import upperCase from 'lodash/upperCase';
 
 import EditProfileForm from './editProfileForm';
 import useStyles from '../styles';
-import Page from '../../../components/GenericDashboard/Page';
+import Page from '../../../components/DashboardComponents/Page';
 import { getStudentProfileFromCache } from '../../../helpers/cacheManagement';
 import { GET_SINGLE_PROFILE_QUERY } from '../../../graphql/profile/queries';
 import Loader from '../../../components/Loader';

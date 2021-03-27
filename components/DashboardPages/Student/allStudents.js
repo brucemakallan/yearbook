@@ -11,7 +11,7 @@ import { GET_ALL_PROFILES_QUERY } from '../../../graphql/profile/queries';
 import TableView from '../../../components/TableView';
 import Loader from '../../../components/Loader';
 import Feedback from '../../../components/Feedback';
-import Page from '../../../components/GenericDashboard/Page';
+import Page from '../../DashboardComponents/Page';
 
 const renderDisplayPicture = (classes) => (value, { rowData }, _updateValue) => {
   const firstName = rowData[3];

@@ -19,7 +19,7 @@ import Feedback from '../../../components/Feedback';
 import TableLink from '../../../components/TableLink';
 import AlertDialog from '../../../components/AlertDialog';
 import tabs from './tabs';
-import Page from '../../../components/GenericDashboard/Page';
+import Page from '../../DashboardComponents/Page';
 import getCurrentUniversityFromCache from '../../../helpers/cacheManagement';
 import { getToken, getDecodedToken } from '../../../helpers/jwt';
 

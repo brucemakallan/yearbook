@@ -15,7 +15,7 @@ import Loader from '../../../components/Loader';
 import Feedback from '../../../components/Feedback';
 import TableLink from '../../../components/TableLink';
 import AlertDialog from '../../../components/AlertDialog';
-import Page from '../../../components/GenericDashboard/Page';
+import Page from '../../DashboardComponents/Page';
 import tabs from './tabs';
 import { getToken, getDecodedToken } from '../../../helpers/jwt';
 

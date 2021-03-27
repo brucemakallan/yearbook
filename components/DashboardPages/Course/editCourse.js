@@ -6,7 +6,7 @@ import { useRouter } from 'next/router';
 
 import Loader from '../../../components/Loader';
 import Feedback from '../../../components/Feedback';
-import Page from '../../../components/GenericDashboard/Page';
+import Page from '../../DashboardComponents/Page';
 import { GET_SINGLE_COURSE_QUERY } from '../../../graphql/course/queries';
 import CourseForm from './courseForm';
 import { getCurrentDepartmentFromCache } from '../../../helpers/cacheManagement';

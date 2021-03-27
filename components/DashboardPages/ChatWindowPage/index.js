@@ -5,7 +5,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import SmsIcon from '@material-ui/icons/Sms';
 import Grid from '@material-ui/core/Grid';
 
-import Page from '../../../components/GenericDashboard/Page';
+import Page from '../../DashboardComponents/Page';
 import BackArrow from '../../../components/BackArrow';
 import ChatWindow from '../../../components/Chat/ChatWindow';
 

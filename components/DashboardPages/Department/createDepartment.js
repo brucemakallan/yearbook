@@ -4,7 +4,7 @@ import upperCase from 'lodash/upperCase';
 import { useRouter } from 'next/router';
 import { useApolloClient } from '@apollo/react-hooks';
 
-import Page from '../../../components/GenericDashboard/Page';
+import Page from '../../DashboardComponents/Page';
 import tabs from './tabs';
 import DepartmentForm from './departmentForm';
 import getCurrentUniversityFromCache from '../../../helpers/cacheManagement';
