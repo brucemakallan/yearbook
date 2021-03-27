@@ -17,6 +17,7 @@ export default class MyDocument extends Document {
         <body>
           <Main />
           <NextScript />
+          <script src="https://widget.cloudinary.com/v2.0/global/all.js" type="text/javascript" />
         </body>
       </Html>
     );
