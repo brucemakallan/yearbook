@@ -15,7 +15,6 @@ const CardLink = ({
   children,
   name,
   receiverId,
-  allClassProfiles,
 }) => {
   const classes = useStyles();
   const router = useRouter();
@@ -29,7 +28,6 @@ const CardLink = ({
           query: {
             name,
             receiverId,
-            allClassProfiles,
           },
         });
       }}

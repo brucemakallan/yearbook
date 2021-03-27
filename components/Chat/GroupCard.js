@@ -60,7 +60,7 @@ const GroupCard = ({ allClassProfiles, messagesRef }) => {
 
   return (
     <div className={classes.root}>
-      <CardLink name={classGroupName} receiverId={receiverId} allClassProfiles={allClassProfiles}>
+      <CardLink name={classGroupName} receiverId={receiverId}>
         <Grid container spacing={2} alignItems="center" className={classes.container}>
           <Grid item xs={3} sm={2} md={1} lg={1}>
             <Badge color="secondary" overlap="circle" badgeContent={unreadCount}>

@@ -28,8 +28,7 @@ const ConversationPage = () => {
   const classes = useStyles();
   const router = useRouter();
 
-  const name = router.query?.name;
-  const receiverId = router.query?.receiverId;
+  const { name, receiverId } = router.query;
 
   const messagesRef = firestore.collection(collection);
 
