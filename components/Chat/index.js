@@ -1,30 +1,20 @@
 import React from 'react';
-import get from 'lodash/get';
 import { useQuery } from '@apollo/react-hooks';
 
 // import Grid from '@material-ui/core/Grid';
 
 import { GET_ALL_PROFILES_QUERY } from '../../graphql/profile/queries';
-import Loader from '../Loader';
-import Feedback from '../Feedback';
+import QueryAlert from '../QueryAlert';
 import GroupCard from './GroupCard';
 // import PersonCard from './PersonCard';
 
 const Chat = ({ messagesRef }) => {
-  const { data, loading, error } = useQuery(GET_ALL_PROFILES_QUERY);
-  const profiles = get(data, 'allProfilesInUniversity', []);
+  const queryResponse = useQuery(GET_ALL_PROFILES_QUERY);
+  const profiles = queryResponse?.data?.allProfilesInUniversity || [];
 
   return (
     <div>
-      {loading && <Loader />}
-      {error && (
-        <Feedback
-          open={!!error}
-          feedbackMessage={error}
-          severity='error'
-          type='error'
-        />
-      )}
+      <QueryAlert queryResponse={queryResponse} />
       {profiles && profiles.length > 0 && (
         <>
           <GroupCard

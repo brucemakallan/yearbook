@@ -27,16 +27,11 @@ if (!firebase.apps.length) {
   firebase.app(); // if already initialized
 }
 
-const collection = process.env.NEXT_PUBLIC_FIREBASE_COLLECTION;
-
-const firestore = firebase.firestore();
-
 const PageWithSidebar = ({
   title, icon, whiteBackground, tabs, children,
 }) => {
   const classes = useStyles();
 
-  const messagesRef = firestore.collection(collection); // TODO: pass this
   const router = useRouter();
   const jwt = getToken();
   const isAuthenticated = jwtIsValid(jwt);

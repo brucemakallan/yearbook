@@ -25,7 +25,7 @@ const CardLink = ({
       className={classes.link}
       onClick={() => {
         router.push({
-          pathname: '/dashboard/chat-window',
+          pathname: '/dashboard/chat/conversation',
           query: {
             name,
             receiverId,
