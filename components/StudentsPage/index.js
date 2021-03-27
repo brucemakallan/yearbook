@@ -7,11 +7,11 @@ import { makeStyles } from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar';
 import Box from '@material-ui/core/Box';
 
-import { GET_ALL_PROFILES_QUERY } from '../../../graphql/profile/queries';
-import TableView from '../../TableView';
-import Loader from '../../Loader';
-import Feedback from '../../Feedback';
-import Page from '../../DashboardComponents/Page';
+import { GET_ALL_PROFILES_QUERY } from '../../graphql/profile/queries';
+import TableView from '../TableView';
+import Loader from '../Loader';
+import Feedback from '../Feedback';
+import PageWithSidebar from '../DashboardComponents/PageWithSidebar';
 
 const renderDisplayPicture = (classes) => (value, { rowData }, _updateValue) => {
   const firstName = rowData[3];
@@ -92,13 +92,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const AllStudents = ({
+const StudentsPage = ({
+  title = 'ALL STUDENTS',
   children,
-  showSideBar,
-  handleCollapse,
-  pageTitle = 'ALL STUDENTS',
-  whiteBackground,
   onTableChange,
+  whiteBackground,
 }) => {
   const classes = useStyles();
   const router = useRouter();
@@ -120,10 +118,7 @@ const AllStudents = ({
   };
 
   return (
-    <Page
-      title={pageTitle}
-      whiteBackground={whiteBackground}
-    >
+    <PageWithSidebar title={title} whiteBackground={whiteBackground}>
       {getAllStudents.loading && <Loader />}
       {getAllStudents.error && (
         <Feedback
@@ -145,8 +140,8 @@ const AllStudents = ({
           onRowClick={onRowClick}
         />
       )}
-    </Page>
+    </PageWithSidebar>
   );
 };
 
-export default AllStudents;
+export default StudentsPage;

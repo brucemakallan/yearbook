@@ -31,7 +31,6 @@ const collection = process.env.NEXT_PUBLIC_FIREBASE_COLLECTION;
 
 const firestore = firebase.firestore();
 
-// A PageWithSidebar is one with a Sidebar
 const PageWithSidebar = ({
   title, icon, whiteBackground, tabs, children,
 }) => {
