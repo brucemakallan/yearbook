@@ -1,10 +1,10 @@
 import React from 'react';
-import Link from 'next/link';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 
 import { images } from '../styles/global-theme';
+import CustomNextLink from '../components/CustomNextLink';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -37,7 +37,7 @@ const PageNotFound = () => {
           Looks like you're a little lost <span role="img" aria-label="smile-emogi">🙂</span>
         </Typography>
         <Typography variant="body1">
-          No worries! We can guide you back to the <Link href="/">homepage</Link>.
+          No worries! We can guide you back to the <CustomNextLink href="/">homepage</CustomNextLink>.
         </Typography>
       </div>
     </div>

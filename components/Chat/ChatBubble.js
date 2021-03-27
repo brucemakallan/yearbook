@@ -1,10 +1,10 @@
 import React from 'react';
 import moment from 'moment';
 import get from 'lodash/get';
-import Link from 'next/link';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
+import CustomNextLink from '../CustomNextLink';
 
 const BORDER_RADIUS = 3;
 
@@ -54,7 +54,7 @@ const ChatBubble = ({ sender, message, fromMe = false }) => {
   return (
     <div className={classes.bubbleContainer}>
       <div className={classes.bubble}>
-        <Link href={`/dashboard/students/${sender.id}`}>
+        <CustomNextLink href={`/dashboard/students/${sender.id}`}>
           <Typography
             variant="body1"
             color="secondary"
@@ -62,7 +62,7 @@ const ChatBubble = ({ sender, message, fromMe = false }) => {
           >
             {senderName}
           </Typography>
-        </Link>
+        </CustomNextLink>
         <Typography variant="body1" color="inherit">
           {message.text}
         </Typography>

@@ -11,6 +11,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import Grid from '@material-ui/core/Grid';
 
 import useStyles from './styles';
+import CustomNextLink from '../CustomNextLink';
 
 const UniversityProfile = ({ university }) => {
   const classes = useStyles();
@@ -37,7 +38,7 @@ const UniversityProfile = ({ university }) => {
             <Grid container spacing={2}>
               <Grid item>
                 <Button variant="outlined" color="primary" size="small" startIcon={<EditIcon />}>
-                  <Link className={classes.link} to={`${id}/edit`}>Edit</Link>
+                  <CustomNextLink className={classes.link} href={`${id}/edit`}>Edit</CustomNextLink>
                 </Button>
               </Grid>
               <Grid item>
@@ -57,12 +58,12 @@ const UniversityProfile = ({ university }) => {
             <Grid container spacing={2}>
               <Grid item>
                 <Button variant="outlined" color="primary" size="small">
-                  <Link className={classes.link} to={'departments'}>Departments</Link>
+                  <CustomNextLink className={classes.link} href={'departments'}>Departments</CustomNextLink>
                 </Button>
               </Grid>
               <Grid item>
                 <Button variant="outlined" color="primary" size="small">
-                  <Link className={classes.link} to={'students'}>Students</Link>
+                  <CustomNextLink className={classes.link} href={'students'}>Students</CustomNextLink>
                 </Button>
               </Grid>
             </Grid>

@@ -2,7 +2,6 @@ import React from 'react';
 import get from 'lodash/get';
 import { Formik, Form } from 'formik';
 import { useRouter } from 'next/router';
-import Link from 'next/link';
 import { useQuery, useMutation } from '@apollo/react-hooks';
 
 import Grid from '@material-ui/core/Grid';
@@ -18,6 +17,7 @@ import DecoratedPage from '../../components/DecoratedPage';
 import renderInputWrapper from '../../helpers/formHelpers';
 import { LOGIN_MUTATION } from '../../graphql/user/mutations';
 import { GET_SINGLE_PROFILE_QUERY } from '../../graphql/profile/queries';
+import CustomNextLink from '../../components/CustomNextLink';
 import {
   setToken, getToken, getDecodedToken,
 } from '../../helpers/jwt';
@@ -120,10 +120,10 @@ const LoginForm = () => {
               </Form>
             </Formik>
             <Typography variant="body1" align="center" gutterBottom>
-              <Link to='/forgot-password'>Forgot Password</Link>
+              <CustomNextLink href='/forgot-password'>Forgot Password</CustomNextLink>
             </Typography>
             <Typography variant="body1" align="center" gutterBottom>
-              Don't have an account? Register <Link to='/register'>here</Link>
+              Don't have an account? Register <CustomNextLink href='/register'>here</CustomNextLink>
             </Typography>
           </Collapse>
         </Grid>

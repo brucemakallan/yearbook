@@ -1,5 +1,4 @@
-import Link from 'next/link';
-
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
@@ -9,6 +8,7 @@ import Button from '@material-ui/core/Button';
 
 import DecoratedPage from '../components/DecoratedPage';
 import { images } from '../styles/global-theme';
+import CustomNextLink from '../components/CustomNextLink';
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -43,14 +43,14 @@ const LandingPage = () => {
           </Typography>
           <Grid container spacing={2} justify="space-between">
             <Grid item>
-              <Link href="/register">
+              <CustomNextLink href="/register">
                 <Button color="secondary">REGISTER</Button>
-              </Link>
+              </CustomNextLink>
             </Grid>
             <Grid item>
-              <Link href="/login">
+              <CustomNextLink href="/login">
                 <Button color="secondary">LOGIN</Button>
-              </Link>
+              </CustomNextLink>
             </Grid>
           </Grid>
         </CardContent>

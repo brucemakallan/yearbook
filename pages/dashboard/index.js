@@ -3,7 +3,7 @@ import PageWithSidebar from '../../components/DashboardComponents/PageWithSideba
 
 const DashboardLandingPage = () => (
   <PageWithSidebar title="Sample">
-      DashboardLandingPage
+    DashboardLandingPage
   </PageWithSidebar>
 );
 

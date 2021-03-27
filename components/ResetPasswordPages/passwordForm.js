@@ -1,7 +1,6 @@
 import React from 'react';
 import get from 'lodash/get';
 import { useRouter } from 'next/router';
-import Link from 'next/link';
 import { useQuery, useMutation } from '@apollo/react-hooks';
 
 import Grid from '@material-ui/core/Grid';
@@ -16,6 +15,7 @@ import { GET_SINGLE_USER_QUERY } from '../../graphql/user/queries';
 import useStyles from './styles';
 import { getDecodedToken } from '../../helpers/jwt';
 import ResetPasswordLayout from './resetPasswordLayout';
+import CustomNextLink from '../CustomNextLink';
 
 const formInputFields = [
   {
@@ -105,7 +105,7 @@ const ResetPasswordPage = () => {
           <Grid item xs={11} sm={6} md={4} lg={3}>
             <MainHeading text="Password updated successfully" />
             <Typography component='p' align="center">
-              Continue to the login page <Link to='/login'>here.</Link>.
+              Continue to the login page <CustomNextLink href='/login'>here.</CustomNextLink>.
             </Typography>
           </Grid>
         </Grid>

@@ -1,14 +1,13 @@
 import React from 'react';
 import startCase from 'lodash/startCase';
 import { useRouter } from 'next/router';
-import Link from 'next/link';
 
 import { useTheme, makeStyles } from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
-import Grid from '@material-ui/core/Grid';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
+import CustomNextLink from '../../CustomNextLink';
 
 const useStyles = makeStyles((theme) => ({
   header: {
@@ -83,25 +82,7 @@ const SidebarButton = ({ field, hideSideBar }) => {
 
   if (field.link) {
     return (
-      <Grid container spacing={0}>
-        <Grid item xs={12} sm={12} md={12} lg={12}>
-          <Link href={field.link}>
-            <SidebarListItem
-              field={field}
-              component={component}
-              className={className}
-              handleClick={handleClick}
-              classes={classes}
-            />
-          </Link>
-        </Grid>
-      </Grid>
-    );
-  }
-
-  return (
-    <Grid container spacing={0}>
-      <Grid item xs={12} sm={12} md={12} lg={12}>
+      <CustomNextLink href={field.link}>
         <SidebarListItem
           field={field}
           component={component}
@@ -109,8 +90,18 @@ const SidebarButton = ({ field, hideSideBar }) => {
           handleClick={handleClick}
           classes={classes}
         />
-      </Grid>
-    </Grid>
+      </CustomNextLink>
+    );
+  }
+
+  return (
+    <SidebarListItem
+      field={field}
+      component={component}
+      className={className}
+      handleClick={handleClick}
+      classes={classes}
+    />
   );
 };
 

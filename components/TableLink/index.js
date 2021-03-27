@@ -1,8 +1,9 @@
 import React from 'react';
-import { Link } from 'next/router';
 
 import { makeStyles } from '@material-ui/core/styles';
 import MaterialUILink from '@material-ui/core/Link';
+
+import CustomNextLink from '../CustomNextLink';
 
 const useStyles = makeStyles((theme) => ({
   label: {
@@ -16,10 +17,10 @@ const TableLink = ({
   const classes = useStyles();
   return (
     <MaterialUILink
-      component={Link}
+      component={CustomNextLink}
       className={label && classes.label}
       variant='body1'
-      to={link}
+      href={link}
     >
       {children || text}
     </MaterialUILink>

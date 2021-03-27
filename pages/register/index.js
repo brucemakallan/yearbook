@@ -1,6 +1,5 @@
 import React from 'react';
 import { Formik, Form } from 'formik';
-import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useMutation } from '@apollo/react-hooks';
 
@@ -17,6 +16,7 @@ import renderInputWrapper from '../../helpers/formHelpers';
 import { SIGN_UP_MUTATION } from '../../graphql/user/mutations';
 import DecoratedPage from '../../components/DecoratedPage';
 import { setToken } from '../../helpers/jwt';
+import CustomNextLink from '../../components/CustomNextLink';
 
 const formInputFields = [
   {
@@ -110,7 +110,7 @@ const SignupForm = () => {
               </Form>
             </Formik>
             <Typography variant="body1" align="center" gutterBottom>
-              Already have an account? Login <Link href='/login'>here</Link>
+              Already have an account? Login <CustomNextLink href='/login'>here</CustomNextLink>
             </Typography>
           </Collapse>
         </Grid>

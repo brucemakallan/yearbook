@@ -1,6 +1,7 @@
 import React from 'react';
 import clsx from 'clsx';
 import { Swipeable } from 'react-swipeable';
+import { useRouter } from 'next/router';
 
 import Divider from '@material-ui/core/Divider';
 import Link from '@material-ui/core/Link';
@@ -9,14 +10,18 @@ import Typography from '@material-ui/core/Typography';
 import SidebarButton from './SidebarButton';
 import useStyles from '../styles';
 import ShareIcons from '../../ShareIcons';
+import sidebarRoutes from './sidebarRoutes';
 
-const Sidebar = ({ className, hideSideBar, fields }) => {
+const Sidebar = ({ className, hideSideBar }) => {
   const classes = useStyles();
+
+  const router = useRouter();
+  const sidebarFields = sidebarRoutes(router);
 
   return (
     <div className={clsx(classes.sidebar, className)}>
       <Swipeable onSwipedLeft={hideSideBar} className={classes.swipeable}>
-        {fields.map((field, index) => ((field.divider)
+        {sidebarFields.map((field, index) => ((field.divider)
           ? <Divider key={index} />
           : <SidebarButton key={field.id} field={field} hideSideBar={hideSideBar} />))
         }
