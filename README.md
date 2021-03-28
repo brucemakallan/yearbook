@@ -1,4 +1,4 @@
-# Yearbook - frontend
+# Yearbook - frontend [NextJS]
 
 #### Developer Getting Started
 
