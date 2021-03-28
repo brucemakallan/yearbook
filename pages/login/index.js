@@ -132,4 +132,12 @@ const LoginForm = () => {
   );
 };
 
+// SSR for SEO
+export async function getServerSideProps() {
+  return {
+    props: {
+    },
+  };
+}
+
 export default LoginForm;

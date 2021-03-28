@@ -59,4 +59,12 @@ const LandingPage = () => {
   );
 };
 
+// SSR for SEO
+export async function getServerSideProps() {
+  return {
+    props: {
+    },
+  };
+}
+
 export default LandingPage;
