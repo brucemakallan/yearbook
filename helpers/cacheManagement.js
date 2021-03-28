@@ -5,7 +5,13 @@ import { GET_ALL_UNIVERSITIES_QUERY } from '../graphql/university/queries';
 import { GET_ALL_DEPARTMENTS_IN_UNIVERSITY_QUERY } from '../graphql/department/queries';
 import { GET_SINGLE_PROFILE_QUERY } from '../graphql/profile/queries';
 
-const getCurrentUniversityFromCache = (apolloClient, universityId, router) => {
+const redirect = (to) => {
+  if (typeof window !== 'undefined') {
+    window.location.replace(to);
+  }
+};
+
+const getCurrentUniversityFromCache = (apolloClient, universityId) => {
   try {
     const cachedUniversities = apolloClient.readQuery({
       query: GET_ALL_UNIVERSITIES_QUERY,
@@ -16,11 +22,11 @@ const getCurrentUniversityFromCache = (apolloClient, universityId, router) => {
 
     return currentUniversity;
   } catch (err) {
-    router.push('/dashboard/universities');
+    redirect('/dashboard/universities');
   }
 };
 
-export const getCurrentDepartmentFromCache = (apolloClient, universityId, departmentId, router) => {
+export const getCurrentDepartmentFromCache = (apolloClient, universityId, departmentId) => {
   try {
     const cachedDepartments = apolloClient.readQuery({
       query: GET_ALL_DEPARTMENTS_IN_UNIVERSITY_QUERY,
@@ -34,7 +40,7 @@ export const getCurrentDepartmentFromCache = (apolloClient, universityId, depart
 
     return currentDepartment;
   } catch (err) {
-    router.push('/dashboard/universities');
+    redirect('/dashboard/universities');
   }
 };
 

@@ -27,7 +27,7 @@ const EditDepartment = () => {
     },
   });
 
-  const currentUniversity = getCurrentUniversityFromCache(client, universityId, router);
+  const currentUniversity = getCurrentUniversityFromCache(client, universityId);
   const currentUniversityName = get(currentUniversity, 'name');
 
   useEffect(() => {

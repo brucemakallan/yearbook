@@ -106,7 +106,7 @@ const DepartmentsInUniversity = () => {
 
   const [deleteDepartment, deleteDepartmentResponse] = useMutation(DELETE_DEPARTMENT_MUTATION);
 
-  const currentUniversity = getCurrentUniversityFromCache(client, universityId, router);
+  const currentUniversity = getCurrentUniversityFromCache(client, universityId);
   const currentUniversityName = get(currentUniversity, 'name');
 
   const user = getDecodedToken(getToken());
