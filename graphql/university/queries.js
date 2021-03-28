@@ -7,6 +7,9 @@ export const GET_ALL_UNIVERSITIES_QUERY = gql`
     allUniversities {
       id
       name
+      user {
+        id
+      }
     }
   }
 `;

@@ -3,11 +3,11 @@ import get from 'lodash/get';
 import { useQuery } from '@apollo/react-hooks';
 
 import { useRouter } from 'next/router';
-import { GET_SINGLE_UNIVERSITY_QUERY } from '../../../graphql/university/queries';
-import Loader from '../../Loader';
-import Feedback from '../../Feedback';
-import Page from '../../DashboardComponents/Page';
-import UniversityForm from './universityForm';
+import { GET_SINGLE_UNIVERSITY_QUERY } from '../../../../graphql/university/queries';
+import Loader from '../../../../components/Loader';
+import Feedback from '../../../../components/Feedback';
+import PageWithSidebar from '../../../../components/DashboardComponents/PageWithSidebar';
+import UniversityForm from '../../../../components/DashboardPages/University/universityForm';
 
 const EditUniversity = () => {
   const router = useRouter();
@@ -18,7 +18,7 @@ const EditUniversity = () => {
   const getSingleUniversity = useQuery(GET_SINGLE_UNIVERSITY_QUERY, {
     variables: {
       searchParams: {
-        universityId,
+        id: universityId,
       },
     },
   });
@@ -40,11 +40,9 @@ const EditUniversity = () => {
         />
       )}
       {university && (
-        <Page
-          title={university.name}
-        >
+        <PageWithSidebar title={university.name}>
           <UniversityForm university={university} />
-        </Page>
+        </PageWithSidebar>
       )}
     </>
   );
