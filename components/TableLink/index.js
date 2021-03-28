@@ -1,7 +1,6 @@
 import React from 'react';
 
 import { makeStyles } from '@material-ui/core/styles';
-import MaterialUILink from '@material-ui/core/Link';
 
 import CustomNextLink from '../CustomNextLink';
 
@@ -16,14 +15,12 @@ const TableLink = ({
 }) => {
   const classes = useStyles();
   return (
-    <MaterialUILink
-      component={CustomNextLink}
+    <CustomNextLink
       className={label && classes.label}
-      variant='body1'
       href={link}
     >
       {children || text}
-    </MaterialUILink>
+    </CustomNextLink>
   );
 };
 

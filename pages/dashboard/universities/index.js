@@ -10,13 +10,12 @@ import Button from '@material-ui/core/Button';
 
 import { GET_ALL_UNIVERSITIES_QUERY } from '../../../graphql/university/queries';
 import { DELETE_UNIVERSITY_MUTATION } from '../../../graphql/university/mutations';
-import TableView from '../../TableView';
-import Loader from '../../Loader';
-import Feedback from '../../Feedback';
-import TableLink from '../../TableLink';
-import AlertDialog from '../../AlertDialog';
-import Page from '../../DashboardComponents/Page';
-import tabs from './tabs';
+import TableView from '../../../components/TableView';
+import TableLink from '../../../components/TableLink';
+import AlertDialog from '../../../components/AlertDialog';
+import PageWithSidebar from '../../../components/DashboardComponents/PageWithSidebar';
+import tabs from '../../../components/DashboardPages/University/tabs';
+import QueryAlert from '../../../components/QueryAlert';
 import { getToken, getDecodedToken } from '../../../helpers/jwt';
 
 const renderName = (value, { rowData }, _updateValue) => (
@@ -119,19 +118,14 @@ const AllUniversities = () => {
   };
 
   return (
-    <Page
+    <PageWithSidebar
       title="ALL UNIVERSITIES"
-      tabLinks={tabs}
+      tabs={tabs}
     >
-      {getAllUniversities.loading && <Loader />}
-      {(getAllUniversities.error || deleteUniversityResponse.error) && (
-        <Feedback
-          open={!!getAllUniversities.error || !!deleteUniversityResponse.error}
-          feedbackMessage={getAllUniversities.error || deleteUniversityResponse.error}
-          severity='error'
-          type='error'
-        />
-      )}
+      <QueryAlert queryResponse={{
+        loading: getAllUniversities.loading,
+        error: getAllUniversities.error || deleteUniversityResponse.error,
+      }}/>
       {deleteUniversityResponse.data && (
         <Feedback
           open={!!deleteUniversityResponse.data}
@@ -149,7 +143,7 @@ const AllUniversities = () => {
           // onRowsDelete={(value) => console.log('clicked_value', value)}
         />
       )}
-    </Page>
+    </PageWithSidebar>
   );
 };
 
