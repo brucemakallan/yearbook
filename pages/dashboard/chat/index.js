@@ -2,7 +2,7 @@ import React from 'react';
 import firebase from 'firebase/app';
 
 import PageWithSidebar from '../../../components/DashboardComponents/PageWithSidebar';
-import Chat from '../../../components/Chat/index';
+import Chat from '../../../components/Chat';
 
 firebase.app();
 const firestore = firebase.firestore();
