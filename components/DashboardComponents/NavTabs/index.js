@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'next/router';
+import Link from 'next/link';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Tabs from '@material-ui/core/Tabs';
@@ -22,12 +22,12 @@ const LinkTab = (props) => {
   const classes = useStyles();
 
   return (
-    <Tab
-      component={Link}
-      className={classes.tab}
-      to={props.href}
-      {...props}
-    />
+    <Link href={props.href}>
+      <Tab
+        className={classes.tab}
+        {...props}
+      />
+    </Link>
   );
 };
 
