@@ -9,7 +9,7 @@
   "scripts": {
     "start:dev": "next dev",
     "build": "next build",
-    "start": "next start -H 0.0.0.0 -p ${PORT:-8080}",
+    "start": "next start",
     "heroku-postbuild": "yarn build",
     "lint": "eslint \"components/**/*.js\" \"graphql/**/*.js\" \"helpers/**/*.js\" \"pages/**/*.js\" \"styles/**/*.js\" --fix"
   },
