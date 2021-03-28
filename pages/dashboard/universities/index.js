@@ -33,7 +33,7 @@ const renderActions = (handleDelete, userId, universities) => (value, _tableMeta
           <Button color="primary"><EditIcon /></Button>
         </TableLink>
         <AlertDialog
-          title="Are you sure you want to delete?"
+          title={university?.name}
           handleYes={handleDelete(value)}
           buttonText={<DeleteIcon />}
           buttonProps={{
@@ -41,7 +41,7 @@ const renderActions = (handleDelete, userId, universities) => (value, _tableMeta
           }}
         >
           <Typography variant="body2">
-          Are you sure you want to delete this University? This action cannot be undone.
+            Are you sure you want to delete this University? This action cannot be undone.
           </Typography>
         </AlertDialog>
       </>
@@ -126,14 +126,6 @@ const AllUniversities = () => {
         loading: getAllUniversities.loading,
         error: getAllUniversities.error || deleteUniversityResponse.error,
       }}/>
-      {deleteUniversityResponse.data && (
-        <Feedback
-          open={!!deleteUniversityResponse.data}
-          feedbackMessage='Successfully deleted'
-          severity='success'
-          type='success'
-        />
-      )}
       {getAllUniversities.data && (
         <TableView
           title={'UNIVERSITIES'}
