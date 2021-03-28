@@ -12,6 +12,7 @@ import { getToken, jwtIsValid } from '../../../helpers/jwt';
 import Page from '../Page';
 import useStyles from '../styles';
 import Sidebar from '../Sidebar';
+import CustomHead from '../../CustomHead';
 
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 if (!firebase.apps.length) {
@@ -74,25 +75,28 @@ const PageWithSidebar = ({
   }, [isDesktop, showSideBar, slide]);
 
   return (
-    <div className={classes.root}>
-      <Grid container spacing={0}>
-        <Sidebar
-          className={sidebarClass}
-          hideSideBar={hideSideBar}
-        />
-        <Page
-          icon={icon}
-          title={title}
-          tabLinks={tabs}
-          tabIndex={tabIndex}
-          whiteBackground={whiteBackground}
-          showSideBar={showSideBar}
-          handleCollapse={handleCollapse}
-        >
-          {children}
-        </Page>
-      </Grid>
-    </div>
+    <>
+      <CustomHead />
+      <div className={classes.root}>
+        <Grid container spacing={0}>
+          <Sidebar
+            className={sidebarClass}
+            hideSideBar={hideSideBar}
+          />
+          <Page
+            icon={icon}
+            title={title}
+            tabLinks={tabs}
+            tabIndex={tabIndex}
+            whiteBackground={whiteBackground}
+            showSideBar={showSideBar}
+            handleCollapse={handleCollapse}
+          >
+            {children}
+          </Page>
+        </Grid>
+      </div>
+    </>
   );
 };
 
