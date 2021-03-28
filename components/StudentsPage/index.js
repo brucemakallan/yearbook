@@ -128,9 +128,11 @@ const StudentsPage = ({
           type='error'
         />
       )}
-      <Box className={classes.box}>
-        {children}
-      </Box>
+      {!!children && (
+        <Box className={classes.box}>
+          {children}
+        </Box>
+      )}
       {getAllStudents.data && (
         <TableView
           title={'STUDENTS'}
