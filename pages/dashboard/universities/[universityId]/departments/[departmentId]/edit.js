@@ -4,12 +4,12 @@ import upperCase from 'lodash/upperCase';
 import { useQuery, useApolloClient } from '@apollo/react-hooks';
 import { useRouter } from 'next/router';
 
-import Loader from '../../Loader';
-import Feedback from '../../Feedback';
-import Page from '../../DashboardComponents/Page';
-import { GET_SINGLE_DEPARTMENT_QUERY } from '../../../graphql/department/queries';
-import DepartmentForm from './departmentForm';
-import getCurrentUniversityFromCache from '../../../helpers/cacheManagement';
+import Loader from '../../../../../../components/Loader';
+import Feedback from '../../../../../../components/Feedback';
+import PageWithSidebar from '../../../../../../components/DashboardComponents/PageWithSidebar';
+import { GET_SINGLE_DEPARTMENT_QUERY } from '../../../../../../graphql/department/queries';
+import DepartmentForm from '../../../../../../components/DashboardPages/Department/departmentForm';
+import getCurrentUniversityFromCache from '../../../../../../helpers/cacheManagement';
 
 const EditDepartment = () => {
   const router = useRouter();
@@ -47,13 +47,13 @@ const EditDepartment = () => {
         />
       )}
       {department && (
-        <Page
+        <PageWithSidebar
           title={currentUniversityName ? upperCase(currentUniversityName) : 'DEPARTMENT'}
         >
           {currentUniversity && (
             <DepartmentForm department={department} currentUniversity={currentUniversity} />
           )}
-        </Page>
+        </PageWithSidebar>
       )}
     </>
   );

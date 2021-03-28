@@ -23,22 +23,30 @@ import PageWithSidebar from '../../../../../components/DashboardComponents/PageW
 import getCurrentUniversityFromCache from '../../../../../helpers/cacheManagement';
 import { getToken, getDecodedToken } from '../../../../../helpers/jwt';
 
-const renderName = (value, { rowData }, _updateValue) => (
-  <TableLink text={value} label link={`departments/${rowData[0]}/courses`} />
+const renderName = (universityId) => (value, { rowData }, _updateValue) => (
+  <TableLink
+    text={value}
+    label
+    link={`/dashboard/universities/${universityId}/departments/${rowData[0]}/courses`}
+  />
 );
 
-const renderActions = (handleDelete, userId, departments) => (value, _tableMeta, _updateValue) => {
+const renderActions = (handleDelete, userId, departments, universityId) => (
+  value,
+  _tableMeta,
+  _updateValue
+) => {
   const department = departments.find((u) => u.id === value);
   const isOwner = !!userId && get(department, 'user.id') === userId;
 
   return (
     isOwner && (
       <>
-        <TableLink text='Edit' link={`departments/${value}/edit`}>
+        <TableLink text='Edit' link={`/dashboard/universities/${universityId}/departments/${value}/edit`}>
           <Button color="primary"><EditIcon /></Button>
         </TableLink>
         <AlertDialog
-          title="Are you sure you want to delete?"
+          title={department?.name}
           handleYes={handleDelete(value)}
           buttonText={<DeleteIcon />}
           buttonProps={{
@@ -46,7 +54,7 @@ const renderActions = (handleDelete, userId, departments) => (value, _tableMeta,
           }}
         >
           <Typography variant="body2">
-        Are you sure you want to delete this Department? This action cannot be undone.
+            Are you sure you want to delete this Department? This action cannot be undone.
           </Typography>
         </AlertDialog>
       </>
@@ -54,7 +62,7 @@ const renderActions = (handleDelete, userId, departments) => (value, _tableMeta,
   );
 };
 
-const columns = (handleDelete, classes, userId, departments) => [
+const columns = (handleDelete, classes, userId, departments, universityId) => [
   {
     name: 'id',
     options: {
@@ -67,7 +75,7 @@ const columns = (handleDelete, classes, userId, departments) => [
     name: 'name',
     label: 'Name',
     options: {
-      customBodyRender: renderName,
+      customBodyRender: renderName(universityId),
     },
   },
   {
@@ -76,7 +84,7 @@ const columns = (handleDelete, classes, userId, departments) => [
     options: {
       filter: false,
       sort: false,
-      customBodyRender: renderActions(handleDelete, userId, departments),
+      customBodyRender: renderActions(handleDelete, userId, departments, universityId),
       setCellProps: (_value) => ({
         className: classes.right,
       }),
@@ -163,7 +171,7 @@ const DepartmentsInUniversity = () => {
         <TableView
           title={currentUniversityName ? `DEPARTMENTS (${upperCase(currentUniversityName)})` : 'DEPARTMENTS'}
           data={departments}
-          columns={columns(handleDelete, classes, userId, departments)}
+          columns={columns(handleDelete, classes, userId, departments, universityId)}
         />
       )}
     </PageWithSidebar>
