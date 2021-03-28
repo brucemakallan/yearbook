@@ -4,6 +4,8 @@ import { useRouter } from 'next/router';
 import firebase from 'firebase/app';
 import 'firebase/firestore';
 
+import { useTheme } from '@material-ui/core/styles';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 import Grid from '@material-ui/core/Grid';
 
 import { getToken, jwtIsValid } from '../../../helpers/jwt';
@@ -47,9 +49,14 @@ const PageWithSidebar = ({
     }
   }, [jwt, isAuthenticated, router]);
 
+  const theme = useTheme();
+  const isDesktop = useMediaQuery(theme.breakpoints.up('lg'));
+
   const [showSideBar, setShowSideBar] = React.useState(false);
+  const [slide, setSlide] = React.useState(false);
 
   const handleCollapse = () => {
+    setSlide(true);
     setShowSideBar(!showSideBar);
   };
 
@@ -57,11 +64,20 @@ const PageWithSidebar = ({
     setShowSideBar(false);
   };
 
+  const sidebarClass = React.useMemo(() => {
+    if (isDesktop || !slide) {
+      return '';
+    }
+
+    return showSideBar ? classes.showSideBar : classes.hideSideBar;
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isDesktop, showSideBar, slide]);
+
   return (
     <div className={classes.root}>
       <Grid container spacing={0}>
         <Sidebar
-          className={clsx(showSideBar ? classes.showSideBar : classes.hideSideBar)}
+          className={sidebarClass}
           hideSideBar={hideSideBar}
         />
         <Page

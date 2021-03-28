@@ -13,6 +13,7 @@ const Page = ({
   whiteBackground,
   tabIndex = 0,
   handleCollapse,
+  showSideBar,
 }) => {
   const classes = useStyles();
 
@@ -24,6 +25,7 @@ const Page = ({
         tabValue={tabIndex}
         tabLinks={tabLinks}
         handleCollapse={handleCollapse}
+        showSideBar={showSideBar}
       />
       <PageContent tabValue={tabIndex} tabIndex={tabIndex}>
         {children}
