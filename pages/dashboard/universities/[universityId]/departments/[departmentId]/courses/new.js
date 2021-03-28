@@ -4,10 +4,10 @@ import upperCase from 'lodash/upperCase';
 import { useRouter } from 'next/router';
 import { useApolloClient } from '@apollo/react-hooks';
 
-import Page from '../../DashboardComponents/Page';
-import tabs from './tabs';
-import CourseForm from './courseForm';
-import { getCurrentDepartmentFromCache } from '../../../helpers/cacheManagement';
+import PageWithSidebar from '../../../../../../../components/DashboardComponents/PageWithSidebar';
+import tabs from '../../../../../../../components/DashboardPages/Course/tabs';
+import CourseForm from '../../../../../../../components/DashboardPages/Course/courseForm';
+import { getCurrentDepartmentFromCache } from '../../../../../../../helpers/cacheManagement';
 
 const tabIndex = 1;
 
@@ -16,19 +16,18 @@ const CreateCourse = () => {
   const { universityId, departmentId } = router.query;
   const client = useApolloClient();
 
-  const currentDepartment = getCurrentDepartmentFromCache(client, universityId, departmentId, router);
+  const currentDepartment = getCurrentDepartmentFromCache(client, universityId, departmentId);
   const currentDepartmentName = get(currentDepartment, 'name');
 
   return (
     currentDepartment ? (
-      <Page
+      <PageWithSidebar
         title={currentDepartmentName ? upperCase(currentDepartmentName) : 'COURSE'}
-        tabLinks={tabs(universityId, departmentId)}
+        tabs={tabs(universityId, departmentId)}
         tabIndex={tabIndex}
-        tabValue={tabIndex}
       >
         <CourseForm currentDepartment={currentDepartment} />
-      </Page>
+      </PageWithSidebar>
     ) : ''
   );
 };

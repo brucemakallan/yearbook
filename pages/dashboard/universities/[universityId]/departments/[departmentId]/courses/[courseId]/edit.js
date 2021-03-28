@@ -4,12 +4,12 @@ import upperCase from 'lodash/upperCase';
 import { useQuery, useApolloClient } from '@apollo/react-hooks';
 import { useRouter } from 'next/router';
 
-import Loader from '../../Loader';
-import Feedback from '../../Feedback';
-import Page from '../../DashboardComponents/Page';
-import { GET_SINGLE_COURSE_QUERY } from '../../../graphql/course/queries';
-import CourseForm from './courseForm';
-import { getCurrentDepartmentFromCache } from '../../../helpers/cacheManagement';
+import Loader from '../../../../../../../../components/Loader';
+import Feedback from '../../../../../../../../components/Feedback';
+import PageWithSidebar from '../../../../../../../../components/DashboardComponents/PageWithSidebar';
+import { GET_SINGLE_COURSE_QUERY } from '../../../../../../../../graphql/course/queries';
+import CourseForm from '../../../../../../../../components/DashboardPages/Course/courseForm';
+import { getCurrentDepartmentFromCache } from '../../../../../../../../helpers/cacheManagement';
 
 const EditCourse = () => {
   const router = useRouter();
@@ -27,7 +27,7 @@ const EditCourse = () => {
     },
   });
 
-  const currentDepartment = getCurrentDepartmentFromCache(client, universityId, departmentId, router);
+  const currentDepartment = getCurrentDepartmentFromCache(client, universityId, departmentId);
   const currentDepartmentName = get(currentDepartment, 'name');
 
   useEffect(() => {
@@ -47,13 +47,13 @@ const EditCourse = () => {
         />
       )}
       {course && (
-        <Page
+        <PageWithSidebar
           title={currentDepartmentName ? upperCase(currentDepartmentName) : 'COURSE'}
         >
           {currentDepartment && (
             <CourseForm course={course} currentDepartment={currentDepartment} />
           )}
-        </Page>
+        </PageWithSidebar>
       )}
     </>
   );
