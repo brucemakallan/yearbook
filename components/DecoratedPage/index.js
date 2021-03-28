@@ -4,12 +4,17 @@ import CustomHead from '../CustomHead';
 import UserBackground from '../UserBackground';
 import useStyles from './styles';
 
-const DecoratedPage = ({ children, hide, pageTitle }) => {
+const DecoratedPage = ({
+  children,
+  hide,
+  pageTitle,
+  pageDescription,
+}) => {
   const classes = useStyles();
 
   return (
     <>
-      <CustomHead page={pageTitle} />
+      <CustomHead page={pageTitle} pageDescription={pageDescription} />
       {!hide && (
         <div className={classes.root}>
           <div className={classes.backgroundLayer}>

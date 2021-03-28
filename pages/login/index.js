@@ -80,6 +80,7 @@ const LoginForm = () => {
     <DecoratedPage
       hide={get(getSingleProfile, 'data.singleProfile.course.id')}
       pageTitle="Login"
+      pageDescription="Already one of us? Login here"
     >
       {loading && <Loader />}
       {error && (

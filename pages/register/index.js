@@ -67,7 +67,10 @@ const SignupForm = () => {
   };
 
   return (
-    <DecoratedPage pageTitle="Register">
+    <DecoratedPage
+      pageTitle="Register"
+      pageDescription="Don't have an account? Register here"
+    >
       {loading && <Loader />}
       { error && (
         <Feedback

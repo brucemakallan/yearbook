@@ -2,7 +2,7 @@ import Head from 'next/head';
 
 const WEBSITE_TITLE = 'Yearbook | madeyear.com';
 
-const CustomHead = ({ title = WEBSITE_TITLE, page }) => (
+const CustomHead = ({ title = WEBSITE_TITLE, page, pageDescription }) => (
   <Head>
     <title>
       {page ? `Yearbook | ${page}` : title}
@@ -18,7 +18,7 @@ const CustomHead = ({ title = WEBSITE_TITLE, page }) => (
     <meta
       key="description"
       name="description"
-      content="Online Yearbook generator for Schools and Universities"
+      content={pageDescription || 'Online Yearbook generator for Schools and Universities'}
     />
     <meta
       key="keywords"
