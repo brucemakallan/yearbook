@@ -12,6 +12,7 @@ const Page = ({
   tabLinks,
   whiteBackground,
   tabIndex = 0,
+  handleCollapse,
 }) => {
   const classes = useStyles();
 
@@ -22,6 +23,7 @@ const Page = ({
         title={title}
         tabValue={tabIndex}
         tabLinks={tabLinks}
+        handleCollapse={handleCollapse}
       />
       <PageContent tabValue={tabIndex} tabIndex={tabIndex}>
         {children}
