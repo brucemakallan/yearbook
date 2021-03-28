@@ -59,8 +59,6 @@ export const setCourseValuesFromURL = (router, universities = [], departments = 
   const queryVariables = qs.parse(router.query, {
     ignoreQueryPrefix: true,
   });
-  console.log('%c setCourseValuesFromURL', 'background: #2196F3; color: white; padding: 10px;');
-  console.log('queryVariables', queryVariables);
 
   const university = universities.find((uni) => uni.id === get(queryVariables, 'u'));
   const department = departments.find((dep) => dep.id === get(queryVariables, 'd'));

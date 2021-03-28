@@ -9,6 +9,9 @@ export const GET_ALL_COURSES_QUERY = gql`
       name
       department {
         id
+        university {
+          id
+        }
       }
     }
   }

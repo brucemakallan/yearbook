@@ -7,14 +7,14 @@ import Typography from '@material-ui/core/Typography';
 import { useApolloClient, useQuery } from '@apollo/react-hooks';
 import upperCase from 'lodash/upperCase';
 
-import EditProfileForm from './editProfileForm';
-import useStyles from '../styles';
-import Page from '../../DashboardComponents/Page';
-import { getStudentProfileFromCache } from '../../../helpers/cacheManagement';
-import { GET_SINGLE_PROFILE_QUERY } from '../../../graphql/profile/queries';
-import Loader from '../../Loader';
-import Feedback from '../../Feedback';
-import CourseForm from '../selectCourse/courseForm';
+import EditProfileForm from '../../../../components/CreateProfilePages/editProfile/editProfileForm';
+import useStyles from '../../../../components/CreateProfilePages/styles';
+import PageWithSidebar from '../../../../components/DashboardComponents/PageWithSidebar';
+import { getStudentProfileFromCache } from '../../../../helpers/cacheManagement';
+import { GET_SINGLE_PROFILE_QUERY } from '../../../../graphql/profile/queries';
+import Loader from '../../../../components/Loader';
+import Feedback from '../../../../components/Feedback';
+import CourseForm from '../../../../components/CreateProfilePages/selectCourse/courseForm';
 
 const EditProfile = () => {
   const [profile, setProfile] = React.useState();
@@ -77,7 +77,7 @@ const EditProfile = () => {
         />
       )}
       {profile && (
-        <Page
+        <PageWithSidebar
           title={upperCase(`${profile.user.firstName} ${profile.user.lastName}`)}
         >
           <Grid container spacing={2} justify="center">
@@ -94,7 +94,7 @@ const EditProfile = () => {
               </Paper>
             </Grid>
           </Grid>
-        </Page>
+        </PageWithSidebar>
       )}
     </>
   );
