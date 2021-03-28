@@ -4,17 +4,17 @@ import get from 'lodash/get';
 import { useQuery } from '@apollo/react-hooks';
 import upperCase from 'lodash/upperCase';
 
-import StudentGallery from './studentGallery';
-import Page from '../DashboardComponents/Page';
-import { GET_SINGLE_PROFILE_QUERY } from '../../graphql/profile/queries';
-import Loader from '../Loader';
-import Feedback from '../Feedback';
-import { getDecodedToken, getToken } from '../../helpers/jwt';
+import StudentGallery from '../../../../components/PhotosPages/studentGallery';
+import PageWithSidebar from '../../../../components/DashboardComponents/PageWithSidebar';
+import { GET_SINGLE_PROFILE_QUERY } from '../../../../graphql/profile/queries';
+import Loader from '../../../../components/Loader';
+import Feedback from '../../../../components/Feedback';
+import { getDecodedToken, getToken } from '../../../../helpers/jwt';
 
 const Gallery = () => {
   const [profile, setProfile] = React.useState();
   const router = useRouter();
-  const { id: profileId } = router.query;
+  const { profileId } = router.query;
 
   const user = getDecodedToken(getToken());
 
@@ -43,11 +43,11 @@ const Gallery = () => {
         />
       )}
       {profile && (
-        <Page
+        <PageWithSidebar
           title={upperCase(`${profile.user.firstName} ${profile.user.lastName}`)}
         >
           <StudentGallery singleProfile={profile} currentUser={user} />
-        </Page>
+        </PageWithSidebar>
       )}
     </>
   );
