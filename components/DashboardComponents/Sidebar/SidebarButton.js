@@ -76,7 +76,7 @@ const SidebarButton = ({ field, hideSideBar }) => {
   if (field.component) className = classes.header;
   else if (field.heading) className = classes.heading;
   else if (pathname.includes(field.id)) className = classes.active;
-  else if (pathname === '/dashboard' && field.id === 'stats') className = classes.active;
+  else if (pathname === '/dashboard' && field.id === 'yearbooks') className = classes.active;
 
   const component = field?.component || 'div';
 
