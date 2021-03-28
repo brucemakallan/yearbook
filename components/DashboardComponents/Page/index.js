@@ -8,11 +8,9 @@ import PageContent from './PageContent';
 const Page = ({
   icon,
   title,
-  handleChange,
   children,
   tabLinks,
   whiteBackground,
-  tabValue = 0,
   tabIndex = 0,
 }) => {
   const classes = useStyles();
@@ -22,14 +20,10 @@ const Page = ({
       <PageHeader
         icon={icon}
         title={title}
-        tabValue={tabValue}
-        handleChange={handleChange}
+        tabValue={tabIndex}
         tabLinks={tabLinks}
       />
-      <PageContent
-        tabValue={tabValue}
-        tabIndex={tabIndex}
-      >
+      <PageContent tabValue={tabIndex} tabIndex={tabIndex}>
         {children}
       </PageContent>
     </div>

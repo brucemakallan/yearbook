@@ -28,7 +28,12 @@ if (!firebase.apps.length) {
 }
 
 const PageWithSidebar = ({
-  title, icon, whiteBackground, tabs, children,
+  title,
+  icon,
+  whiteBackground,
+  tabs,
+  children,
+  tabIndex,
 }) => {
   const classes = useStyles();
 
@@ -63,6 +68,7 @@ const PageWithSidebar = ({
           icon={icon}
           title={title}
           tabLinks={tabs}
+          tabIndex={tabIndex}
           whiteBackground={whiteBackground}
           showSideBar={showSideBar}
           handleCollapse={handleCollapse}
