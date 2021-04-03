@@ -1,4 +1,7 @@
 import React from 'react';
+import get from 'lodash/get';
+import { useRouter } from 'next/router';
+
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
@@ -9,6 +12,7 @@ import Button from '@material-ui/core/Button';
 import DecoratedPage from '../components/DecoratedPage';
 import { images } from '../styles/global-theme';
 import CustomNextLink from '../components/CustomNextLink';
+import { getDecodedToken, getToken } from '../helpers/jwt';
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -31,9 +35,20 @@ const useStyles = makeStyles((theme) => ({
 
 const LandingPage = () => {
   const classes = useStyles();
+  const router = useRouter();
+
+  const token = getToken();
+  const currentUser = getDecodedToken(token);
+  const currentUserId = get(currentUser, '_id');
+
+  React.useEffect(() => {
+    if (currentUserId) {
+      router.push('/login');
+    }
+  }, [router, currentUserId]);
 
   return (
-    <DecoratedPage>
+    <DecoratedPage loading={!!currentUserId} loadingText="Verifying your credentials">
       <Card className={classes.card}>
         <CardContent className={classes.content}>
           <img className={classes.logo} src={images.logo} alt="yearbook" />

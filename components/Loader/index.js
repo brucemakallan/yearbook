@@ -1,6 +1,9 @@
 import React from 'react';
 
 import { makeStyles } from '@material-ui/core/styles';
+import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
+
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 const useStyles = makeStyles((theme) => ({
@@ -20,12 +23,21 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Loader = ({ showInline }) => {
+const Loader = ({ showInline, loadingText }) => {
   const classes = useStyles();
 
   return (
     <div className={showInline ? '' : classes.loader}>
-      <CircularProgress className={classes.progress} />
+      <Grid container spacing={2} justify="center" alignItems="center">
+        <Grid item>
+          <CircularProgress className={classes.progress} />
+        </Grid>
+        {!!loadingText && (
+          <Grid item>
+            <Typography variant="body2">{loadingText}</Typography>
+          </Grid>
+        )}
+      </Grid>
     </div>
   );
 };
