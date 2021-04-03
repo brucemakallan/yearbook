@@ -57,18 +57,24 @@ const LoginForm = () => {
   const [oAuthLogin, oAuthLoginResponse] = useMutation(O_AUTH_LOGIN_MUTATION);
 
   React.useEffect(() => {
-    if (!getSingleProfile.called && userId) {
+    if (userId && !getSingleProfile.loading && !getSingleProfile?.data?.singleProfile?.id) {
       executeGetProfileQuery();
     }
 
-    if (get(getSingleProfile, 'data.singleProfile.course.id')) {
+    if (getSingleProfile?.data?.singleProfile?.course?.id) {
       router.push('/dashboard');
     } else if (loginResponse?.data || oAuthLoginResponse?.data) {
       const loginToken = loginResponse?.data?.login?.token || oAuthLoginResponse?.data?.oAuthLogin?.token;
       setToken(loginToken);
       router.push('/create-profile');
     }
-  }, [loginResponse, oAuthLoginResponse, getSingleProfile, router, executeGetProfileQuery, userId]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [
+    loginResponse.data,
+    oAuthLoginResponse.data,
+    getSingleProfile.data?.singleProfile,
+    userId,
+  ]);
 
   const handleGoogleAuthResponse = async (response) => {
     try {
