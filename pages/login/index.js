@@ -64,7 +64,7 @@ const LoginForm = () => {
     if (get(getSingleProfile, 'data.singleProfile.course.id')) {
       router.push('/dashboard');
     } else if (loginResponse?.data || oAuthLoginResponse?.data) {
-      const loginToken = loginResponse?.data?.login?.token || oAuthLoginResponse?.data?.login?.token;
+      const loginToken = loginResponse?.data?.login?.token || oAuthLoginResponse?.data?.oAuthLogin?.token;
       setToken(loginToken);
       router.push('/create-profile');
     }
