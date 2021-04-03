@@ -114,7 +114,7 @@ const StudentsPage = ({
 
   const onRowClick = (rowData, _rowMeta) => {
     const id = rowData[0];
-    router.push(`/dashboard/students/${id}`);
+    router.push(`/dashboard/profile/${id}`);
   };
 
   return (

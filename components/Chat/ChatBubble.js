@@ -54,7 +54,7 @@ const ChatBubble = ({ sender, message, fromMe = false }) => {
   return (
     <div className={classes.bubbleContainer}>
       <div className={classes.bubble}>
-        <CustomNextLink href={`/dashboard/students/${sender.id}`}>
+        <CustomNextLink href={`/dashboard/profile/${sender.id}`}>
           <Typography
             variant="body1"
             color="secondary"
