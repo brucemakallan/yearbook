@@ -18,6 +18,7 @@ import { GET_SINGLE_PROFILE_QUERY } from '../../graphql/profile/queries';
 import CustomNextLink from '../../components/CustomNextLink';
 import GoogleAuth from '../../components/GoogleAuth';
 import QueryAlert from '../../components/QueryAlert/index';
+import Separator from '../../components/Separator';
 import {
   setToken, getToken, getDecodedToken,
 } from '../../helpers/jwt';
@@ -130,6 +131,7 @@ const LoginForm = () => {
           <Collapse in={!loginResponse.loading || !oAuthLoginResponse.loading}>
             <MainHeading text="Login" />
             <GoogleAuth responseGoogle={handleGoogleAuthResponse} />
+            <Separator />
             <Formik
               initialValues={initialFormValues}
               validationSchema={loginValidation}

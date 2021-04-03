@@ -9,14 +9,15 @@ import Typography from '@material-ui/core/Typography';
 import Collapse from '@material-ui/core/Collapse';
 
 import { signupValidation } from '../../components/UserPages/userValidation';
-import Loader from '../../components/Loader';
-import Feedback from '../../components/Feedback';
 import MainHeading from '../../components/MainHeading';
 import renderInputWrapper from '../../helpers/formHelpers';
-import { SIGN_UP_MUTATION } from '../../graphql/user/mutations';
+import { O_AUTH_LOGIN_MUTATION, SIGN_UP_MUTATION } from '../../graphql/user/mutations';
 import DecoratedPage from '../../components/DecoratedPage';
 import { setToken } from '../../helpers/jwt';
 import CustomNextLink from '../../components/CustomNextLink';
+import QueryAlert from '../../components/QueryAlert';
+import GoogleAuth from '../../components/GoogleAuth';
+import Separator from '../../components/Separator';
 
 const formInputFields = [
   {
@@ -46,13 +47,38 @@ const SignupForm = () => {
   const router = useRouter();
 
   const handleOnCompleted = (data) => {
-    setToken(data.signup.token);
+    const token = data?.signup?.token || data?.oAuthLogin?.token;
+    setToken(token);
     router.push('/create-profile');
   };
 
-  const [signup, { error, loading, data }] = useMutation(SIGN_UP_MUTATION, {
+  const [signup, signupResponse] = useMutation(SIGN_UP_MUTATION, {
     onCompleted: handleOnCompleted,
   });
+
+  const [oAuthLogin, oAuthLoginResponse] = useMutation(O_AUTH_LOGIN_MUTATION, {
+    onCompleted: handleOnCompleted,
+  });
+
+  const handleGoogleAuthResponse = async (response) => {
+    try {
+      if (response.profileObj) {
+        const { email, givenName, familyName } = response.profileObj;
+
+        await oAuthLogin({
+          variables: {
+            loginUser: {
+              email,
+              firstName: givenName,
+              lastName: familyName,
+            },
+          },
+        });
+      }
+    } catch (err) {
+      return err;
+    }
+  };
 
   const handleSubmit = async (signupUser) => {
     try {
@@ -71,30 +97,21 @@ const SignupForm = () => {
       pageTitle="Register"
       pageDescription="Don't have an account? Register here"
     >
-      {loading && <Loader />}
-      { error && (
-        <Feedback
-          open={!!error}
-          feedbackMessage={error}
-          severity='error'
-          type='error'
-        />
-      )}
-      {data && (
-        <Feedback
-          open={!!data}
-          feedbackMessage='User successfully registered'
-          severity='success'
-          type='success'
-        />
-      )}
+      <QueryAlert
+        loading={signupResponse.loading || oAuthLoginResponse.loading}
+        error={signupResponse.error || oAuthLoginResponse.error}
+        data={signupResponse.data || oAuthLoginResponse.data}
+        successMessage="User successfully registered"
+      />
       <Grid container justify="center" alignContent="center">
         <Grid item xs={11} sm={6} md={4} lg={3}>
-          <Collapse in={!loading}>
+          <Collapse in={!signupResponse.loading || !oAuthLoginResponse.loading}>
             <MainHeading text="Register" />
-            <Typography component='p' align="center">
-              Register for a trip down memory lane.
-            </Typography>
+            <GoogleAuth
+              buttonText="Register with Google"
+              responseGoogle={handleGoogleAuthResponse}
+            />
+            <Separator />
             <Formik
               initialValues={initialFormValues}
               validationSchema={ signupValidation }
