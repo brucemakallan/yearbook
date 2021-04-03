@@ -20,6 +20,15 @@ export const LOGIN_MUTATION = gql`
   ${AuthFragment}
 `;
 
+export const O_AUTH_LOGIN_MUTATION = gql`
+  mutation OAuthLogin($loginUser: AuthLoginUserInput!) {
+    oAuthLogin(loginUser: $loginUser) {
+      ...AuthFragment
+    }
+  }
+  ${AuthFragment}
+`;
+
 export const RESET_PASSWORD_MUTATION = gql`
   mutation ResetPassword($resetPasswordParams: ResetPasswordInput!) {
     resetPassword(resetPasswordParams: $resetPasswordParams) {

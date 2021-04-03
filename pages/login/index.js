@@ -2,7 +2,7 @@ import React from 'react';
 import get from 'lodash/get';
 import { Formik, Form } from 'formik';
 import { useRouter } from 'next/router';
-import { useQuery, useMutation } from '@apollo/react-hooks';
+import { useLazyQuery, useMutation } from '@apollo/react-hooks';
 
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
@@ -10,14 +10,14 @@ import Typography from '@material-ui/core/Typography';
 import Collapse from '@material-ui/core/Collapse';
 
 import { loginValidation } from '../../components/UserPages/userValidation';
-import Loader from '../../components/Loader';
-import Feedback from '../../components/Feedback';
 import MainHeading from '../../components/MainHeading';
 import DecoratedPage from '../../components/DecoratedPage';
 import renderInputWrapper from '../../helpers/formHelpers';
-import { LOGIN_MUTATION } from '../../graphql/user/mutations';
+import { LOGIN_MUTATION, O_AUTH_LOGIN_MUTATION } from '../../graphql/user/mutations';
 import { GET_SINGLE_PROFILE_QUERY } from '../../graphql/profile/queries';
 import CustomNextLink from '../../components/CustomNextLink';
+import GoogleAuth from '../../components/GoogleAuth';
+import QueryAlert from '../../components/QueryAlert/index';
 import {
   setToken, getToken, getDecodedToken,
 } from '../../helpers/jwt';
@@ -42,25 +42,53 @@ const LoginForm = () => {
   const router = useRouter();
 
   const user = getDecodedToken(getToken());
+  const userId = get(user, '_id');
 
-  const getSingleProfile = useQuery(GET_SINGLE_PROFILE_QUERY, {
+  const [executeGetProfileQuery, getSingleProfile] = useLazyQuery(GET_SINGLE_PROFILE_QUERY, {
     variables: {
       searchParams: {
-        userId: get(user, '_id'),
+        userId,
       },
     },
   });
 
-  const [login, { error, loading, data }] = useMutation(LOGIN_MUTATION);
+  const [login, loginResponse] = useMutation(LOGIN_MUTATION);
+
+  const [oAuthLogin, oAuthLoginResponse] = useMutation(O_AUTH_LOGIN_MUTATION);
 
   React.useEffect(() => {
+    if (!getSingleProfile.called && userId) {
+      executeGetProfileQuery();
+    }
+
     if (get(getSingleProfile, 'data.singleProfile.course.id')) {
       router.push('/dashboard');
-    } else if (data) {
-      setToken(data.login.token);
+    } else if (loginResponse?.data || oAuthLoginResponse?.data) {
+      const loginToken = loginResponse?.data?.login?.token || oAuthLoginResponse?.data?.login?.token;
+      setToken(loginToken);
       router.push('/create-profile');
     }
-  }, [data, getSingleProfile, router]);
+  }, [loginResponse, oAuthLoginResponse, getSingleProfile, router, executeGetProfileQuery, userId]);
+
+  const handleGoogleAuthResponse = async (response) => {
+    try {
+      if (response.profileObj) {
+        const { email, givenName, familyName } = response.profileObj;
+
+        await oAuthLogin({
+          variables: {
+            loginUser: {
+              email,
+              firstName: givenName,
+              lastName: familyName,
+            },
+          },
+        });
+      }
+    } catch (err) {
+      return err;
+    }
+  };
 
   const handleSubmit = async (loginUser) => {
     try {
@@ -74,35 +102,28 @@ const LoginForm = () => {
     }
   };
 
-  if (getSingleProfile.loading) return <Loader />;
+  const loading = getSingleProfile.loading || loginResponse.loading || oAuthLoginResponse.loading;
+  const error = loginResponse.error || oAuthLoginResponse.error;
+  const data = loginResponse.data || oAuthLoginResponse.data;
 
   return (
     <DecoratedPage
       hide={get(getSingleProfile, 'data.singleProfile.course.id')}
       pageTitle="Login"
       pageDescription="Already one of us? Login here"
+      loading={getSingleProfile.loading} // hides the content
     >
-      {loading && <Loader />}
-      {error && (
-        <Feedback
-          open={!!error}
-          feedbackMessage={error}
-          severity='error'
-          type='error'
-        />
-      )}
-      {data && (
-        <Feedback
-          open={!!data}
-          feedbackMessage='User successfully logged in'
-          severity='success'
-          type='success'
-        />
-      )}
+      <QueryAlert
+        loading={loading}
+        error={error}
+        data={data}
+        successMessage="User successfully logged in"
+      />
       <Grid container justify="center" alignContent="center">
         <Grid item xs={11} sm={6} md={4} lg={3}>
-          <Collapse in={!loading}>
+          <Collapse in={!loginResponse.loading || !oAuthLoginResponse.loading}>
             <MainHeading text="Login" />
+            <GoogleAuth responseGoogle={handleGoogleAuthResponse} />
             <Formik
               initialValues={initialFormValues}
               validationSchema={loginValidation}
