@@ -5,18 +5,6 @@
 [Getting Started Guide](https://docs.google.com/document/d/15jxTxcmrDgOR-ugsbI_UQipO8nbFPjx1nQhVdEMiqsc/edit?ts=5e9ed17d)
 NB: You'll need access from Admin
 
-#### Repositories
-
-Backend: https://github.com/emukungu/yearbook-backend
-
-Frontend: https://github.com/emukungu/yearbook-frontend
-
-#### Heroku Apps
-
-Backend: https://yearbook-backend.herokuapp.com/graphql
-
-Frontend: https://yearbook-frontend.herokuapp.com
-
 #### Technologies used
 
 - Next JS
@@ -36,13 +24,13 @@ Frontend: https://yearbook-frontend.herokuapp.com
 
 ```
 $ git clone https://github.com/brucemakallan/yearbook.git
-$ cd yearbook-next
+$ cd yearbook
 $ yarn install
 ```
 
 #### Backend
 
-This application consumes an API which can be found [here](https://github.com/emukungu/yearbook-backend)
+This application consumes an API which can be found [here](https://github.com/brucemakallan/yearbook-backend)
 
 #### Running the application locally
 
