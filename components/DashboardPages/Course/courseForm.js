@@ -17,25 +17,6 @@ import { CREATE_COURSE_MUTATION, UPDATE_COURSE_MUTATION } from '../../../graphql
 import { GET_ALL_COURSES_IN_DEPARTMENT_QUERY, GET_ALL_COURSES_QUERY } from '../../../graphql/course/queries';
 import useStyles from './styles';
 
-const updateAllCoursesCache = (departmentId) => (store, { data: { createCourse } }) => {
-  const { allCoursesInDepartment } = store.readQuery({
-    query: GET_ALL_COURSES_IN_DEPARTMENT_QUERY,
-    variables: {
-      departmentId,
-    },
-  });
-
-  store.writeQuery({
-    query: GET_ALL_COURSES_IN_DEPARTMENT_QUERY,
-    variables: {
-      departmentId,
-    },
-    data: {
-      allCoursesInDepartment: [...allCoursesInDepartment, createCourse],
-    },
-  });
-};
-
 const formInputFields = [
   {
     id: 'name',
@@ -88,7 +69,12 @@ const CourseForm = ({
             departmentId: departmentId || get(currentDepartment, 'id'),
           },
         },
-        update: updateAllCoursesCache(departmentId),
+        refetchQueries: [{
+          query: GET_ALL_COURSES_IN_DEPARTMENT_QUERY,
+          variables: {
+            departmentId: departmentId || currentDepartment?.id,
+          },
+        }],
       };
       const updateCourseArgs = {
         variables: {

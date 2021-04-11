@@ -23,25 +23,6 @@ import {
   UPDATE_DEPARTMENT_MUTATION,
 } from '../../../graphql/department/mutations';
 
-const updateAllDepartmentsCache = (universityId) => (store, { data: { createDepartment } }) => {
-  const { allDepartmentsInUniversity } = store.readQuery({
-    query: GET_ALL_DEPARTMENTS_IN_UNIVERSITY_QUERY,
-    variables: {
-      universityId,
-    },
-  });
-
-  store.writeQuery({
-    query: GET_ALL_DEPARTMENTS_IN_UNIVERSITY_QUERY,
-    variables: {
-      universityId,
-    },
-    data: {
-      allDepartmentsInUniversity: [...allDepartmentsInUniversity, createDepartment],
-    },
-  });
-};
-
 const formInputFields = [
   {
     id: 'name',
@@ -94,7 +75,12 @@ const DepartmentForm = ({
             universityId: universityId || get(currentUniversity, 'id'),
           },
         },
-        update: updateAllDepartmentsCache(universityId),
+        refetchQueries: [{
+          query: GET_ALL_DEPARTMENTS_IN_UNIVERSITY_QUERY,
+          variables: {
+            universityId: universityId || currentUniversity?.id,
+          },
+        }],
       };
       const updateDepartmentArgs = {
         variables: {

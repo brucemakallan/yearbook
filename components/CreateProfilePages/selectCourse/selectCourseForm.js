@@ -16,9 +16,6 @@ import {
   setDepartmentsInUniversity,
   setCoursesInDepartment,
   setCourseValuesFromURL,
-  addToUniversities,
-  addToDepartments,
-  addToCourses,
 } from '../../../helpers/formHelpers';
 
 const SelectCourseForm = ({ classes, profile, editCourseValues }) => {
@@ -151,14 +148,11 @@ const SelectCourseForm = ({ classes, profile, editCourseValues }) => {
       const typename = String(entityCreated?.__typename).toLowerCase();
 
       if (typename === 'university') {
-        const newUniversitiesList = addToUniversities(universities, entityCreated);
-        setUniversities(newUniversitiesList);
+        setUniversities([...universities, entityCreated]);
       } else if (typename === 'department') {
-        const newDepartmentsList = addToDepartments(departments, entityCreated);
-        setDepartments(newDepartmentsList);
+        setDepartments([...departments, entityCreated]);
       } else if (typename === 'course') {
-        const newCoursesList = addToCourses(courses, entityCreated);
-        setCourses(newCoursesList);
+        setCourses([...courses, entityCreated]);
       }
 
       const event = {
