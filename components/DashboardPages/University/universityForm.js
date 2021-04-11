@@ -1,9 +1,7 @@
 import React from 'react';
 import get from 'lodash/get';
-import noop from 'lodash/noop';
 import { Formik, Form } from 'formik';
 import { useMutation } from '@apollo/react-hooks';
-import { useRouter } from 'next/router';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
@@ -11,7 +9,7 @@ import Button from '@material-ui/core/Button';
 import universityValidation from './validation';
 import Loader from '../../Loader';
 import Feedback from '../../Feedback';
-import renderInputWrapper, { setQueryVariable } from '../../../helpers/formHelpers';
+import renderInputWrapper from '../../../helpers/formHelpers';
 import useStyles from './styles';
 import { GET_ALL_UNIVERSITIES_QUERY } from '../../../graphql/university/queries';
 import {
@@ -43,28 +41,29 @@ const initialValues = {
   name: '',
 };
 
-const UniversityForm = ({ university, fullWidth, isDialog }) => {
-  const classes = useStyles();
+const refetchQueries = [{
+  query: GET_ALL_UNIVERSITIES_QUERY,
+}];
 
-  const router = useRouter();
+const UniversityForm = ({ university, fullWidth, handleOnCompleted }) => {
+  const classes = useStyles();
 
   const [values, setValues] = React.useState(initialValues);
 
-  const [createUniversity, createUniversityResponse] = useMutation(CREATE_UNIVERSITY_MUTATION);
-  const [updateUniversity, updateUniversityResponse] = useMutation(UPDATE_UNIVERSITY_MUTATION);
+  const [createUniversity, createUniversityResponse] = useMutation(CREATE_UNIVERSITY_MUTATION, {
+    onCompleted: handleOnCompleted,
+    refetchQueries,
+  });
+  const [updateUniversity, updateUniversityResponse] = useMutation(UPDATE_UNIVERSITY_MUTATION, {
+    onCompleted: handleOnCompleted,
+    refetchQueries,
+  });
 
   React.useEffect(() => {
-    const universityId = (
-      get(updateUniversityResponse, 'data.updateUniversity.id')
-      || get(createUniversityResponse, 'data.createUniversity.id')
-    );
-
-    if (university) setValues(university);
-    if (universityId && !isDialog) router.back();
-    if (universityId && isDialog) {
-      setQueryVariable(router, universityId);
+    if (university) {
+      setValues(university);
     }
-  }, [createUniversityResponse, isDialog, university, updateUniversityResponse, router]);
+  }, [university]);
 
   const handleSubmit = async ({ name }) => {
     try {
@@ -72,7 +71,7 @@ const UniversityForm = ({ university, fullWidth, isDialog }) => {
         variables: {
           universityName: name,
         },
-        update: isDialog ? noop : updateAllUniversitiesCache,
+        update: updateAllUniversitiesCache,
       };
       const updateUniversityArgs = {
         variables: {

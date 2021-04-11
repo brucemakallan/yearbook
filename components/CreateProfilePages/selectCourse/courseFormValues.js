@@ -22,6 +22,7 @@ export const initialValues = {
 
 export const formInputFields = ({
   handleChange,
+  handleOnCompleted,
   universities,
   departments,
   courses,
@@ -44,7 +45,10 @@ export const formInputFields = ({
       isEditing,
       actionButton: (
         <AddEntityDialogButton title="Create University">
-          <UniversityForm isDialog fullWidth />
+          <UniversityForm
+            handleOnCompleted={handleOnCompleted}
+            fullWidth
+          />
         </AddEntityDialogButton>
       ),
     },
@@ -59,7 +63,11 @@ export const formInputFields = ({
       isEditing,
       actionButton: (
         <AddEntityDialogButton title="Create Department" disabled={!get(currentUniversity, 'id')}>
-          <DepartmentForm currentUniversity={currentUniversity} isDialog fullWidth />
+          <DepartmentForm
+            currentUniversity={currentUniversity}
+            handleOnCompleted={handleOnCompleted}
+            fullWidth
+          />
         </AddEntityDialogButton>
       ),
     },
@@ -77,7 +85,11 @@ export const formInputFields = ({
           title="Create Course"
           disabled={!get(currentUniversity, 'id') || !get(currentDepartment, 'id')}
         >
-          <CourseForm currentDepartment={currentDepartment} isDialog fullWidth />
+          <CourseForm
+            currentDepartment={currentDepartment}
+            handleOnCompleted={handleOnCompleted}
+            fullWidth
+          />
         </AddEntityDialogButton>
       ),
     },

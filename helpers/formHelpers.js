@@ -80,9 +80,4 @@ export const setCourseValuesFromURL = (router, universities = [], departments = 
   });
 };
 
-export const setQueryVariable = (router, universityId = '', departmentId = '', courseId = '') => {
-  router.push(`?u=${universityId}&d=${departmentId}&c=${courseId}`);
-  router.reload();
-};
-
 export default renderInputWrapper;

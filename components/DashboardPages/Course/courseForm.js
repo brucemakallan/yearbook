@@ -1,6 +1,5 @@
 import React from 'react';
 import get from 'lodash/get';
-import noop from 'lodash/noop';
 import upperCase from 'lodash/upperCase';
 import { Formik, Form } from 'formik';
 import { useMutation } from '@apollo/react-hooks';
@@ -13,7 +12,7 @@ import Typography from '@material-ui/core/Typography';
 import courseValidation from './validation';
 import Loader from '../../Loader';
 import Feedback from '../../Feedback';
-import renderInputWrapper, { setQueryVariable } from '../../../helpers/formHelpers';
+import renderInputWrapper from '../../../helpers/formHelpers';
 import { CREATE_COURSE_MUTATION, UPDATE_COURSE_MUTATION } from '../../../graphql/course/mutations';
 import { GET_ALL_COURSES_IN_DEPARTMENT_QUERY } from '../../../graphql/course/queries';
 import useStyles from './styles';
@@ -52,7 +51,7 @@ const CourseForm = ({
   course,
   currentDepartment,
   fullWidth,
-  isDialog,
+  handleOnCompleted,
 }) => {
   const classes = useStyles();
 
@@ -61,21 +60,27 @@ const CourseForm = ({
 
   const [values, setValues] = React.useState(initialValues);
 
-  const [createCourse, createCourseResponse] = useMutation(CREATE_COURSE_MUTATION);
-  const [updateCourse, updateCourseResponse] = useMutation(UPDATE_COURSE_MUTATION);
+  const refetchQueries = [{
+    query: GET_ALL_COURSES_IN_DEPARTMENT_QUERY,
+    variables: {
+      departmentId: departmentId || currentDepartment?.id,
+    },
+  }];
+
+  const [createCourse, createCourseResponse] = useMutation(CREATE_COURSE_MUTATION, {
+    onCompleted: handleOnCompleted,
+    refetchQueries,
+  });
+  const [updateCourse, updateCourseResponse] = useMutation(UPDATE_COURSE_MUTATION, {
+    onCompleted: handleOnCompleted,
+    refetchQueries,
+  });
 
   React.useEffect(() => {
-    const courseId = (
-      get(updateCourseResponse, 'data.updateCourse.id')
-      || get(createCourseResponse, 'data.createCourse.id')
-    );
-
-    if (course) setValues(course);
-    if (courseId && !isDialog) router.back();
-    if (courseId && isDialog) {
-      setQueryVariable(router, currentDepartment?.university?.id, currentDepartment?.id, courseId);
+    if (course) {
+      setValues(course);
     }
-  }, [course, createCourseResponse, currentDepartment, isDialog, updateCourseResponse, router]);
+  }, [course]);
 
   const handleSubmit = async ({ name }) => {
     try {
@@ -86,7 +91,7 @@ const CourseForm = ({
             departmentId: departmentId || get(currentDepartment, 'id'),
           },
         },
-        update: isDialog ? noop : updateAllCoursesCache(departmentId),
+        update: updateAllCoursesCache(departmentId),
       };
       const updateCourseArgs = {
         variables: {

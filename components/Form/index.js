@@ -93,7 +93,7 @@ const InputWrapper = ({ field }) => {
       };
 
     formikField = (
-      <Grid container alignItems="flex-end">
+      <Grid container spacing={1} alignItems="flex-end">
         <Grid item xs={grid.xs} sm={grid.sm} md={grid.md} lg={grid.lg}>
           <Field
             as={componentType}
@@ -108,7 +108,7 @@ const InputWrapper = ({ field }) => {
           />
         </Grid>
         {!isEditing && (
-          <Grid item xs={2} sm={1} md={1} lg={1}>
+          <Grid item xs={12 - grid.xs} sm={12 - grid.sm} md={12 - grid.md} lg={12 - grid.lg}>
             {actionButton}
           </Grid>
         )}

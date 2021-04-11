@@ -27,6 +27,7 @@ const CourseFormLayout = ({
   isEditing,
   handleSubmit,
   handleChange,
+  handleOnCompleted,
 }) => {
   if (fetchError) {
     return (
@@ -79,6 +80,7 @@ const CourseFormLayout = ({
           {
             formInputFields({
               handleChange,
+              handleOnCompleted,
               universities,
               departments,
               courses,

@@ -120,7 +120,7 @@ const CourseForm = ({ classes, profile, editCourseValues }) => {
     values,
   ]);
 
-  // e.g. autocompleteValue {value: "123", label: "NYC"}
+  // e.g. autocompleteValue {value: "<ID>", label: "NYC"}
   const handleChange = (e, autocompleteValue) => {
     const { id } = e.target;
     const { allDepartments } = getAllDepartments.data;
@@ -134,6 +134,40 @@ const CourseForm = ({ classes, profile, editCourseValues }) => {
       changeCourse(autocompleteValue);
     } else if (id.includes('year')) {
       changeYear(autocompleteValue);
+    }
+  };
+
+  const handleOnCompleted = (onCompletedData) => { // After creating via dialog
+    if (onCompletedData) {
+      const createdUniversity = onCompletedData?.createUniversity;
+      const createdDepartment = onCompletedData?.createDepartment;
+      const createdCourse = onCompletedData?.createCourse;
+
+      const entityCreated = createdUniversity || createdDepartment || createdCourse;
+
+      setUniversities([
+        ...universities,
+        {
+          id: entityCreated?.id,
+          name: entityCreated?.name,
+          user: {
+            id: entityCreated?.user.id,
+          },
+        },
+      ]);
+
+      const event = {
+        target: {
+          // eslint-disable-next-line no-underscore-dangle
+          id: String(entityCreated?.__typename).toLowerCase(),
+        },
+      };
+      const val = {
+        value: entityCreated?.id,
+        label: entityCreated?.name,
+      };
+
+      handleChange(event, val);
     }
   };
 
@@ -184,6 +218,7 @@ const CourseForm = ({ classes, profile, editCourseValues }) => {
       isEditing={!!editCourseValues}
       handleSubmit={handleSubmit}
       handleChange={handleChange}
+      handleOnCompleted={handleOnCompleted}
     />
   );
 };

@@ -1,13 +1,21 @@
 import React from 'react';
 
-import Grid from '@material-ui/core/Grid';
+import { makeStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Dialog from '@material-ui/core/Dialog';
 import AddIcon from '@material-ui/icons/Add';
 
+const useStyles = makeStyles((theme) => ({
+  iconButton: {
+    padding: theme.spacing(0.5),
+  },
+}));
+
 // TIP: Takes a form e.g AddUniversityForm as a child
 const AddEntityDialogButton = ({ children, title, disabled }) => {
+  const classes = useStyles();
+
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -24,17 +32,15 @@ const AddEntityDialogButton = ({ children, title, disabled }) => {
         <DialogTitle>{title}</DialogTitle>
         {children}
       </Dialog>
-      <Grid container spacing={2}>
-        <IconButton
-          color="secondary"
-          component="span"
-          aria-label="add university"
-          onClick={handleClickOpen}
-          disabled={disabled}
-        >
-          <AddIcon />
-        </IconButton>
-      </Grid>
+      <IconButton
+        color="secondary"
+        aria-label="add university"
+        onClick={handleClickOpen}
+        disabled={disabled}
+        className={classes.iconButton}
+      >
+        <AddIcon />
+      </IconButton>
     </>
   );
 };

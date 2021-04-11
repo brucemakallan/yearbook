@@ -1,6 +1,5 @@
 import React from 'react';
 import get from 'lodash/get';
-import noop from 'lodash/noop';
 import upperCase from 'lodash/upperCase';
 import { Formik, Form } from 'formik';
 import { useMutation } from '@apollo/react-hooks';
@@ -13,7 +12,7 @@ import Typography from '@material-ui/core/Typography';
 import departmentValidation from './validation';
 import Loader from '../../Loader';
 import Feedback from '../../Feedback';
-import renderInputWrapper, { setQueryVariable } from '../../../helpers/formHelpers';
+import renderInputWrapper from '../../../helpers/formHelpers';
 import useStyles from './styles';
 import { GET_ALL_DEPARTMENTS_IN_UNIVERSITY_QUERY } from '../../../graphql/department/queries';
 import {
@@ -55,7 +54,7 @@ const DepartmentForm = ({
   department,
   currentUniversity,
   fullWidth,
-  isDialog,
+  handleOnCompleted,
 }) => {
   const classes = useStyles();
 
@@ -64,21 +63,27 @@ const DepartmentForm = ({
 
   const [values, setValues] = React.useState(initialValues);
 
-  const [createDepartment, createDepartmentResponse] = useMutation(CREATE_DEPARTMENT_MUTATION);
-  const [updateDepartment, updateDepartmentResponse] = useMutation(UPDATE_DEPARTMENT_MUTATION);
+  const refetchQueries = [{
+    query: GET_ALL_DEPARTMENTS_IN_UNIVERSITY_QUERY,
+    variables: {
+      universityId: universityId || currentUniversity?.id,
+    },
+  }];
+
+  const [createDepartment, createDepartmentResponse] = useMutation(CREATE_DEPARTMENT_MUTATION, {
+    onCompleted: handleOnCompleted,
+    refetchQueries,
+  });
+  const [updateDepartment, updateDepartmentResponse] = useMutation(UPDATE_DEPARTMENT_MUTATION, {
+    onCompleted: handleOnCompleted,
+    refetchQueries,
+  });
 
   React.useEffect(() => {
-    const departmentId = (
-      get(updateDepartmentResponse, 'data.updateDepartment.id')
-      || get(createDepartmentResponse, 'data.createDepartment.id')
-    );
-
-    if (department) setValues(department);
-    if (departmentId && !isDialog) router.back();
-    if (departmentId && isDialog) {
-      setQueryVariable(router, currentUniversity?.id, departmentId);
+    if (department) {
+      setValues(department);
     }
-  }, [createDepartmentResponse, department, updateDepartmentResponse, isDialog, currentUniversity, router]);
+  }, [department]);
 
   const handleSubmit = async ({ name }) => {
     try {
@@ -89,7 +94,7 @@ const DepartmentForm = ({
             universityId: universityId || get(currentUniversity, 'id'),
           },
         },
-        update: isDialog ? noop : updateAllDepartmentsCache(universityId),
+        update: updateAllDepartmentsCache(universityId),
       };
       const updateDepartmentArgs = {
         variables: {
