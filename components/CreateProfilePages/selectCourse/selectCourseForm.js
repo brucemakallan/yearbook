@@ -88,6 +88,8 @@ const SelectCourseForm = ({ classes, profile, editCourseValues }) => {
     });
   };
 
+  // TODO: Fix auto repolutate departments after creating a department then changing a university
+
   // e.g. autocompleteValue {value: "<ID>", label: "NYC"}
   const handleChange = (e, autocompleteValue) => {
     const { id } = e.target;
