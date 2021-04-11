@@ -10,7 +10,7 @@ import useStyles from '../../components/CreateProfilePages/styles';
 import DecoratedPage from '../../components/DecoratedPage';
 import CustomStepper from '../../components/CustomStepper';
 import ProfileForm from '../../components/CreateProfilePages/createProfile/profileForm';
-import CourseForm from '../../components/CreateProfilePages/selectCourse/courseForm';
+import SelectCourseForm from '../../components/CreateProfilePages/selectCourse/selectCourseForm';
 import { GET_SINGLE_PROFILE_QUERY } from '../../graphql/profile/queries';
 import Loader from '../../components/Loader';
 import Feedback from '../../components/Feedback';
@@ -77,7 +77,9 @@ const ProfileAndCourseStepper = () => {
           <Paper className={classes.paper} elevation={7}>
             <CustomStepper steps={steps} activeStep={activeStep} />
             {activeStep === 0 && <ProfileForm classes={classes} setProfile={setProfile} />}
-            {activeStep === 1 && get(profile, 'id') && <CourseForm classes={classes} profile={profile} />}
+            {activeStep === 1 && get(profile, 'id') && (
+              <SelectCourseForm classes={classes} profile={profile} />
+            )}
           </Paper>
         </Grid>
       </Grid>

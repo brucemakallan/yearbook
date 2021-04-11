@@ -8,10 +8,10 @@ import Loader from '../../Loader';
 import Feedback from '../../Feedback';
 import renderInputWrapper from '../../../helpers/formHelpers';
 import CustomAlert from '../../CustomAlert';
-import { formInputFields } from './courseFormValues';
+import { formInputFields } from './selectCourseFormValues';
 
 // TIP: Use Layout files to separate Logic from JSX if the logic files is too long
-const CourseFormLayout = ({
+const SelectCourseFormLayout = ({
   classes,
   data,
   error,
@@ -105,4 +105,4 @@ const CourseFormLayout = ({
   );
 };
 
-export default CourseFormLayout;
+export default SelectCourseFormLayout;

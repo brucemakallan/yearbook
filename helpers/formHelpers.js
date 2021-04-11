@@ -80,4 +80,40 @@ export const setCourseValuesFromURL = (router, universities = [], departments = 
   });
 };
 
+export const addToUniversities = (universities, newUniversity) => ([
+  ...universities,
+  {
+    id: newUniversity?.id,
+    name: newUniversity?.name,
+    user: {
+      id: newUniversity?.user.id,
+    },
+  },
+]);
+
+export const addToDepartments = (departments, newDepartment) => ([
+  ...departments,
+  {
+    id: newDepartment?.id,
+    name: newDepartment?.name,
+    university: {
+      id: newDepartment?.university?.id,
+    },
+  },
+]);
+
+export const addToCourses = (courses, newCourse) => ([
+  ...courses,
+  {
+    id: newCourse?.id,
+    name: newCourse?.name,
+    department: {
+      id: newCourse?.department?.id,
+      university: {
+        id: newCourse?.department?.university?.id,
+      },
+    },
+  },
+]);
+
 export default renderInputWrapper;

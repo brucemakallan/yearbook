@@ -7,8 +7,8 @@ import { useRouter } from 'next/router';
 
 import { UPDATE_PROFILE_MUTATION } from '../../../graphql/profile/mutations';
 import { cleanProfile } from '../createProfile/validation';
-import CourseFormLayout from './courseFormLayout';
-import { initialValues } from './courseFormValues';
+import SelectCourseFormLayout from './selectCourseFormLayout';
+import { initialValues } from './selectCourseFormValues';
 import { GET_ALL_UNIVERSITIES_QUERY } from '../../../graphql/university/queries';
 import { GET_ALL_DEPARTMENTS_QUERY } from '../../../graphql/department/queries';
 import { GET_ALL_COURSES_QUERY } from '../../../graphql/course/queries';
@@ -16,9 +16,12 @@ import {
   setDepartmentsInUniversity,
   setCoursesInDepartment,
   setCourseValuesFromURL,
+  addToUniversities,
+  addToDepartments,
+  addToCourses,
 } from '../../../helpers/formHelpers';
 
-const CourseForm = ({ classes, profile, editCourseValues }) => {
+const SelectCourseForm = ({ classes, profile, editCourseValues }) => {
   const router = useRouter();
 
   const [universities, setUniversities] = useState([]);
@@ -144,30 +147,31 @@ const CourseForm = ({ classes, profile, editCourseValues }) => {
       const createdCourse = onCompletedData?.createCourse;
 
       const entityCreated = createdUniversity || createdDepartment || createdCourse;
+      // eslint-disable-next-line no-underscore-dangle
+      const typename = String(entityCreated?.__typename).toLowerCase();
 
-      setUniversities([
-        ...universities,
-        {
-          id: entityCreated?.id,
-          name: entityCreated?.name,
-          user: {
-            id: entityCreated?.user.id,
-          },
-        },
-      ]);
+      if (typename === 'university') {
+        const newUniversitiesList = addToUniversities(universities, entityCreated);
+        setUniversities(newUniversitiesList);
+      } else if (typename === 'department') {
+        const newDepartmentsList = addToDepartments(departments, entityCreated);
+        setDepartments(newDepartmentsList);
+      } else if (typename === 'course') {
+        const newCoursesList = addToCourses(courses, entityCreated);
+        setCourses(newCoursesList);
+      }
 
       const event = {
         target: {
-          // eslint-disable-next-line no-underscore-dangle
-          id: String(entityCreated?.__typename).toLowerCase(),
+          id: typename,
         },
       };
-      const val = {
+      const dropdownValue = {
         value: entityCreated?.id,
         label: entityCreated?.name,
       };
 
-      handleChange(event, val);
+      handleChange(event, dropdownValue);
     }
   };
 
@@ -202,7 +206,7 @@ const CourseForm = ({ classes, profile, editCourseValues }) => {
   const disabled = fetching || fetchError;
 
   return (
-    <CourseFormLayout
+    <SelectCourseFormLayout
       classes={classes}
       data={data}
       error={error}
@@ -223,4 +227,4 @@ const CourseForm = ({ classes, profile, editCourseValues }) => {
   );
 };
 
-export default CourseForm;
+export default SelectCourseForm;

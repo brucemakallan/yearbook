@@ -14,7 +14,10 @@ import Loader from '../../Loader';
 import Feedback from '../../Feedback';
 import renderInputWrapper from '../../../helpers/formHelpers';
 import useStyles from './styles';
-import { GET_ALL_DEPARTMENTS_IN_UNIVERSITY_QUERY } from '../../../graphql/department/queries';
+import {
+  GET_ALL_DEPARTMENTS_IN_UNIVERSITY_QUERY,
+  GET_ALL_DEPARTMENTS_QUERY,
+} from '../../../graphql/department/queries';
 import {
   CREATE_DEPARTMENT_MUTATION,
   UPDATE_DEPARTMENT_MUTATION,
@@ -50,6 +53,10 @@ const initialValues = {
   name: '',
 };
 
+const refetchQueries = [{
+  query: GET_ALL_DEPARTMENTS_QUERY,
+}];
+
 const DepartmentForm = ({
   department,
   currentUniversity,
@@ -62,13 +69,6 @@ const DepartmentForm = ({
   const { universityId } = router.query;
 
   const [values, setValues] = React.useState(initialValues);
-
-  const refetchQueries = [{
-    query: GET_ALL_DEPARTMENTS_IN_UNIVERSITY_QUERY,
-    variables: {
-      universityId: universityId || currentUniversity?.id,
-    },
-  }];
 
   const [createDepartment, createDepartmentResponse] = useMutation(CREATE_DEPARTMENT_MUTATION, {
     onCompleted: handleOnCompleted,

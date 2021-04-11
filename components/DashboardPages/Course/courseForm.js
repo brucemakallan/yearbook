@@ -14,7 +14,7 @@ import Loader from '../../Loader';
 import Feedback from '../../Feedback';
 import renderInputWrapper from '../../../helpers/formHelpers';
 import { CREATE_COURSE_MUTATION, UPDATE_COURSE_MUTATION } from '../../../graphql/course/mutations';
-import { GET_ALL_COURSES_IN_DEPARTMENT_QUERY } from '../../../graphql/course/queries';
+import { GET_ALL_COURSES_IN_DEPARTMENT_QUERY, GET_ALL_COURSES_QUERY } from '../../../graphql/course/queries';
 import useStyles from './styles';
 
 const updateAllCoursesCache = (departmentId) => (store, { data: { createCourse } }) => {
@@ -47,6 +47,10 @@ const initialValues = {
   name: '',
 };
 
+const refetchQueries = [{
+  query: GET_ALL_COURSES_QUERY,
+}];
+
 const CourseForm = ({
   course,
   currentDepartment,
@@ -59,13 +63,6 @@ const CourseForm = ({
   const { departmentId } = router.query;
 
   const [values, setValues] = React.useState(initialValues);
-
-  const refetchQueries = [{
-    query: GET_ALL_COURSES_IN_DEPARTMENT_QUERY,
-    variables: {
-      departmentId: departmentId || currentDepartment?.id,
-    },
-  }];
 
   const [createCourse, createCourseResponse] = useMutation(CREATE_COURSE_MUTATION, {
     onCompleted: handleOnCompleted,
