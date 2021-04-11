@@ -14,7 +14,7 @@ import { getStudentProfileFromCache } from '../../../../helpers/cacheManagement'
 import { GET_SINGLE_PROFILE_QUERY } from '../../../../graphql/profile/queries';
 import Loader from '../../../../components/Loader';
 import Feedback from '../../../../components/Feedback';
-import SelectCourseForm from '../../../../components/CreateProfilePages/selectCourse/selectCourseForm';
+// import SelectCourseForm from '../../../../components/CreateProfilePages/selectCourse/selectCourseForm';
 
 const EditProfile = () => {
   const [profile, setProfile] = React.useState();
@@ -87,7 +87,7 @@ const EditProfile = () => {
                 <EditProfileForm singleProfile={profile}/>
               </Paper>
             </Grid>
-            <Grid item xs={12} sm={12} md={7} lg={7}>
+            {/* <Grid item xs={12} sm={12} md={7} lg={7}>
               <Paper className={classes.paper} elevation={0}>
                 <Typography variant="h5" gutterBottom>Course</Typography>
                 <SelectCourseForm
@@ -96,7 +96,7 @@ const EditProfile = () => {
                   editCourseValues={editCourseValues(profile)}
                 />
               </Paper>
-            </Grid>
+            </Grid> */}
           </Grid>
         </PageWithSidebar>
       )}
