@@ -12,11 +12,7 @@ import { initialValues } from './selectCourseFormValues';
 import { GET_ALL_UNIVERSITIES_QUERY } from '../../../graphql/university/queries';
 import { GET_ALL_DEPARTMENTS_QUERY } from '../../../graphql/department/queries';
 import { GET_ALL_COURSES_QUERY } from '../../../graphql/course/queries';
-import {
-  setDepartmentsInUniversity,
-  setCoursesInDepartment,
-  setCourseValuesFromURL,
-} from '../../../helpers/formHelpers';
+import { setDepartmentsInUniversity, setCoursesInDepartment } from '../../../helpers/formHelpers';
 
 const SelectCourseForm = ({ classes, profile, editCourseValues }) => {
   const router = useRouter();
@@ -91,34 +87,6 @@ const SelectCourseForm = ({ classes, profile, editCourseValues }) => {
       year: autocompleteValue,
     });
   };
-
-  // Load from URL
-  React.useEffect(() => {
-    const allDepartments = get(getAllDepartments, 'data.allDepartments');
-    const allCourses = get(getAllCourses, 'data.allCourses');
-    const vals = setCourseValuesFromURL(router, universities, departments, courses);
-
-    if (allDepartments && allCourses) {
-      if (!values.university?.value && vals.university?.value) {
-        changeUniversity(allDepartments, allCourses, vals.university);
-      }
-      if (!values.department?.value && vals.department?.value) {
-        changeDepartment(allCourses, vals.department);
-      }
-      if (!values.course?.value && vals.course?.value) {
-        changeCourse(vals.course);
-      }
-    }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [
-    courses,
-    departments,
-    getAllCourses,
-    getAllDepartments,
-    router,
-    universities,
-    values,
-  ]);
 
   // e.g. autocompleteValue {value: "<ID>", label: "NYC"}
   const handleChange = (e, autocompleteValue) => {

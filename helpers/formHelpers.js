@@ -55,29 +55,4 @@ export const setCoursesInDepartment = (allCourses, currentDepartment, setCourses
   return coursesInDepartment;
 };
 
-export const setCourseValuesFromURL = (router, universities = [], departments = [], courses = []) => {
-  const queryVariables = qs.parse(router.query, {
-    ignoreQueryPrefix: true,
-  });
-
-  const university = universities.find((uni) => uni.id === get(queryVariables, 'u'));
-  const department = departments.find((dep) => dep.id === get(queryVariables, 'd'));
-  const course = courses.find((crs) => crs.id === get(queryVariables, 'c'));
-
-  return ({
-    university: {
-      value: get(university, 'id'),
-      label: get(university, 'name'),
-    },
-    department: {
-      value: get(department, 'id'),
-      label: get(department, 'name'),
-    },
-    course: {
-      value: get(course, 'id'),
-      label: get(course, 'name'),
-    },
-  });
-};
-
 export default renderInputWrapper;
