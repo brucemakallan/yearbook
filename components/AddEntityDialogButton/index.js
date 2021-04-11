@@ -1,6 +1,8 @@
 import React from 'react';
 
 import { makeStyles } from '@material-ui/core/styles';
+import Grid from '@material-ui/core/Grid';
+import CloseIcon from '@material-ui/icons/Close';
 import IconButton from '@material-ui/core/IconButton';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Dialog from '@material-ui/core/Dialog';
@@ -29,7 +31,21 @@ const AddEntityDialogButton = ({ children, title, disabled }) => {
   return (
     <>
       <Dialog onClose={handleClose} open={open} maxWidth="xs" fullWidth>
-        <DialogTitle>{title}</DialogTitle>
+        <DialogTitle>
+          <Grid container spacing={2} justify="space-between">
+            <Grid item>{title}</Grid>
+            <Grid item>
+              <IconButton
+                color="secondary"
+                aria-label="Close"
+                onClick={handleClose}
+                className={classes.iconButton}
+              >
+                <CloseIcon fontSize="small" />
+              </IconButton>
+            </Grid>
+          </Grid>
+        </DialogTitle>
         {children}
       </Dialog>
       <IconButton
