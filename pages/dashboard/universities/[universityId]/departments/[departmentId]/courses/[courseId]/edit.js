@@ -35,6 +35,10 @@ const EditCourse = () => {
     setCourse(singleCourse);
   }, [getSingleCourse]);
 
+  const handleOnCompleted = () => {
+    router.back();
+  };
+
   return (
     <>
       {getSingleCourse.loading && <Loader />}
@@ -51,7 +55,11 @@ const EditCourse = () => {
           title={currentDepartmentName ? upperCase(currentDepartmentName) : 'COURSE'}
         >
           {currentDepartment && (
-            <CourseForm course={course} currentDepartment={currentDepartment} />
+            <CourseForm
+              course={course}
+              currentDepartment={currentDepartment}
+              handleOnCompleted={handleOnCompleted}
+            />
           )}
         </PageWithSidebar>
       )}

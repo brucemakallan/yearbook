@@ -35,6 +35,10 @@ const EditDepartment = () => {
     setDepartment(singleDepartment);
   }, [getSingleDepartment]);
 
+  const handleOnCompleted = () => {
+    router.back();
+  };
+
   return (
     <>
       {getSingleDepartment.loading && <Loader />}
@@ -51,7 +55,11 @@ const EditDepartment = () => {
           title={currentUniversityName ? upperCase(currentUniversityName) : 'DEPARTMENT'}
         >
           {currentUniversity && (
-            <DepartmentForm department={department} currentUniversity={currentUniversity} />
+            <DepartmentForm
+              department={department}
+              currentUniversity={currentUniversity}
+              handleOnCompleted={handleOnCompleted}
+            />
           )}
         </PageWithSidebar>
       )}

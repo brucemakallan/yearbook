@@ -28,6 +28,10 @@ const EditUniversity = () => {
     setUniversity(singleUniversity);
   }, [getSingleUniversity]);
 
+  const handleOnCompleted = () => {
+    router.back();
+  };
+
   return (
     <>
       {getSingleUniversity.loading && <Loader />}
@@ -41,7 +45,7 @@ const EditUniversity = () => {
       )}
       {university && (
         <PageWithSidebar title={university.name}>
-          <UniversityForm university={university} />
+          <UniversityForm university={university} handleOnCompleted={handleOnCompleted} />
         </PageWithSidebar>
       )}
     </>
