@@ -19,6 +19,10 @@ const CreateCourse = () => {
   const currentDepartment = getCurrentDepartmentFromCache(client, universityId, departmentId);
   const currentDepartmentName = get(currentDepartment, 'name');
 
+  const handleOnCompleted = () => {
+    router.push(`/dashboard/universities/${universityId}/departments/${departmentId}/courses`);
+  };
+
   return (
     currentDepartment ? (
       <PageWithSidebar
@@ -26,7 +30,7 @@ const CreateCourse = () => {
         tabs={tabs(universityId, departmentId)}
         tabIndex={tabIndex}
       >
-        <CourseForm currentDepartment={currentDepartment} />
+        <CourseForm currentDepartment={currentDepartment} handleOnCompleted={handleOnCompleted} />
       </PageWithSidebar>
     ) : ''
   );
