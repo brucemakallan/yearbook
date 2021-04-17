@@ -28,7 +28,7 @@ const AutocompleteField = ({
     onChange={onChange}
     value={value}
     disabled={disabled}
-    getOptionSelected={(option, val) => option.value === val.value}
+    getOptionSelected={(option, val) => option.value === val?.value}
     renderInput={(params) => <TextField {...params} name={id} label={label} variant={variant} />}
     autoHighlight
     renderOption={(option, input) => {

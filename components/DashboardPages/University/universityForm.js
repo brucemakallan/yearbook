@@ -12,6 +12,7 @@ import Feedback from '../../Feedback';
 import renderInputWrapper from '../../../helpers/formHelpers';
 import useStyles from './styles';
 import { initialValues, formInputFields } from './universityFormFields';
+import { institutionTypes } from '../../../helpers/enums';
 import {
   GET_ALL_UNIVERSITIES_QUERY, GET_INSTITUTIONS_BY_CLASSIFICATION_QUERY,
 } from '../../../graphql/university/queries';
@@ -38,7 +39,10 @@ const UniversityForm = ({
 
   React.useEffect(() => {
     if (university) {
-      setValues(university);
+      setValues({
+        ...university,
+        institutionType: institutionTypes.find(({ value }) => value === university?.classification),
+      });
     }
   }, [university]);
 
