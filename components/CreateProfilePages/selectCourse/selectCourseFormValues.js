@@ -13,7 +13,26 @@ const init = {
   label: '',
 };
 
+const institutionTypes = [
+  {
+    value: 'university',
+    label: 'College / University',
+  },
+  {
+    value: 'highSchool',
+    label: 'High School / Middle School / Secondary School',
+  },
+  {
+    value: 'primarySchool',
+    label: 'Elementary School / Primary School',
+  },
+];
+
 export const initialValues = {
+  institutionType: {
+    value: institutionTypes[0].value,
+    label: institutionTypes[0].label,
+  },
   university: init,
   department: init,
   course: init,
@@ -34,6 +53,15 @@ export const formInputFields = ({
   const currentDepartment = departments.find((d) => d.id === get(values, 'department.value'));
 
   return [
+    {
+      id: 'institutionType',
+      label: 'Type of Educational Institution',
+      onChange: handleChange,
+      options: institutionTypes,
+      isEditing,
+      value: values?.institutionType,
+      componentType: AutocompleteField,
+    },
     {
       id: 'university',
       label: 'University',

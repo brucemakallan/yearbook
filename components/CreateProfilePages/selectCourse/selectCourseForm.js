@@ -88,6 +88,13 @@ const SelectCourseForm = ({ classes, profile, editCourseValues }) => {
     });
   };
 
+  const changeInstitution = (autocompleteValue) => {
+    setValues({
+      ...values,
+      institutionType: autocompleteValue,
+    });
+  };
+
   // TODO: Fix auto repolutate departments after creating a department then changing a university
 
   // e.g. autocompleteValue {value: "<ID>", label: "NYC"}
@@ -104,6 +111,8 @@ const SelectCourseForm = ({ classes, profile, editCourseValues }) => {
       changeCourse(autocompleteValue);
     } else if (id.includes('year')) {
       changeYear(autocompleteValue);
+    } else if (id.includes('institutionType')) {
+      changeInstitution(autocompleteValue);
     }
   };
 
