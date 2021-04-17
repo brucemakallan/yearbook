@@ -17,9 +17,16 @@ import PageWithSidebar from '../../../components/DashboardComponents/PageWithSid
 import tabs from '../../../components/DashboardPages/University/tabs';
 import QueryAlert from '../../../components/QueryAlert';
 import { getToken, getDecodedToken } from '../../../helpers/jwt';
+import { institutionTypes } from '../../../helpers/enums';
 
 const renderName = (value, { rowData }, _updateValue) => (
   <TableLink text={value} label link={`institutions/${rowData[0]}/departments`} />
+);
+
+const renderInstitutionType = (classification, { rowData }, _updateValue) => (
+  <Typography variant="body2">
+    {institutionTypes.find(({ value }) => value === classification)?.label || '-'}
+  </Typography>
 );
 
 const renderActions = (handleDelete, userId, universities) => (value, _tableMeta, _updateValue) => {
@@ -63,6 +70,13 @@ const columns = (handleDelete, classes, userId, universities) => [
     label: 'Name',
     options: {
       customBodyRender: renderName,
+    },
+  },
+  {
+    name: 'classification',
+    label: 'Type',
+    options: {
+      customBodyRender: renderInstitutionType,
     },
   },
   {
