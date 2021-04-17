@@ -4,22 +4,25 @@ export const PHONE_PREFIX = '+';
 export const formInputFields = [
   {
     id: 'registrationNumber',
+    required: true,
   },
   {
     id: 'bio',
     label: 'What would you like to be remembered for?',
     multilineRows: 2,
     maxCharacters: 230,
+    required: true,
   },
   {
     id: 'phoneNumber',
-    label: 'Phone Number (Optional)',
+    label: 'Phone Number',
     startAdornment: PHONE_PREFIX,
     type: 'number',
+    maxCharacters: 13,
   },
   {
     id: 'facebook',
-    label: 'Facebook Username (Optional)',
+    label: 'Facebook Username',
     startAdornment: FACEBOOK_PREFIX,
     maxCharacters: 50,
   },

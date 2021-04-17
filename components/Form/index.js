@@ -31,16 +31,19 @@ const InputWrapper = ({ field }) => {
     maxCharacters,
     actionButton,
     isEditing,
+    required,
   } = field;
 
   const classes = useStyles();
+
+  const getLabel = (val) => (required ? `${val}*` : `${val} (Optional)`);
 
   let formikField = (
     <Field
       as={componentType}
       id={id}
       name={name}
-      label={label}
+      label={getLabel(label)}
       type={type}
       placeholder={placeholder}
       variant='standard'
@@ -62,7 +65,7 @@ const InputWrapper = ({ field }) => {
   if (componentType === TextField && type === 'password') {
     formikField = (
       <FormControl variant="standard" fullWidth>
-        <InputLabel htmlFor={id}>{label}</InputLabel>
+        <InputLabel htmlFor={id}>{getLabel(label)}</InputLabel>
         <Field as={PasswordField} id={id} name={name} />
       </FormControl>
     );
@@ -71,7 +74,7 @@ const InputWrapper = ({ field }) => {
   if (componentType === Select) {
     formikField = (
       <FormControl fullWidth>
-        <InputLabel id={id}>{label}</InputLabel>
+        <InputLabel id={id}>{getLabel(label)}</InputLabel>
         <Field as={componentType} id={id} name={name}>
           {options.map((option) => (
             <MenuItem key={option.value} value={option.value}>
@@ -98,7 +101,7 @@ const InputWrapper = ({ field }) => {
           <Field
             as={componentType}
             id={id}
-            label={label}
+            label={getLabel(label)}
             onChange={onChange}
             options={options}
             value={value}
