@@ -11,7 +11,7 @@ import SmsIcon from '@material-ui/icons/Sms';
 import { clearToken } from '../../../helpers/jwt';
 import YearBookIcon from '../../YearBookIcon';
 
-const UNIVERSITIES_URL = '/dashboard/institutions';
+const INSTITUTIONS_URL = '/dashboard/institutions';
 const YEARBOOKS_URL = '/dashboard';
 const CHAT_URL = '/dashboard/chat';
 const STUDENTS_URL = '/dashboard/students';
@@ -43,8 +43,8 @@ const sidebarRoutes = (router) => [
     icon: <SmsIcon />,
   },
   {
-    id: 'universities',
-    link: UNIVERSITIES_URL,
+    id: 'institutions',
+    link: INSTITUTIONS_URL,
     icon: <BusinessIcon />,
   },
   {

@@ -19,7 +19,7 @@ import QueryAlert from '../../../components/QueryAlert';
 import { getToken, getDecodedToken } from '../../../helpers/jwt';
 
 const renderName = (value, { rowData }, _updateValue) => (
-  <TableLink text={value} label link={`universities/${rowData[0]}/departments`} />
+  <TableLink text={value} label link={`institutions/${rowData[0]}/departments`} />
 );
 
 const renderActions = (handleDelete, userId, universities) => (value, _tableMeta, _updateValue) => {
@@ -29,7 +29,7 @@ const renderActions = (handleDelete, userId, universities) => (value, _tableMeta
   return (
     isOwner && (
       <>
-        <TableLink text='Edit' link={`universities/${value}/edit`}>
+        <TableLink text='Edit' link={`institutions/${value}/edit`}>
           <Button color="primary"><EditIcon /></Button>
         </TableLink>
         <AlertDialog
