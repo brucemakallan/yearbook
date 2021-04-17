@@ -17,15 +17,18 @@ const formInputFields = [
   {
     id: 'email',
     type: 'email',
+    required: true,
   },
   {
     id: 'subject',
     type: 'text',
+    required: true,
   },
   {
     id: 'message',
     multilineRows: 3,
     maxCharacters: 230,
+    required: true,
   },
 ];
 

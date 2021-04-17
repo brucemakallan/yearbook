@@ -17,6 +17,7 @@ const formInputFields = [
   {
     id: 'email',
     type: 'email',
+    required: true,
   },
 ];
 

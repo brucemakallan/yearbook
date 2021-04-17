@@ -21,10 +21,12 @@ const formInputFields = [
   {
     id: 'newPassword',
     type: 'password',
+    required: true,
   },
   {
     id: 'confirmPassword',
     type: 'password',
+    required: true,
   },
 ];
 

@@ -27,10 +27,12 @@ const formInputFields = [
   {
     id: 'email',
     type: 'email',
+    required: true,
   },
   {
     id: 'password',
     type: 'password',
+    required: true,
   },
 ];
 

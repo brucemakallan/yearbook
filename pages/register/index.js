@@ -22,17 +22,21 @@ import Separator from '../../components/Separator';
 const formInputFields = [
   {
     id: 'firstName',
+    required: true,
   },
   {
     id: 'lastName',
+    required: true,
   },
   {
     id: 'email',
     type: 'email',
+    required: true,
   },
   {
     id: 'password',
     type: 'password',
+    required: true,
   },
 ];
 

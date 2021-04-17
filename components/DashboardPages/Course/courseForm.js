@@ -21,6 +21,7 @@ const formInputFields = [
   {
     id: 'name',
     placeholder: 'Course Name',
+    required: true,
   },
 ];
 
