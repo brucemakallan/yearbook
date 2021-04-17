@@ -35,10 +35,6 @@ const initialValues = {
   name: '',
 };
 
-const refetchQueries = [{
-  query: GET_ALL_DEPARTMENTS_QUERY,
-}];
-
 const DepartmentForm = ({
   department,
   currentUniversity,
@@ -54,11 +50,9 @@ const DepartmentForm = ({
 
   const [createDepartment, createDepartmentResponse] = useMutation(CREATE_DEPARTMENT_MUTATION, {
     onCompleted: handleOnCompleted,
-    refetchQueries,
   });
   const [updateDepartment, updateDepartmentResponse] = useMutation(UPDATE_DEPARTMENT_MUTATION, {
     onCompleted: handleOnCompleted,
-    refetchQueries,
   });
 
   React.useEffect(() => {
@@ -67,23 +61,31 @@ const DepartmentForm = ({
     }
   }, [department]);
 
+  const refetchQueries = [
+    {
+      query: GET_ALL_DEPARTMENTS_QUERY,
+    },
+    {
+      query: GET_ALL_DEPARTMENTS_IN_UNIVERSITY_QUERY,
+      variables: {
+        universityId: universityId || currentUniversity?.id,
+      },
+    },
+  ];
+
   const handleSubmit = async ({ name }) => {
     try {
       const createDepartmentArgs = {
+        refetchQueries,
         variables: {
           department: {
             name,
             universityId: universityId || get(currentUniversity, 'id'),
           },
         },
-        refetchQueries: [{
-          query: GET_ALL_DEPARTMENTS_IN_UNIVERSITY_QUERY,
-          variables: {
-            universityId: universityId || currentUniversity?.id,
-          },
-        }],
       };
       const updateDepartmentArgs = {
+        refetchQueries,
         variables: {
           departmentUpdates: {
             departmentId: get(department, 'id'),

@@ -3,7 +3,6 @@ import get from 'lodash/get';
 import uniq from 'lodash/uniq';
 import sortBy from 'lodash/sortBy';
 import range from 'lodash/range';
-import qs from 'qs';
 
 import InputWrapper from '../components/Form';
 
@@ -24,14 +23,6 @@ export const getUniqueCourses = (profiles) => {
   return uniq(courses);
 };
 
-export const getDepartmentsInUniversity = (allDepartments, universityId) => (
-  allDepartments.filter((department) => department.university.id === universityId)
-);
-
-export const getCoursesInDepartment = (allCourses, departmentId) => (
-  allCourses.filter((course) => course.department.id === departmentId)
-);
-
 export const createSortedSelectList = (collection) => sortBy(collection, (entity) => entity.name)
   .map(({ id, name }) => ({
     value: id,
@@ -43,16 +34,8 @@ export const getYearsToDate = (start = 1989) => range(new Date().getFullYear(), 
   label: String(year),
 }));
 
-export const setDepartmentsInUniversity = (allDepartments, currentUniversity, setDepartments) => {
-  const departmentsInUniversity = getDepartmentsInUniversity(allDepartments, currentUniversity);
-  setDepartments(departmentsInUniversity);
-  return departmentsInUniversity;
-};
-
-export const setCoursesInDepartment = (allCourses, currentDepartment, setCourses) => {
-  const coursesInDepartment = getCoursesInDepartment(allCourses, currentDepartment);
-  setCourses(coursesInDepartment);
-  return coursesInDepartment;
-};
+export const isQueryReady = ({
+  called, loading, error, data,
+}) => !!called && !loading && !error && !!data;
 
 export default renderInputWrapper;

@@ -2,20 +2,17 @@
 // NOT to be confused with the one used to create a Course
 import React, { useState } from 'react';
 import get from 'lodash/get';
-import { useQuery, useMutation } from '@apollo/react-hooks';
+import { useQuery, useLazyQuery, useMutation } from '@apollo/react-hooks';
 import { useRouter } from 'next/router';
 
 import { UPDATE_PROFILE_MUTATION } from '../../../graphql/profile/mutations';
 import { cleanProfile } from '../createProfile/validation';
 import SelectCourseFormLayout from './selectCourseFormLayout';
 import { initialValues } from './selectCourseFormValues';
-import { GET_ALL_UNIVERSITIES_QUERY } from '../../../graphql/university/queries';
-import { GET_ALL_DEPARTMENTS_QUERY } from '../../../graphql/department/queries';
-import { GET_ALL_COURSES_QUERY } from '../../../graphql/course/queries';
-import { setDepartmentsInUniversity, setCoursesInDepartment } from '../../../helpers/formHelpers';
-import {
-  changeCourse, changeDepartment, changeInstitution, changeUniversity, changeYear,
-} from './selectCourseFormHelpers';
+import { GET_INSTITUTIONS_BY_CLASSIFICATION_QUERY } from '../../../graphql/university/queries';
+import { GET_ALL_DEPARTMENTS_IN_UNIVERSITY_QUERY } from '../../../graphql/department/queries';
+import { GET_ALL_COURSES_IN_DEPARTMENT_QUERY } from '../../../graphql/course/queries';
+import { isQueryReady } from '../../../helpers/formHelpers';
 
 const SelectCourseForm = ({ classes, profile, editCourseValues }) => {
   const router = useRouter();
@@ -26,71 +23,71 @@ const SelectCourseForm = ({ classes, profile, editCourseValues }) => {
   const [values, setValues] = useState(editCourseValues || initialValues);
   const [validationError, setValidationError] = useState();
 
-  const getAllUniversities = useQuery(GET_ALL_UNIVERSITIES_QUERY);
-  const getAllDepartments = useQuery(GET_ALL_DEPARTMENTS_QUERY);
-  const getAllCourses = useQuery(GET_ALL_COURSES_QUERY);
+  const [departmentsQueryExecute, departmentsQuery] = useLazyQuery(GET_ALL_DEPARTMENTS_IN_UNIVERSITY_QUERY);
+  const [coursesQueryExecute, coursesQuery] = useLazyQuery(GET_ALL_COURSES_IN_DEPARTMENT_QUERY);
+  const universitiesQuery = useQuery(GET_INSTITUTIONS_BY_CLASSIFICATION_QUERY, {
+    variables: { classification: 0 },
+  });
 
-  const [updateProfile, { error, loading, data }] = useMutation(UPDATE_PROFILE_MUTATION);
-
-  // Edit course
-  React.useEffect(() => {
-    const currentUniversity = get(editCourseValues, 'university.value');
-    const currentDepartment = get(editCourseValues, 'department.value');
-
-    const allDepartments = get(getAllDepartments, 'data.allDepartments');
-    const allCourses = get(getAllCourses, 'data.allCourses');
-
-    if (!!currentUniversity && !!allDepartments && !!allCourses) {
-      setDepartmentsInUniversity(allDepartments, currentUniversity, setDepartments);
-      setCoursesInDepartment(allCourses, currentDepartment, setCourses);
-    }
-    if (editCourseValues && data) {
-      router.push('/dashboard/profile');
-    }
-  }, [data, editCourseValues, getAllCourses, getAllDepartments, router, universities]);
+  const [updateProfile, updateProfileMutation] = useMutation(UPDATE_PROFILE_MUTATION);
 
   React.useEffect(() => {
-    const courseExists = get(profile, 'course.id') || get(data, 'updateProfile.course.id');
-
+    const courseExists = profile?.course?.id || updateProfileMutation.data?.updateProfile?.course?.id;
     if (courseExists && !editCourseValues) {
       router.push('/dashboard');
-    } else if (getAllUniversities.data) {
-      setUniversities(getAllUniversities.data.allUniversities);
     }
-  }, [data, editCourseValues, getAllUniversities, profile, router]);
+  }, [updateProfileMutation, editCourseValues, profile, router]);
 
-  // TODO: Fix auto repolutate departments after creating a department then changing a university
+  React.useEffect(() => {
+    if (isQueryReady(universitiesQuery)) {
+      setUniversities(universitiesQuery.data?.institutionsByClassification);
+    }
+    if (isQueryReady(departmentsQuery)) {
+      setDepartments(departmentsQuery.data?.allDepartmentsInUniversity);
+    }
+    if (isQueryReady(coursesQuery)) {
+      setCourses(coursesQuery.data?.allCoursesInDepartment);
+    }
+  }, [universitiesQuery, departmentsQuery, coursesQuery]);
 
   // e.g. autocompleteValue {value: "<ID>", label: "NYC"}
   const handleChange = (e, autocompleteValue) => {
     const { id } = e.target;
-    const { allDepartments } = getAllDepartments.data;
-    const { allCourses } = getAllCourses.data;
+    const { value } = autocompleteValue;
 
-    if (id.includes('university')) {
-      changeUniversity({
-        allDepartments, allCourses, autocompleteValue, universities, setDepartments, setCourses, setValues,
+    if (id.includes('institutionType')) {
+      universitiesQuery.refetch({ classification: value });
+      setValues({
+        institutionType: autocompleteValue,
+      });
+    } else if (id.includes('university')) {
+      departmentsQueryExecute({ variables: { universityId: value } });
+      setValues({
+        institutionType: values.institutionType,
+        university: autocompleteValue,
       });
     } else if (id.includes('department')) {
-      changeDepartment({
-        allCourses, autocompleteValue, setCourses, setValues, values,
+      coursesQueryExecute({ variables: { departmentId: value } });
+      setValues({
+        institutionType: values.institutionType,
+        university: values.university,
+        department: autocompleteValue,
       });
     } else if (id.includes('course')) {
-      changeCourse({
-        autocompleteValue, setValues, values,
+      setValues({
+        ...values,
+        course: autocompleteValue,
       });
     } else if (id.includes('year')) {
-      changeYear({
-        autocompleteValue, setValues, values,
-      });
-    } else if (id.includes('institutionType')) {
-      changeInstitution({
-        autocompleteValue, setValues, values,
+      setValues({
+        ...values,
+        year: autocompleteValue,
       });
     }
   };
 
-  const handleOnCompleted = (onCompletedData) => { // After creating via dialog
+  // After creating an entity via the dialog / popup
+  const handleOnCompleted = (onCompletedData) => {
     if (onCompletedData) {
       const createdUniversity = onCompletedData?.createUniversity;
       const createdDepartment = onCompletedData?.createDepartment;
@@ -98,23 +95,10 @@ const SelectCourseForm = ({ classes, profile, editCourseValues }) => {
 
       const entityCreated = createdUniversity || createdDepartment || createdCourse;
       // eslint-disable-next-line no-underscore-dangle
-      const typename = String(entityCreated?.__typename).toLowerCase();
+      const id = String(entityCreated?.__typename).toLowerCase();
 
-      if (typename === 'university') {
-        setUniversities([...universities, entityCreated]);
-      } else if (typename === 'department') {
-        setDepartments([...departments, entityCreated]);
-      } else if (typename === 'course') {
-        setCourses([...courses, entityCreated]);
-      }
-
-      const event = {
-        target: {
-          id: typename,
-        },
-      };
+      const event = { target: { id } };
       const dropdownValue = {
-        entity: entityCreated,
         value: entityCreated?.id,
         label: entityCreated?.name,
       };
@@ -148,16 +132,17 @@ const SelectCourseForm = ({ classes, profile, editCourseValues }) => {
   };
 
   const fetching = (
-    getAllUniversities.loading || getAllDepartments.loading || getAllCourses.loading || loading
+    universitiesQuery.loading || departmentsQuery.loading
+    || coursesQuery.loading || updateProfileMutation.loading
   );
-  const fetchError = getAllUniversities.error || getAllDepartments.error || getAllCourses.error;
+  const fetchError = universitiesQuery.error || departmentsQuery.error || coursesQuery.error;
   const disabled = fetching || fetchError;
 
   return (
     <SelectCourseFormLayout
       classes={classes}
-      data={data}
-      error={error}
+      data={updateProfileMutation.data}
+      error={updateProfileMutation.error}
       fetchError={fetchError}
       validationError={validationError}
       values={values}

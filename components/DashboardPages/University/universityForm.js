@@ -11,29 +11,29 @@ import Loader from '../../Loader';
 import Feedback from '../../Feedback';
 import renderInputWrapper from '../../../helpers/formHelpers';
 import useStyles from './styles';
-import { GET_ALL_UNIVERSITIES_QUERY } from '../../../graphql/university/queries';
-import {
-  CREATE_UNIVERSITY_MUTATION,
-  UPDATE_UNIVERSITY_MUTATION,
-} from '../../../graphql/university/mutations';
 import { initialValues, formInputFields } from './universityFormFields';
+import {
+  GET_ALL_UNIVERSITIES_QUERY, GET_INSTITUTIONS_BY_CLASSIFICATION_QUERY,
+} from '../../../graphql/university/queries';
+import {
+  CREATE_UNIVERSITY_MUTATION, UPDATE_UNIVERSITY_MUTATION,
+} from '../../../graphql/university/mutations';
 
-const refetchQueries = [{
-  query: GET_ALL_UNIVERSITIES_QUERY,
-}];
-
-const UniversityForm = ({ university, fullWidth, handleOnCompleted }) => {
+const UniversityForm = ({
+  university,
+  fullWidth,
+  handleOnCompleted,
+  profileValues,
+}) => {
   const classes = useStyles();
 
-  const [values, setValues] = React.useState(initialValues);
+  const [values, setValues] = React.useState(initialValues(profileValues?.institutionType));
 
   const [createUniversity, createUniversityResponse] = useMutation(CREATE_UNIVERSITY_MUTATION, {
     onCompleted: handleOnCompleted,
-    refetchQueries,
   });
   const [updateUniversity, updateUniversityResponse] = useMutation(UPDATE_UNIVERSITY_MUTATION, {
     onCompleted: handleOnCompleted,
-    refetchQueries,
   });
 
   React.useEffect(() => {
@@ -53,18 +53,29 @@ const UniversityForm = ({ university, fullWidth, handleOnCompleted }) => {
     }
   };
 
+  const refetchQueries = [
+    {
+      query: GET_ALL_UNIVERSITIES_QUERY,
+    },
+    {
+      query: GET_INSTITUTIONS_BY_CLASSIFICATION_QUERY,
+      variables: {
+        classification: profileValues?.institutionType?.value || 0,
+      },
+    },
+  ];
+
   const handleSubmit = async ({ name, institutionType }) => {
     try {
       const createUniversityArgs = {
+        refetchQueries,
         variables: {
           universityName: name,
           classification: institutionType.value,
         },
-        refetchQueries: [{
-          query: GET_ALL_UNIVERSITIES_QUERY,
-        }],
       };
       const updateUniversityArgs = {
+        refetchQueries,
         variables: {
           universityUpdates: {
             universityId: get(university, 'id'),
@@ -82,6 +93,8 @@ const UniversityForm = ({ university, fullWidth, handleOnCompleted }) => {
       return err;
     }
   };
+
+  const disableInstituteType = !!profileValues?.institutionType?.label;
 
   return (
     <>
@@ -115,6 +128,7 @@ const UniversityForm = ({ university, fullWidth, handleOnCompleted }) => {
                 {formInputFields({
                   handleChange,
                   values,
+                  disableInstituteType,
                 }).map((field) => renderInputWrapper(field))}
                 <Grid container spacing={2}>
                   <Button variant="contained" type='submit' color="primary">

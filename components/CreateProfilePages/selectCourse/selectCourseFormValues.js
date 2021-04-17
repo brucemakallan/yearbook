@@ -62,6 +62,7 @@ export const formInputFields = ({
       actionButton: (
         <AddEntityDialogButton title="Create Institution">
           <UniversityForm
+            profileValues={values}
             handleOnCompleted={handleOnCompleted}
             fullWidth
           />

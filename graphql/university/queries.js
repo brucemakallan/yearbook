@@ -15,6 +15,15 @@ export const GET_ALL_UNIVERSITIES_QUERY = gql`
   }
 `;
 
+export const GET_INSTITUTIONS_BY_CLASSIFICATION_QUERY = gql`
+  query GetInstitutionsByClassification($classification: Int!) {
+    institutionsByClassification(classification: $classification) {
+      ...DefaultUniversityFragment
+    }
+  }
+  ${DefaultUniversityFragment}
+`;
+
 export const GET_SINGLE_UNIVERSITY_QUERY = gql`
   query GetSingleUniversity($searchParams: FindUniversityInput!) {
     singleUniversity(searchParams: $searchParams) {

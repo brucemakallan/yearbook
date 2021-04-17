@@ -29,10 +29,6 @@ const initialValues = {
   name: '',
 };
 
-const refetchQueries = [{
-  query: GET_ALL_COURSES_QUERY,
-}];
-
 const CourseForm = ({
   course,
   currentDepartment,
@@ -48,11 +44,9 @@ const CourseForm = ({
 
   const [createCourse, createCourseResponse] = useMutation(CREATE_COURSE_MUTATION, {
     onCompleted: handleOnCompleted,
-    refetchQueries,
   });
   const [updateCourse, updateCourseResponse] = useMutation(UPDATE_COURSE_MUTATION, {
     onCompleted: handleOnCompleted,
-    refetchQueries,
   });
 
   React.useEffect(() => {
@@ -61,23 +55,31 @@ const CourseForm = ({
     }
   }, [course]);
 
+  const refetchQueries = [
+    {
+      query: GET_ALL_COURSES_QUERY,
+    },
+    {
+      query: GET_ALL_COURSES_IN_DEPARTMENT_QUERY,
+      variables: {
+        departmentId: departmentId || currentDepartment?.id,
+      },
+    },
+  ];
+
   const handleSubmit = async ({ name }) => {
     try {
       const createCourseArgs = {
+        refetchQueries,
         variables: {
           course: {
             name,
             departmentId: departmentId || get(currentDepartment, 'id'),
           },
         },
-        refetchQueries: [{
-          query: GET_ALL_COURSES_IN_DEPARTMENT_QUERY,
-          variables: {
-            departmentId: departmentId || currentDepartment?.id,
-          },
-        }],
       };
       const updateCourseArgs = {
+        refetchQueries,
         variables: {
           courseUpdates: {
             courseId: get(course, 'id'),

@@ -3,15 +3,15 @@ import React from 'react';
 import { institutionTypes } from '../../../helpers/enums';
 import AutocompleteField from '../../Form/autocompleteField';
 
-export const initialValues = {
+export const initialValues = (institutionType) => ({
   name: '',
-  institutionType: {
+  institutionType: institutionType || {
     value: institutionTypes[0].value,
     label: institutionTypes[0].label,
   },
-};
+});
 
-export const formInputFields = ({ handleChange, values }) => [
+export const formInputFields = ({ handleChange, values, disableInstituteType }) => [
   {
     id: 'institutionType',
     label: 'Type of Educational Institution',
@@ -21,6 +21,7 @@ export const formInputFields = ({ handleChange, values }) => [
     componentType: AutocompleteField,
     required: true,
     isEditing: true, // fill width
+    hide: disableInstituteType,
   },
   {
     id: 'name',

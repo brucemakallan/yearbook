@@ -27,6 +27,7 @@ const InputWrapper = ({ field }) => {
     onChange,
     value,
     disabled,
+    hide,
     startAdornment,
     maxCharacters,
     actionButton,
@@ -118,6 +119,8 @@ const InputWrapper = ({ field }) => {
       </Grid>
     );
   }
+
+  if (hide) return '';
 
   return (
     <div className={classes.inputFields}>
