@@ -15,15 +15,15 @@ const init = {
 
 const institutionTypes = [
   {
-    value: 'university',
+    value: 0,
     label: 'College / University',
   },
   {
-    value: 'highSchool',
+    value: 1,
     label: 'High School / Middle School / Secondary School',
   },
   {
-    value: 'primarySchool',
+    value: 2,
     label: 'Elementary School / Primary School',
   },
 ];
@@ -64,7 +64,7 @@ export const formInputFields = ({
     },
     {
       id: 'university',
-      label: 'University',
+      label: 'Institution',
       onChange: handleChange,
       options: createSortedSelectList(universities),
       value: get(values, 'university', null),
@@ -72,7 +72,7 @@ export const formInputFields = ({
       componentType: AutocompleteField,
       isEditing,
       actionButton: (
-        <AddEntityDialogButton title="Create University">
+        <AddEntityDialogButton title="Create Institution">
           <UniversityForm
             handleOnCompleted={handleOnCompleted}
             fullWidth

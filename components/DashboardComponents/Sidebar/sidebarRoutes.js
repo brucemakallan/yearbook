@@ -11,7 +11,7 @@ import SmsIcon from '@material-ui/icons/Sms';
 import { clearToken } from '../../../helpers/jwt';
 import YearBookIcon from '../../YearBookIcon';
 
-const UNIVERSITIES_URL = '/dashboard/universities';
+const UNIVERSITIES_URL = '/dashboard/institutions';
 const YEARBOOKS_URL = '/dashboard';
 const CHAT_URL = '/dashboard/chat';
 const STUDENTS_URL = '/dashboard/students';

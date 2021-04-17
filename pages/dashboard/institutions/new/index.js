@@ -11,11 +11,11 @@ const CreateUniversity = () => {
   const router = useRouter();
 
   const handleOnCompleted = () => {
-    router.push('/dashboard/universities');
+    router.push('/dashboard/institutions');
   };
 
   return (
-    <PageWithSidebar title="CREATE UNIVERSITY" tabs={tabs} tabIndex={tabIndex}>
+    <PageWithSidebar title="CREATE INSTITUTION" tabs={tabs} tabIndex={tabIndex}>
       <UniversityForm handleOnCompleted={handleOnCompleted} />
     </PageWithSidebar>
   );

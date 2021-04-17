@@ -33,7 +33,7 @@ const updateAllUniversitiesCache = (store, { data: { createUniversity } }) => {
 const formInputFields = [
   {
     id: 'name',
-    placeholder: 'University Name',
+    placeholder: 'Institution Name',
   },
 ];
 
@@ -124,7 +124,7 @@ const UniversityForm = ({ university, fullWidth, handleOnCompleted }) => {
                 {formInputFields.map((field) => renderInputWrapper(field))}
                 <Grid container spacing={2}>
                   <Button variant="contained" type='submit' color="primary">
-                    {`${university ? 'UPDATE' : 'CREATE'} UNIVERSITY`}
+                    {`${university ? 'UPDATE' : 'CREATE'} INSTITUTION`}
                   </Button>
                 </Grid>
               </Form>

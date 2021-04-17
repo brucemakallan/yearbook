@@ -2,12 +2,12 @@ const tabs = [
   {
     id: 'list',
     label: 'LIST',
-    link: '/dashboard/universities',
+    link: '/dashboard/institutions',
   },
   {
     id: 'new',
     label: 'NEW',
-    link: '/dashboard/universities/new',
+    link: '/dashboard/institutions/new',
   },
 ];
 

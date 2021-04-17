@@ -27,7 +27,7 @@ const renderName = (universityId) => (value, { rowData }, _updateValue) => (
   <TableLink
     text={value}
     label
-    link={`/dashboard/universities/${universityId}/departments/${rowData[0]}/courses`}
+    link={`/dashboard/institutions/${universityId}/departments/${rowData[0]}/courses`}
   />
 );
 
@@ -42,7 +42,7 @@ const renderActions = (handleDelete, userId, departments, universityId) => (
   return (
     isOwner && (
       <>
-        <TableLink text='Edit' link={`/dashboard/universities/${universityId}/departments/${value}/edit`}>
+        <TableLink text='Edit' link={`/dashboard/institutions/${universityId}/departments/${value}/edit`}>
           <Button color="primary"><EditIcon /></Button>
         </TableLink>
         <AlertDialog

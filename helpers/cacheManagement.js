@@ -22,7 +22,7 @@ const getCurrentUniversityFromCache = (apolloClient, universityId) => {
 
     return currentUniversity;
   } catch (err) {
-    redirect('/dashboard/universities');
+    redirect('/dashboard/institutions');
   }
 };
 
@@ -40,7 +40,7 @@ export const getCurrentDepartmentFromCache = (apolloClient, universityId, depart
 
     return currentDepartment;
   } catch (err) {
-    redirect('/dashboard/universities');
+    redirect('/dashboard/institutions');
   }
 };
 

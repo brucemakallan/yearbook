@@ -20,7 +20,7 @@ const CreateDepartment = () => {
   const currentUniversityName = get(currentUniversity, 'name');
 
   const handleOnCompleted = () => {
-    router.push(`/dashboard/universities/${universityId}/departments`);
+    router.push(`/dashboard/institutions/${universityId}/departments`);
   };
 
   return (

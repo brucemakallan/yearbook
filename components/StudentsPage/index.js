@@ -58,7 +58,7 @@ const columns = (classes) => [
   },
   {
     name: 'course.department.university.name',
-    label: 'University',
+    label: 'Institution',
     options: {
       filter: false,
     },

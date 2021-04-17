@@ -36,7 +36,7 @@ const renderActions = (handleDelete, userId, courses, universityId, departmentId
       <>
         <TableLink
           text='Edit'
-          link={`/dashboard/universities/${universityId}/departments/${departmentId}/courses/${value}/edit`}
+          link={`/dashboard/institutions/${universityId}/departments/${departmentId}/courses/${value}/edit`}
         >
           <Button color="primary"><EditIcon /></Button>
         </TableLink>

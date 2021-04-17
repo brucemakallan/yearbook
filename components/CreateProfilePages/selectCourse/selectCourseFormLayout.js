@@ -65,9 +65,9 @@ const SelectCourseFormLayout = ({
           <CustomAlert
             severity="info"
             message={`
-            TIP: If you can't find the university, department, 
-            or course you're looking for, use the plus icon to add it.
-            You need a University to create a Department and a Department to create a Course
+            TIP: If you can't find the Institution, Department, 
+            or Course you're looking for, use the plus icon to add it.
+            You need an Institution to create a Department and a Department to create a Course
             `}
           />
           <Typography variant="overline">{'Registration Number: '}</Typography>

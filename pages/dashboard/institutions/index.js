@@ -41,7 +41,7 @@ const renderActions = (handleDelete, userId, universities) => (value, _tableMeta
           }}
         >
           <Typography variant="body2">
-            Are you sure you want to delete this University? This action cannot be undone.
+            Are you sure you want to delete this Institution? This action cannot be undone.
           </Typography>
         </AlertDialog>
       </>
@@ -119,7 +119,7 @@ const AllUniversities = () => {
 
   return (
     <PageWithSidebar
-      title="ALL UNIVERSITIES"
+      title="ALL INSTITUTIONS"
       tabs={tabs}
     >
       <QueryAlert queryResponse={{
@@ -128,7 +128,7 @@ const AllUniversities = () => {
       }}/>
       {getAllUniversities.data && (
         <TableView
-          title={'UNIVERSITIES'}
+          title={'INSTITUTIONS'}
           data={universities}
           columns={columns(handleDelete, classes, userId, universities)}
           // TODO: implement delete multiple (only if one owns them)
