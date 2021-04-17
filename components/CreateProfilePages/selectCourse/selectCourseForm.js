@@ -13,7 +13,9 @@ import { GET_ALL_UNIVERSITIES_QUERY } from '../../../graphql/university/queries'
 import { GET_ALL_DEPARTMENTS_QUERY } from '../../../graphql/department/queries';
 import { GET_ALL_COURSES_QUERY } from '../../../graphql/course/queries';
 import { setDepartmentsInUniversity, setCoursesInDepartment } from '../../../helpers/formHelpers';
-import { institutionTypes } from '../../../helpers/enums';
+import {
+  changeCourse, changeDepartment, changeInstitution, changeUniversity, changeYear,
+} from './selectCourseFormHelpers';
 
 const SelectCourseForm = ({ classes, profile, editCourseValues }) => {
   const router = useRouter();
@@ -57,55 +59,6 @@ const SelectCourseForm = ({ classes, profile, editCourseValues }) => {
     }
   }, [data, editCourseValues, getAllUniversities, profile, router]);
 
-  const changeUniversity = (allDepartments, allCourses, autocompleteValue) => {
-    const universityId = get(autocompleteValue, 'value', '');
-    let classification = autocompleteValue?.entity?.classification;
-
-    if (classification === undefined) { // can be zero
-      const selectedUniversity = universities.find(({ id }) => id === universityId);
-      classification = selectedUniversity?.classification;
-    }
-
-    const institutionType = institutionTypes.find((type) => type.value === classification);
-    const selectedDepartments = setDepartmentsInUniversity(allDepartments, universityId, setDepartments);
-    setCoursesInDepartment(allCourses, get(selectedDepartments, '[0].id'), setCourses);
-    setValues({
-      institutionType: institutionType || institutionTypes[0],
-      university: autocompleteValue,
-    });
-  };
-
-  const changeDepartment = (allCourses, autocompleteValue) => {
-    const value = get(autocompleteValue, 'value', '');
-    setCoursesInDepartment(allCourses, value, setCourses);
-    setValues({
-      ...values,
-      university: values.university,
-      department: autocompleteValue,
-    });
-  };
-
-  const changeCourse = (autocompleteValue) => {
-    setValues({
-      ...values,
-      course: autocompleteValue,
-    });
-  };
-
-  const changeYear = (autocompleteValue) => {
-    setValues({
-      ...values,
-      year: autocompleteValue,
-    });
-  };
-
-  const changeInstitution = (autocompleteValue) => {
-    setValues({
-      ...values,
-      institutionType: autocompleteValue,
-    });
-  };
-
   // TODO: Fix auto repolutate departments after creating a department then changing a university
 
   // e.g. autocompleteValue {value: "<ID>", label: "NYC"}
@@ -115,15 +68,25 @@ const SelectCourseForm = ({ classes, profile, editCourseValues }) => {
     const { allCourses } = getAllCourses.data;
 
     if (id.includes('university')) {
-      changeUniversity(allDepartments, allCourses, autocompleteValue);
+      changeUniversity({
+        allDepartments, allCourses, autocompleteValue, universities, setDepartments, setCourses, setValues,
+      });
     } else if (id.includes('department')) {
-      changeDepartment(allCourses, autocompleteValue);
+      changeDepartment({
+        allCourses, autocompleteValue, setCourses, setValues, values,
+      });
     } else if (id.includes('course')) {
-      changeCourse(autocompleteValue);
+      changeCourse({
+        autocompleteValue, setValues, values,
+      });
     } else if (id.includes('year')) {
-      changeYear(autocompleteValue);
+      changeYear({
+        autocompleteValue, setValues, values,
+      });
     } else if (id.includes('institutionType')) {
-      changeInstitution(autocompleteValue);
+      changeInstitution({
+        autocompleteValue, setValues, values,
+      });
     }
   };
 
