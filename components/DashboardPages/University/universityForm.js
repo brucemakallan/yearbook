@@ -84,6 +84,7 @@ const UniversityForm = ({
           universityUpdates: {
             universityId: get(university, 'id'),
             newName: name,
+            newClassification: institutionType.value,
           },
         },
       };
