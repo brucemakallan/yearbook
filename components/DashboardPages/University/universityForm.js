@@ -16,30 +16,7 @@ import {
   CREATE_UNIVERSITY_MUTATION,
   UPDATE_UNIVERSITY_MUTATION,
 } from '../../../graphql/university/mutations';
-
-const updateAllUniversitiesCache = (store, { data: { createUniversity } }) => {
-  const { allUniversities } = store.readQuery({
-    query: GET_ALL_UNIVERSITIES_QUERY,
-  });
-
-  store.writeQuery({
-    query: GET_ALL_UNIVERSITIES_QUERY,
-    data: {
-      allUniversities: [...allUniversities, createUniversity],
-    },
-  });
-};
-
-const formInputFields = [
-  {
-    id: 'name',
-    placeholder: 'Institution Name',
-  },
-];
-
-const initialValues = {
-  name: '',
-};
+import { initialValues, formInputFields } from './universityFormFields';
 
 const refetchQueries = [{
   query: GET_ALL_UNIVERSITIES_QUERY,
@@ -65,13 +42,27 @@ const UniversityForm = ({ university, fullWidth, handleOnCompleted }) => {
     }
   }, [university]);
 
-  const handleSubmit = async ({ name }) => {
+  const handleChange = (e, autocompleteValue) => { // autocompleteValue: { value, label }
+    const { id } = e.target;
+
+    if (id.includes('institutionType')) {
+      setValues({
+        ...values,
+        institutionType: autocompleteValue,
+      });
+    }
+  };
+
+  const handleSubmit = async ({ name, institutionType }) => {
     try {
       const createUniversityArgs = {
         variables: {
           universityName: name,
+          classification: institutionType.value,
         },
-        update: updateAllUniversitiesCache,
+        refetchQueries: [{
+          query: GET_ALL_UNIVERSITIES_QUERY,
+        }],
       };
       const updateUniversityArgs = {
         variables: {
@@ -121,7 +112,10 @@ const UniversityForm = ({ university, fullWidth, handleOnCompleted }) => {
           >
             <Paper className={classes.paper} elevation={0}>
               <Form className={classes.form}>
-                {formInputFields.map((field) => renderInputWrapper(field))}
+                {formInputFields({
+                  handleChange,
+                  values,
+                }).map((field) => renderInputWrapper(field))}
                 <Grid container spacing={2}>
                   <Button variant="contained" type='submit' color="primary">
                     {`${university ? 'UPDATE' : 'CREATE'} INSTITUTION`}

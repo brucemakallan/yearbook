@@ -13,6 +13,7 @@ import { GET_ALL_UNIVERSITIES_QUERY } from '../../../graphql/university/queries'
 import { GET_ALL_DEPARTMENTS_QUERY } from '../../../graphql/department/queries';
 import { GET_ALL_COURSES_QUERY } from '../../../graphql/course/queries';
 import { setDepartmentsInUniversity, setCoursesInDepartment } from '../../../helpers/formHelpers';
+import { institutionTypes } from '../../../helpers/enums';
 
 const SelectCourseForm = ({ classes, profile, editCourseValues }) => {
   const router = useRouter();
@@ -57,10 +58,19 @@ const SelectCourseForm = ({ classes, profile, editCourseValues }) => {
   }, [data, editCourseValues, getAllUniversities, profile, router]);
 
   const changeUniversity = (allDepartments, allCourses, autocompleteValue) => {
-    const value = get(autocompleteValue, 'value', '');
-    const selectedDepartments = setDepartmentsInUniversity(allDepartments, value, setDepartments);
+    const universityId = get(autocompleteValue, 'value', '');
+    let classification = autocompleteValue?.entity?.classification;
+
+    if (classification === undefined) { // can be zero
+      const selectedUniversity = universities.find(({ id }) => id === universityId);
+      classification = selectedUniversity?.classification;
+    }
+
+    const institutionType = institutionTypes.find((type) => type.value === classification);
+    const selectedDepartments = setDepartmentsInUniversity(allDepartments, universityId, setDepartments);
     setCoursesInDepartment(allCourses, get(selectedDepartments, '[0].id'), setCourses);
     setValues({
+      institutionType: institutionType || institutionTypes[0],
       university: autocompleteValue,
     });
   };
@@ -69,6 +79,7 @@ const SelectCourseForm = ({ classes, profile, editCourseValues }) => {
     const value = get(autocompleteValue, 'value', '');
     setCoursesInDepartment(allCourses, value, setCourses);
     setValues({
+      ...values,
       university: values.university,
       department: autocompleteValue,
     });
@@ -140,6 +151,7 @@ const SelectCourseForm = ({ classes, profile, editCourseValues }) => {
         },
       };
       const dropdownValue = {
+        entity: entityCreated,
         value: entityCreated?.id,
         label: entityCreated?.name,
       };

@@ -5,6 +5,7 @@ const DefaultUniversityFragment = gql`
   fragment DefaultUniversityFragment on University {
     id
     name
+    classification
     user {
       ...DefaultUserFragment
     }

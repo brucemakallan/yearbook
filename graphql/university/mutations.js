@@ -3,8 +3,8 @@ import { gql } from 'apollo-boost';
 import DefaultUniversityFragment from './fragments';
 
 export const CREATE_UNIVERSITY_MUTATION = gql`
-  mutation CreateUniversity($universityName: String!) {
-    createUniversity(name: $universityName) {
+  mutation CreateUniversity($universityName: String!, $classification: Int!) {
+    createUniversity(name: $universityName, classification: $classification) {
       ...DefaultUniversityFragment
     }
   }

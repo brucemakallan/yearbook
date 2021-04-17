@@ -7,6 +7,7 @@ export const GET_ALL_UNIVERSITIES_QUERY = gql`
     allUniversities {
       id
       name
+      classification
       user {
         id
       }

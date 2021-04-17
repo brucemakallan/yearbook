@@ -7,26 +7,12 @@ import UniversityForm from '../../DashboardPages/University/universityForm';
 import DepartmentForm from '../../DashboardPages/Department/departmentForm';
 import CourseForm from '../../DashboardPages/Course/courseForm';
 import { createSortedSelectList, getYearsToDate } from '../../../helpers/formHelpers';
+import { institutionTypes } from '../../../helpers/enums';
 
 const init = {
   value: '',
   label: '',
 };
-
-const institutionTypes = [
-  {
-    value: 0,
-    label: 'College / University',
-  },
-  {
-    value: 1,
-    label: 'High School / Middle School / Secondary School',
-  },
-  {
-    value: 2,
-    label: 'Elementary School / Primary School',
-  },
-];
 
 export const initialValues = {
   institutionType: {
@@ -61,6 +47,7 @@ export const formInputFields = ({
       isEditing,
       value: values?.institutionType,
       componentType: AutocompleteField,
+      required: true,
     },
     {
       id: 'university',
@@ -71,6 +58,7 @@ export const formInputFields = ({
       disabled,
       componentType: AutocompleteField,
       isEditing,
+      required: true,
       actionButton: (
         <AddEntityDialogButton title="Create Institution">
           <UniversityForm
@@ -89,6 +77,7 @@ export const formInputFields = ({
       disabled,
       componentType: AutocompleteField,
       isEditing,
+      required: true,
       actionButton: (
         <AddEntityDialogButton title="Create Department" disabled={!get(currentUniversity, 'id')}>
           <DepartmentForm
@@ -108,6 +97,7 @@ export const formInputFields = ({
       disabled,
       componentType: AutocompleteField,
       isEditing,
+      required: true,
       actionButton: (
         <AddEntityDialogButton
           title="Create Course"
@@ -129,6 +119,7 @@ export const formInputFields = ({
       isEditing,
       value: get(values, 'year', null),
       componentType: AutocompleteField,
+      required: true,
     },
   ];
 };
