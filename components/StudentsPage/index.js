@@ -18,6 +18,10 @@ const renderDisplayPicture = (classes) => (value, { rowData }, _updateValue) => 
   return <Avatar alt={firstName} src={value} className={classes.avatar} />;
 };
 
+const renderRegistrationNumber = (value, { rowData }, _updateValue) => (
+  value || '-'
+);
+
 const noFilterSortSearch = {
   filter: false,
   sort: false,
@@ -46,6 +50,7 @@ const columns = (classes) => [
     label: 'Reg. No.',
     options: {
       filter: false,
+      customBodyRender: renderRegistrationNumber,
     },
   },
   {
