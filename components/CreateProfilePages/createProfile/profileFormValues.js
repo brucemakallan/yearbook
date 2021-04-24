@@ -4,7 +4,6 @@ export const PHONE_PREFIX = '+';
 export const formInputFields = [
   {
     id: 'registrationNumber',
-    required: true,
   },
   {
     id: 'bio',

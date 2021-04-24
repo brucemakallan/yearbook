@@ -15,7 +15,6 @@ const phoneRegex = {
 const requiredField = Yup.string().required('This field is required');
 
 const profileValidation = Yup.object({
-  registrationNumber: requiredField,
   bio: requiredField,
   phoneNumber: Yup.string().matches(phoneRegex.regex, phoneRegex.message),
   facebook: Yup.string().matches(facebookUsernameRegex.regex, facebookUsernameRegex.message),
