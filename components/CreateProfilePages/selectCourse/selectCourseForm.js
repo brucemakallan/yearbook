@@ -13,6 +13,7 @@ import { GET_INSTITUTIONS_BY_CLASSIFICATION_QUERY } from '../../../graphql/unive
 import { GET_ALL_DEPARTMENTS_IN_UNIVERSITY_QUERY } from '../../../graphql/department/queries';
 import { GET_ALL_COURSES_IN_DEPARTMENT_QUERY } from '../../../graphql/course/queries';
 import { isQueryReady } from '../../../helpers/formHelpers';
+import { institutionTypes } from '../../../helpers/enums';
 
 const SelectCourseForm = ({ classes, profile, editCourseValues }) => {
   const router = useRouter();
@@ -26,7 +27,7 @@ const SelectCourseForm = ({ classes, profile, editCourseValues }) => {
   const [departmentsQueryExecute, departmentsQuery] = useLazyQuery(GET_ALL_DEPARTMENTS_IN_UNIVERSITY_QUERY);
   const [coursesQueryExecute, coursesQuery] = useLazyQuery(GET_ALL_COURSES_IN_DEPARTMENT_QUERY);
   const universitiesQuery = useQuery(GET_INSTITUTIONS_BY_CLASSIFICATION_QUERY, {
-    variables: { classification: 0 },
+    variables: { classification: institutionTypes[0]?.value },
   });
 
   const [updateProfile, updateProfileMutation] = useMutation(UPDATE_PROFILE_MUTATION);
@@ -43,11 +44,26 @@ const SelectCourseForm = ({ classes, profile, editCourseValues }) => {
       setUniversities(universitiesQuery.data?.institutionsByClassification);
     }
     if (isQueryReady(departmentsQuery)) {
-      setDepartments(departmentsQuery.data?.allDepartmentsInUniversity);
+      const allDepartmentsInUniversity = departmentsQuery.data?.allDepartmentsInUniversity;
+      const [firstDepartment] = allDepartmentsInUniversity || [];
+      setDepartments(allDepartmentsInUniversity);
+
+      // set a default department if the institution is not a University
+      const isUniversity = values.institutionType.value === institutionTypes[0].value;
+      if (!isUniversity) {
+        setValues({
+          ...values,
+          department: {
+            value: firstDepartment.id,
+            label: firstDepartment.name,
+          },
+        });
+      }
     }
     if (isQueryReady(coursesQuery)) {
       setCourses(coursesQuery.data?.allCoursesInDepartment);
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [universitiesQuery, departmentsQuery, coursesQuery]);
 
   // e.g. autocompleteValue {value: "<ID>", label: "NYC"}
@@ -112,9 +128,10 @@ const SelectCourseForm = ({ classes, profile, editCourseValues }) => {
     const courseId = get(courseFormValues, 'course.value');
     const universityId = get(courseFormValues, 'university.value');
     const year = get(courseFormValues, 'year.value');
+    const isUniversity = courseFormValues.institutionType.value === institutionTypes[0].value;
 
     try {
-      if (!courseId || !universityId || !year) {
+      if ((!courseId && isUniversity) || !universityId || !year) {
         setValidationError('All fields are required.');
       } else {
         const clean = cleanProfile({
