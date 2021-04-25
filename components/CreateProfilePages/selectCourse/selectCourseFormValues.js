@@ -38,6 +38,8 @@ export const formInputFields = ({
   const currentUniversity = universities.find((u) => u.id === get(values, 'university.value'));
   const currentDepartment = departments.find((d) => d.id === get(values, 'department.value'));
 
+  const isUniversityInstitution = (institutionType) => institutionType?.value === institutionTypes[0].value;
+
   return [
     {
       id: 'institutionType',
@@ -79,6 +81,7 @@ export const formInputFields = ({
       componentType: AutocompleteField,
       isEditing,
       required: true,
+      hide: !isUniversityInstitution(values?.institutionType),
       actionButton: (
         <AddEntityDialogButton title="Create Department" disabled={!get(currentUniversity, 'id')}>
           <DepartmentForm
@@ -99,6 +102,7 @@ export const formInputFields = ({
       componentType: AutocompleteField,
       isEditing,
       required: true,
+      hide: !isUniversityInstitution(values?.institutionType),
       actionButton: (
         <AddEntityDialogButton
           title="Create Course"
