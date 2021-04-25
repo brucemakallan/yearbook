@@ -38,9 +38,9 @@ export const RESET_PASSWORD_MUTATION = gql`
   ${DefaultUserFragment}
 `;
 
-export const DELETE_USER_MUTATION = gql`
-  mutation DeleteUserMutation($userId: ID!) {
-    deleteUser(userId: $userId) {
+export const DEACTIVATE_USER_MUTATION = gql`
+  mutation DeleteUserMutation {
+    deleteUser {
       ...DefaultUserFragment
     }
   }
