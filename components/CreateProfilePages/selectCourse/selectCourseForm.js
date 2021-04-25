@@ -117,6 +117,7 @@ const SelectCourseForm = ({ classes, profile, editCourseValues }) => {
         const clean = cleanProfile({
           ...profile,
           courseId: courseFormValues.course.value,
+          universityId: courseFormValues.university.value,
           year: courseFormValues.year.value,
         });
 

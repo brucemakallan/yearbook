@@ -28,6 +28,7 @@ export const cleanProfile = (profile) => {
     'bio',
     'facebook',
     'courseId',
+    'universityId',
     'year',
   ];
 
