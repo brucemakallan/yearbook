@@ -12,6 +12,7 @@ import TableView from '../TableView';
 import Loader from '../Loader';
 import Feedback from '../Feedback';
 import PageWithSidebar from '../DashboardComponents/PageWithSidebar';
+import { institutionTypes } from '../../helpers/enums';
 
 const renderDisplayPicture = (classes) => (value, { rowData }, _updateValue) => {
   const firstName = rowData[3];
@@ -29,7 +30,24 @@ const noFilterSortSearch = {
   download: false,
 };
 
-const columns = (classes) => [
+const conditionalColumns = (students) => {
+  if (students?.[0]?.course?.department?.university?.classification === institutionTypes[0].value) {
+    return [
+      {
+        name: 'course.department.name',
+        label: 'Department',
+      },
+      {
+        name: 'course.name',
+        label: 'Course',
+      },
+    ];
+  }
+
+  return [];
+};
+
+const columns = (classes, students) => [
   {
     name: 'id',
     options: {
@@ -68,14 +86,7 @@ const columns = (classes) => [
       filter: false,
     },
   },
-  {
-    name: 'course.department.name',
-    label: 'Department',
-  },
-  {
-    name: 'course.name',
-    label: 'Course',
-  },
+  ...conditionalColumns(students),
   {
     name: 'year',
     label: 'Year',
@@ -144,7 +155,7 @@ const StudentsPage = ({
         <TableView
           title={'STUDENTS'}
           data={students}
-          columns={columns(classes)}
+          columns={columns(classes, students)}
           onTableChange={onTableChange}
           onRowClick={onRowClick}
         />
