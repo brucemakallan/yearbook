@@ -44,21 +44,7 @@ const SelectCourseForm = ({ classes, profile, editCourseValues }) => {
       setUniversities(universitiesQuery.data?.institutionsByClassification);
     }
     if (isQueryReady(departmentsQuery)) {
-      const allDepartmentsInUniversity = departmentsQuery.data?.allDepartmentsInUniversity;
-      const [firstDepartment] = allDepartmentsInUniversity || [];
-      setDepartments(allDepartmentsInUniversity);
-
-      // set a default department if the institution is not a University
-      const isUniversity = values.institutionType.value === institutionTypes[0].value;
-      if (!isUniversity) {
-        setValues({
-          ...values,
-          department: {
-            value: firstDepartment.id,
-            label: firstDepartment.name,
-          },
-        });
-      }
+      setDepartments(departmentsQuery.data?.allDepartmentsInUniversity);
     }
     if (isQueryReady(coursesQuery)) {
       setCourses(coursesQuery.data?.allCoursesInDepartment);
