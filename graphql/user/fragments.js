@@ -7,6 +7,7 @@ const DefaultUserFragment = gql`
     lastName
     email
     password
+    discardedAt
   }
 `;
 

@@ -6,6 +6,8 @@ import { useRouter } from 'next/router';
 import { makeStyles } from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar';
 import Box from '@material-ui/core/Box';
+import Badge from '@material-ui/core/Badge';
+import Tooltip from '@material-ui/core/Tooltip';
 
 import { GET_ALL_PROFILES_IN_UNIVERSITY_QUERY } from '../../graphql/profile/queries';
 import TableView from '../TableView';
@@ -14,8 +16,21 @@ import Feedback from '../Feedback';
 import PageWithSidebar from '../DashboardComponents/PageWithSidebar';
 import { institutionTypes } from '../../helpers/enums';
 
-const renderDisplayPicture = (classes) => (value, { rowData }, _updateValue) => {
+const renderDisplayPicture = (classes) => (value, data, _updateValue) => {
+  const { rowData, tableData, rowIndex } = data;
   const firstName = rowData[3];
+  const profile = tableData[rowIndex];
+
+  if (profile.user.discardedAt) {
+    return (
+      <Tooltip title="Deactivated User" placement="right">
+        <Badge variant="dot" color="secondary">
+          <Avatar alt={firstName} src={value} className={classes.avatar} />
+        </Badge>
+      </Tooltip>
+    );
+  }
+
   return <Avatar alt={firstName} src={value} className={classes.avatar} />;
 };
 
