@@ -53,10 +53,10 @@ const SelectCourseForm = ({ classes, profile, editCourseValues }) => {
   // e.g. autocompleteValue {value: "<ID>", label: "NYC"}
   const handleChange = (e, autocompleteValue) => {
     const { id } = e.target;
-    const { value } = autocompleteValue;
+    const { value } = autocompleteValue || {};
 
     if (id.includes('institutionType')) {
-      universitiesQuery.refetch({ classification: value });
+      universitiesQuery?.refetch({ classification: value });
       setValues({
         institutionType: autocompleteValue,
       });
@@ -108,17 +108,20 @@ const SelectCourseForm = ({ classes, profile, editCourseValues }) => {
   };
 
   const handleSubmit = async (courseFormValues) => {
-    try {
-      if (!get(courseFormValues, 'course.value') || !get(courseFormValues, 'year.value')) {
-        setValidationError('All Course fields are required.');
-      } else {
-        setValidationError('');
+    setValidationError('');
+    const courseId = get(courseFormValues, 'course.value');
+    const universityId = get(courseFormValues, 'university.value');
+    const year = get(courseFormValues, 'year.value');
 
+    try {
+      if (!courseId || !universityId || !year) {
+        setValidationError('All fields are required.');
+      } else {
         const clean = cleanProfile({
           ...profile,
-          courseId: courseFormValues.course.value,
-          universityId: courseFormValues.university.value,
-          year: courseFormValues.year.value,
+          courseId,
+          universityId,
+          year,
         });
 
         await updateProfile({
