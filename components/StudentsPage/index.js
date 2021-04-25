@@ -7,7 +7,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Avatar from '@material-ui/core/Avatar';
 import Box from '@material-ui/core/Box';
 
-import { GET_ALL_PROFILES_QUERY } from '../../graphql/profile/queries';
+import { GET_ALL_PROFILES_IN_UNIVERSITY_QUERY } from '../../graphql/profile/queries';
 import TableView from '../TableView';
 import Loader from '../Loader';
 import Feedback from '../Feedback';
@@ -102,20 +102,22 @@ const StudentsPage = ({
   children,
   onTableChange,
   whiteBackground,
+  query = GET_ALL_PROFILES_IN_UNIVERSITY_QUERY,
+  queryKey = 'allProfilesInUniversity',
 }) => {
   const classes = useStyles();
   const router = useRouter();
 
   const [students, setStudents] = React.useState([]);
 
-  const getAllStudents = useQuery(GET_ALL_PROFILES_QUERY);
+  const getAllStudents = useQuery(query);
 
   React.useEffect(() => {
-    if (get(getAllStudents, 'data.allProfilesInUniversity')) {
-      const allProfilesInUniversity = get(getAllStudents, 'data.allProfilesInUniversity');
-      setStudents(allProfilesInUniversity.filter((profile) => !!get(profile, 'course.id')));
+    if (get(getAllStudents.data, queryKey)) {
+      const profiles = get(getAllStudents.data, queryKey);
+      setStudents(profiles.filter((profile) => !!get(profile, 'course.id')));
     }
-  }, [getAllStudents]);
+  }, [getAllStudents, queryKey]);
 
   const onRowClick = (rowData, _rowMeta) => {
     const id = rowData[0];

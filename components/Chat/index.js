@@ -3,13 +3,13 @@ import { useQuery } from '@apollo/react-hooks';
 
 // import Grid from '@material-ui/core/Grid';
 
-import { GET_ALL_PROFILES_QUERY } from '../../graphql/profile/queries';
+import { GET_ALL_PROFILES_IN_UNIVERSITY_QUERY } from '../../graphql/profile/queries';
 import QueryAlert from '../QueryAlert';
 import GroupCard from './GroupCard';
 // import PersonCard from './PersonCard';
 
 const Chat = ({ messagesRef }) => {
-  const queryResponse = useQuery(GET_ALL_PROFILES_QUERY);
+  const queryResponse = useQuery(GET_ALL_PROFILES_IN_UNIVERSITY_QUERY);
   const profiles = queryResponse?.data?.allProfilesInUniversity || [];
 
   return (

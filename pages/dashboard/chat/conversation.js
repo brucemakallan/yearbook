@@ -10,7 +10,7 @@ import Grid from '@material-ui/core/Grid';
 import BackArrow from '../../../components/BackArrow';
 import ChatWindow from '../../../components/Chat/ChatWindow';
 import PageWithSidebar from '../../../components/DashboardComponents/PageWithSidebar';
-import { GET_ALL_PROFILES_QUERY } from '../../../graphql/profile/queries';
+import { GET_ALL_PROFILES_IN_UNIVERSITY_QUERY } from '../../../graphql/profile/queries';
 import QueryAlert from '../../../components/QueryAlert';
 
 firebase.app();
@@ -32,7 +32,7 @@ const ConversationPage = () => {
 
   const messagesRef = firestore.collection(collection);
 
-  const queryResponse = useQuery(GET_ALL_PROFILES_QUERY);
+  const queryResponse = useQuery(GET_ALL_PROFILES_IN_UNIVERSITY_QUERY);
   const { loading, error, data } = queryResponse;
   const allClassProfiles = data?.allProfilesInUniversity || [];
 

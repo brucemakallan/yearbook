@@ -12,7 +12,7 @@ import PersonIcon from '@material-ui/icons/Person';
 import Page from '../../DashboardComponents/Page';
 import SvgRender from '../../SvgRender';
 import { svgs } from '../../../styles/global-theme';
-import { GET_ALL_PROFILES_QUERY } from '../../../graphql/profile/queries';
+import { GET_ALL_PROFILES_IN_UNIVERSITY_QUERY } from '../../../graphql/profile/queries';
 import NumberField from '../../NumberField';
 import Loader from '../../Loader';
 import {
@@ -35,7 +35,7 @@ const DashboardStats = () => {
   const [departments, setDepartments] = React.useState(0);
   const [courses, setCourses] = React.useState(0);
 
-  const getAllStudents = useQuery(GET_ALL_PROFILES_QUERY);
+  const getAllStudents = useQuery(GET_ALL_PROFILES_IN_UNIVERSITY_QUERY);
 
   React.useEffect(() => {
     // TODO: When re-implementing stats, use "allProfilesInUniversity" instead

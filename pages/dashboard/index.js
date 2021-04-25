@@ -9,7 +9,7 @@ import CustomAlert from '../../components/CustomAlert';
 import PdfGenerator from '../../components/PdfGenerator';
 import FullScreenDialogButton from '../../components/FullScreenDialogButton';
 import Loader from '../../components/Loader';
-import { GET_ALL_PROFILES_QUERY } from '../../graphql/profile/queries';
+import { GET_ALL_PROFILES_IN_COURSE_QUERY } from '../../graphql/profile/queries';
 import {
   getUniqueUniversities, getUniqueDepartments, getUniqueCourses,
 } from '../../helpers/formHelpers';
@@ -28,7 +28,7 @@ const YearbookPage = () => {
   const [allStudents, setAllStudents] = React.useState([]);
   const [selectedData, setSelectedData] = React.useState([]);
 
-  const getAllStudents = useQuery(GET_ALL_PROFILES_QUERY);
+  const getAllStudents = useQuery(GET_ALL_PROFILES_IN_COURSE_QUERY);
 
   const TABLE_CHANGE_ACTIONS = ['search', 'onSearchClose', 'filterChange'];
   const INDEX_OF_ID_IN_TABLE = 0;
@@ -72,6 +72,8 @@ const YearbookPage = () => {
     <StudentsPage
       title="GENERATE YEARBOOK"
       onTableChange={onTableChange}
+      query={GET_ALL_PROFILES_IN_COURSE_QUERY}
+      queryKey='allProfilesInCourse'
       whiteBackground
     >
       <CustomAlert message={INSTRUCTIONS} severity="info" />
