@@ -12,7 +12,9 @@ export const getToken = () => {
 
 export const setToken = (token) => {
   try {
-    window.localStorage.setItem(jwtTokenName, token);
+    if (typeof window !== 'undefined') {
+      window.localStorage.setItem(jwtTokenName, token);
+    }
   } catch {
     return false;
   }
@@ -51,8 +53,8 @@ export const jwtIsValid = (manualToken) => {
 };
 
 export const clearToken = () => {
-  localStorage.removeItem(jwtTokenName);
   if (typeof window !== 'undefined') {
+    window.localStorage.removeItem(jwtTokenName);
     window.location.replace('/');
   }
 };
