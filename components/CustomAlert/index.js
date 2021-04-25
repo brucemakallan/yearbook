@@ -6,10 +6,10 @@ import IconButton from '@material-ui/core/IconButton';
 import Collapse from '@material-ui/core/Collapse';
 import CloseIcon from '@material-ui/icons/Close';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = (compact) => makeStyles((theme) => ({
   root: {
     width: '100%',
-    marginBottom: theme.spacing(3),
+    marginBottom: compact ? 0 : theme.spacing(3),
   },
 }));
 
@@ -26,8 +26,10 @@ const ActionButton = ({ setOpen }) => (
   </IconButton>
 );
 
-const CustomAlert = ({ severity, message }) => {
-  const classes = useStyles();
+const CustomAlert = ({
+  severity, message, canClose = true, compact,
+}) => {
+  const classes = useStyles(compact)();
   const [open, setOpen] = React.useState(true);
 
   return (
@@ -36,7 +38,7 @@ const CustomAlert = ({ severity, message }) => {
         {!!message && (
           <Alert
             severity={severity}
-            action={<ActionButton setOpen={setOpen} />}
+            action={canClose ? <ActionButton setOpen={setOpen} /> : undefined}
           >
             {message}
           </Alert>

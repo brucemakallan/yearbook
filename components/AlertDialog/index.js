@@ -59,7 +59,7 @@ const AlertDialog = ({
               {cancelButtonText}
             </Button>
           )}
-          <Button onClick={handleAccept} color="primary">
+          <Button onClick={handleAccept} color="secondary">
             {confirmButtonText}
           </Button>
         </DialogActions>

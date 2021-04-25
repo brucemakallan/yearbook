@@ -20,6 +20,7 @@ import { editInitialValues } from './editProfileFormValues';
 import useStyles from '../styles';
 import EditAvatar from '../../EditAvatar';
 import UploadFile from '../../UploadFile';
+import DeleteProfile from '../../DeleteProfile';
 
 const EditProfileForm = ({ singleProfile }) => {
   const classes = useStyles();
@@ -104,14 +105,19 @@ const EditProfileForm = ({ singleProfile }) => {
             </UploadFile>
           </EditAvatar>
           {formInputFields.map((field) => renderInputWrapper(field))}
-          <Grid container className={classes.buttons}>
-            <Button
-              variant="contained"
-              type="submit"
-              color="primary"
-            >
-              Save
-            </Button>
+          <Grid container spacing={2}>
+            <Grid item xs={12} sm={12} md={12} lg={12}>
+              <Button
+                variant="contained"
+                type="submit"
+                color="primary"
+              >
+                Save Profile
+              </Button>
+            </Grid>
+            <Grid item xs={12} sm={12} md={12} lg={12}>
+              <DeleteProfile />
+            </Grid>
           </Grid>
         </Form>
       </Formik>
