@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import get from 'lodash/get';
 import { Formik, Form } from 'formik';
 import { useMutation } from '@apollo/react-hooks';
-import { useRouter } from 'next/router';
 
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
@@ -17,13 +16,12 @@ import UploadFile from '../../UploadFile';
 import PhotoDisplay from '../../PhotoDisplay';
 import { uploadEntities } from '../../../helpers/enums';
 import { getDecodedToken, getToken } from '../../../helpers/jwt';
+import EmailLink from '../../EmailLink';
 import {
   initialValues, formInputFields, FACEBOOK_PREFIX, PHONE_PREFIX,
 } from './profileFormValues';
 
 const ProfileForm = ({ classes, setProfile }) => {
-  // const router = useRouter();
-
   const [photoArray, setPhotoArray] = useState([]);
   const [invalidImage, setInvalidImage] = useState(false);
 
@@ -118,14 +116,22 @@ const ProfileForm = ({ classes, setProfile }) => {
             crop={true}
           />
           {photoArray && <PhotoDisplay photos={photoArray} />}
-          <Grid container justify="space-between" className={classes.buttons}>
-            <Button
-              variant="contained"
-              type='submit'
-              color="primary"
-            >
-              Continue
-            </Button>
+          <Grid container spacing={2}>
+            <Grid item xs={12} sm={12} md={12} lg={12}>
+              <Button
+                variant="contained"
+                type='submit'
+                color="primary"
+              >
+                Continue
+              </Button>
+            </Grid>
+            <Grid item xs={12} sm={12} md={12} lg={12}>
+              <Typography variant="body2" component="span">
+                {'Need help? Email us at: '}
+              </Typography>
+              <EmailLink email="support@madeyear.com" />
+            </Grid>
           </Grid>
         </Form>
       </Formik>
