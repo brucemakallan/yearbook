@@ -8,6 +8,7 @@ import ProfileCard from '../ProfileCard';
 import Loader from '../Loader';
 import { GET_SINGLE_PROFILE_QUERY } from '../../graphql/profile/queries';
 import { getDecodedToken, getToken } from '../../helpers/jwt';
+import DeleteProfileCard from '../DeleteProfileCard';
 
 const ProfilePage = ({ profileId }) => {
   const token = getToken();
@@ -32,7 +33,14 @@ const ProfilePage = ({ profileId }) => {
       {getSingleProfile.called && getSingleProfile.loading && <Loader />}
       <Grid container spacing={2} justify="center">
         <Grid item xs={12} sm={12} md={6} lg={6}>
-          <ProfileCard studentProfile={getSingleProfile} currentUser={user} />
+          <Grid container spacing={2}>
+            <Grid item xs={12} sm={12} md={12} lg={12}>
+              <ProfileCard studentProfile={getSingleProfile} currentUser={user} />
+            </Grid>
+            <Grid item xs={12} sm={12} md={12} lg={12}>
+              <DeleteProfileCard />
+            </Grid>
+          </Grid>
         </Grid>
       </Grid>
     </PageWithSidebar>

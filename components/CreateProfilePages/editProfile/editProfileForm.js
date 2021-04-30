@@ -20,7 +20,6 @@ import { editInitialValues } from './editProfileFormValues';
 import useStyles from '../styles';
 import EditAvatar from '../../EditAvatar';
 import UploadFile from '../../UploadFile';
-import DeleteProfile from '../../DeleteProfile';
 
 const EditProfileForm = ({ singleProfile }) => {
   const classes = useStyles();
@@ -114,9 +113,6 @@ const EditProfileForm = ({ singleProfile }) => {
               >
                 Save Profile
               </Button>
-            </Grid>
-            <Grid item xs={12} sm={12} md={12} lg={12}>
-              <DeleteProfile />
             </Grid>
           </Grid>
         </Form>
